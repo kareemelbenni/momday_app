@@ -38,8 +38,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path_android: "assets/icons/launcher_icon_android.png"
-  image_path_ios: "assets/icons/launcher_icon_ios.png"
+  image_path_android: "assets/icons/logo_out.png"
+  image_path_ios: "assets/icons/logo_out.png"
   adaptive_icon_background: "#FFFFFFFF"
 
 # For information on the generic Dart part of this file, see the
@@ -109,5 +109,12 @@ flutter:
           weight: 300
         - asset: assets/fonts/FrutigerLTArabic-65Bold_0.ttf
           weight: 600
+    - family: VAG
+      fonts: 
+        - asset: assets/fonts/VAGRoundedStd-Bold.otf
+          weight: 700
+        - asset: assets/fonts/VAGRoundedStd-Thin.otf
+          weight: 300
+
 
 androidX: true

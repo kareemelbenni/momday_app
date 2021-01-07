@@ -15,11 +15,11 @@ import 'package:momday_app/styles/momday_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MomdayApp extends StatefulWidget {
-
   const MomdayApp();
 
   static void updateLocale(BuildContext context, Locale newLocale) {
-    _MomdayAppState state = context.rootAncestorStateOfType(TypeMatcher<_MomdayAppState>());
+    _MomdayAppState state =
+        context.rootAncestorStateOfType(TypeMatcher<_MomdayAppState>());
 
     state.updateLocale(newLocale);
   }
@@ -29,11 +29,11 @@ class MomdayApp extends StatefulWidget {
 }
 
 class _MomdayAppState extends State<MomdayApp> {
-
   Locale _locale;
   Locale get locale {
     return this._locale;
   }
+
   set locale(Locale locale) {
     this._locale = locale;
     MomdayBackend().language = this._locale?.languageCode;
@@ -54,7 +54,6 @@ class _MomdayAppState extends State<MomdayApp> {
   }
 
   void updateLocale(newLocale) {
-
     SharedPreferences.getInstance().then((prefs) {
       prefs.setString('languageCode', newLocale.languageCode);
     });
@@ -76,74 +75,44 @@ class _MomdayAppState extends State<MomdayApp> {
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: TextTheme(
-          display3: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.w600,
-            color: Colors.black
-          ),
-          button: TextStyle(
-            fontSize: 18.0,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        )
-      ),
+          textTheme: TextTheme(
+        display3: TextStyle(
+            fontSize: 28.0, fontWeight: FontWeight.w600, color: Colors.black),
+        button: TextStyle(
+          fontSize: 18.0,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
       builder: (context, navigator) {
-
         final language = Localizations.localeOf(context).languageCode;
         final parentTextTheme = Theme.of(context).textTheme;
-        final localizedHeight = language == 'ar'? 0.7 : 1.0;
+        final localizedHeight = language == 'ar' ? 0.7 : 1.0;
         final textTheme = parentTextTheme.apply(
-          fontSizeDelta: language == 'ar'? -8.0 : 0.0,
+          fontSizeDelta: language == 'ar' ? -8.0 : 0.0,
         );
 
         return Theme(
-          data: ThemeData(
-            primaryColor: MomdayColors.MomdayGold,
-            highlightColor: MomdayColors.MomdayHighlight,
-            accentColor: MomdayColors.MomdayGold,
-            fontFamily: language == 'ar'? 'FrutigerLTArabic' : 'ProximaNova',
-            textTheme: textTheme.copyWith(
-              display3: textTheme.display3.copyWith(
-                height: localizedHeight
-              ),
-              subhead: textTheme.subhead.copyWith(
-                height: localizedHeight
-              ),
-              title: textTheme.title.copyWith(
-                height: localizedHeight
-              ),
-              button: textTheme.button.copyWith(
-                height: localizedHeight
-              ),
-              body1: textTheme.body1.copyWith(
-                height: localizedHeight
-              ),
-              body2: textTheme.body2.copyWith(
-                height: localizedHeight
-              ),
-              caption: textTheme.caption.copyWith(
-                height: localizedHeight
-              ),
-              display1: textTheme.display1.copyWith(
-                height: localizedHeight
-              ),
-              display2: textTheme.display2.copyWith(
-                height: localizedHeight
-              ),
-              display4: textTheme.display4.copyWith(
-                height: localizedHeight
-              ),
-              headline: textTheme.headline.copyWith(
-                height: localizedHeight
+            data: ThemeData(
+              primaryColor: MomdayColors.MomdayGold,
+              highlightColor: MomdayColors.MomdayHighlight,
+              accentColor: MomdayColors.MomdayGold,
+              fontFamily: language == 'ar' ? 'VAG' : 'VAG',
+              textTheme: textTheme.copyWith(
+                display3: textTheme.display3.copyWith(height: localizedHeight),
+                subhead: textTheme.subhead.copyWith(height: localizedHeight),
+                title: textTheme.title.copyWith(height: localizedHeight),
+                button: textTheme.button.copyWith(height: localizedHeight),
+                body1: textTheme.body1.copyWith(height: localizedHeight),
+                body2: textTheme.body2.copyWith(height: localizedHeight),
+                caption: textTheme.caption.copyWith(height: localizedHeight),
+                display1: textTheme.display1.copyWith(height: localizedHeight),
+                display2: textTheme.display2.copyWith(height: localizedHeight),
+                display4: textTheme.display4.copyWith(height: localizedHeight),
+                headline: textTheme.headline.copyWith(height: localizedHeight),
               ),
             ),
-          ),
-          child: AppStateManager(
-            child: navigator
-          )
-        );
+            child: AppStateManager(child: navigator));
       },
       routes: {
         '/': (context) => MainScreen(),
@@ -162,11 +131,12 @@ class _MomdayAppState extends State<MomdayApp> {
         const Locale('ar', ''), // Arabic
       ],
     );
-
   }
 
   Future<Locale> _fetchLocale() async {
     var prefs = await SharedPreferences.getInstance();
-    return prefs.getString('languageCode') != null ? Locale(prefs.getString('languageCode'), '') : null;
+    return prefs.getString('languageCode') != null
+        ? Locale(prefs.getString('languageCode'), '')
+        : null;
   }
 }
