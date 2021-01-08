@@ -35,7 +35,7 @@ class _MyHomePageState extends State<credit_card> {
   String expiryDate = "";
   String cvv = "";
   bool showBack = false;
-  bool _ispaid=false;
+  bool _ispaid = false;
   FocusNode _focusNode;
 
   @override
@@ -140,37 +140,31 @@ class _MyHomePageState extends State<credit_card> {
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
-                  child:     RaisedButton(
-                      color: MomdayColors.MomdayGold,
-                      child: this._ispaid?
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: SizedBox(
-                            height: 24.0,
-                            width: 24.0,
-                            child: Theme(
-                              data: ThemeData(
-                                  accentColor: Colors.white
-                              ),
-                              child: CircularProgressIndicator(
-                                strokeWidth: 3.0,
-                              ),
+                  child: RaisedButton(
+                      color: MomdayColors.Momdaypink,
+                      child: this._ispaid
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: SizedBox(
+                                height: 24.0,
+                                width: 24.0,
+                                child: Theme(
+                                  data: ThemeData(accentColor: Colors.white),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3.0,
+                                  ),
+                                ),
+                              ))
+                          : ListTile(
+                              title: Text(tSentence(context, 'pay'),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 24.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600)),
                             ),
-                          )
-                      ) :
-                      ListTile(
-                        title: Text(
-                            tSentence(context, 'pay'),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 24.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600
-                            )
-                        ),
-                      ),
-                      onPressed: () => this._payfort(context)
-                  ),
+                      onPressed: () => this._payfort(context)),
                 ),
               ],
             ),
@@ -181,40 +175,45 @@ class _MyHomePageState extends State<credit_card> {
   }
 
   void showTextSnackBar(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text(text),
-          duration: Duration(seconds: 3),
-        )
-    );
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+      duration: Duration(seconds: 3),
+    ));
   }
+
   _payfort(BuildContext context) async {
     CartModel cart = AppStateManager.of(context).cart;
     AccountModel user = AppStateManager.of(context).account;
-    dynamic response = await MomdayBackend().PayfortRequest(amount:cart.total,
-        email:user.email,
-        token_name:user.fullName,
-        card_number:cardNumber,
-        card_security_code:cvv,
-        expiry_date:expiryDate,
-        card_holder_name:cardHolderName);
+    dynamic response = await MomdayBackend().PayfortRequest(
+        amount: cart.total,
+        email: user.email,
+        token_name: user.fullName,
+        card_number: cardNumber,
+        card_security_code: cvv,
+        expiry_date: expiryDate,
+        card_holder_name: cardHolderName);
     if (response == 'success') {
-
       Set<ProductModel> set = Set.from(cart.products);
       List<Item> items = new List<Item>();
-      set.forEach((element) =>
-      {
-        items.add(new Item.fromJson({
-          "PackageType":"Box",
-          "Quantity":element.quantityInCart,
-          "Weight" : new Weight.fromJson({"Unit":"Kg", "Value":cart.weight}),
-          "Comments":element.description
-        }))
-      });
-      response = await MomdayBackend().AramexRequest(width:0,height:0,length:0,weight:0,description:"",nbpeices:cart.products.length);
+      set.forEach((element) => {
+            items.add(new Item.fromJson({
+              "PackageType": "Box",
+              "Quantity": element.quantityInCart,
+              "Weight":
+                  new Weight.fromJson({"Unit": "Kg", "Value": cart.weight}),
+              "Comments": element.description
+            }))
+          });
+      response = await MomdayBackend().AramexRequest(
+          width: 0,
+          height: 0,
+          length: 0,
+          weight: 0,
+          description: "",
+          nbpeices: cart.products.length);
 
       if (response == 'success')
-      Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/');
       else {
         showTextSnackBar(context, response.toString());
       }
@@ -226,13 +225,14 @@ class _MyHomePageState extends State<credit_card> {
   _aramex(BuildContext context) async {
     CartModel cart = AppStateManager.of(context).cart;
     AccountModel user = AppStateManager.of(context).account;
-    dynamic response = await MomdayBackend().PayfortRequest(amount:cart.total,
-        email:user.email,
-        token_name:user.fullName,
-        card_number:cardNumber,
-        card_security_code:cvv,
-        expiry_date:expiryDate,
-        card_holder_name:cardHolderName);
+    dynamic response = await MomdayBackend().PayfortRequest(
+        amount: cart.total,
+        email: user.email,
+        token_name: user.fullName,
+        card_number: cardNumber,
+        card_security_code: cvv,
+        expiry_date: expiryDate,
+        card_holder_name: cardHolderName);
     if (response == 'success') {
       Navigator.pushReplacementNamed(context, '/');
     } else {

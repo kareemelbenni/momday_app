@@ -114,7 +114,7 @@
 //                      Padding(
 //                          padding: const EdgeInsets.all(5),
 //                          child:FlatButton(
-//                            color: MomdayColors.MomdayGold,
+//                            color: MomdayColors.Momdaypink ,
 //                            colorBrightness: Brightness.dark,
 //                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 //                            shape: Border(),
@@ -362,7 +362,7 @@
 //                      height: 40,
 //                      child: FittedBox(
 //                        child: FlatButton(
-//                          color: MomdayColors.MomdayGold,
+//                          color: MomdayColors.Momdaypink ,
 //                              colorBrightness: Brightness.dark,
 //                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 //                              child: Text(tUpper(context, "donate")),

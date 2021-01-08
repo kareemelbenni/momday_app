@@ -14,7 +14,6 @@ import 'package:momday_app/widgets/page_header/page_header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ActivityScreen extends StatefulWidget {
-
   final String activityId;
 
   ActivityScreen({this.activityId});
@@ -26,21 +25,17 @@ class ActivityScreen extends StatefulWidget {
 }
 
 class ActivityScreenState extends State<ActivityScreen> {
-
   ActivityBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    this._bloc = ActivityBloc(
-      activityId: widget.activityId
-    );
+    this._bloc = ActivityBloc(activityId: widget.activityId);
     this._bloc.init();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return ListView(
       children: <Widget>[
         MainScreen.of(context).getMomdayBar(),
@@ -74,9 +69,9 @@ class _Activity extends StatelessWidget {
         return Column(
           children: <Widget>[
             MomdayCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -86,39 +81,38 @@ class _Activity extends StatelessWidget {
                         Text(
                           activityData.title,
                           style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w600,
-                            color: MomdayColors.MomdayGold
-                          ),
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600,
+                              color: MomdayColors.Momdaypink),
                         ),
-                        SizedBox(height: 8.0,),
+                        SizedBox(
+                          height: 8.0,
+                        ),
                         Text(
                           tUpper(context, 'description'),
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16
-                          ),
+                              fontWeight: FontWeight.w600, fontSize: 16),
                         ),
-                        SizedBox(height: 4.0,),
+                        SizedBox(
+                          height: 4.0,
+                        ),
                         DefaultTextStyle(
                           style: cancelArabicFontDelta(context),
                           child: Html(
-                            data: activityData.description,
-                            onLinkTap: (link) {
-                              Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(builder: (_) =>
-                                  WebviewScaffold(
-                                    url: link,
-                                    appBar: AppBar(
-                                      backgroundColor: Colors.white,
-                                      iconTheme: IconThemeData(
-                                          color: MomdayColors.MomdayGold
-                                      ),
-                                    ),
-                                  )
-                                ));
-                            }
-                          ),
+                              data: activityData.description,
+                              onLinkTap: (link) {
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(MaterialPageRoute(
+                                        builder: (_) => WebviewScaffold(
+                                              url: link,
+                                              appBar: AppBar(
+                                                backgroundColor: Colors.white,
+                                                iconTheme: IconThemeData(
+                                                    color: MomdayColors
+                                                        .Momdaypink),
+                                              ),
+                                            )));
+                              }),
                         )
                       ],
                     ),
@@ -131,11 +125,11 @@ class _Activity extends StatelessWidget {
                         Text(
                           tTitle(context, 'contact_us'),
                           style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.0
-                          ),
+                              fontWeight: FontWeight.w600, fontSize: 16.0),
                         ),
-                        SizedBox(height: 8.0,),
+                        SizedBox(
+                          height: 8.0,
+                        ),
                         Row(
                           textBaseline: TextBaseline.ideographic,
                           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -150,75 +144,70 @@ class _Activity extends StatelessWidget {
                               child: Text(
                                 activityData.location,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12.0
-                                ),
+                                style: TextStyle(fontSize: 12.0),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 8.0,),
+                        SizedBox(
+                          height: 8.0,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            activityData.phone != null?
-                              _getContactButton(context, Icons.phone, 'tel:///${activityData.phone}') : Container(),
-                            activityData.email != null?
-                              _getContactButton(context, Icons.mail_outline, 'mailto:${activityData.email}') : Container(),
-                            activityData.website != null?
-                              _getContactButton(context, Icons.language, activityData.website, true) : Container()
+                            activityData.phone != null
+                                ? _getContactButton(context, Icons.phone,
+                                    'tel:///${activityData.phone}')
+                                : Container(),
+                            activityData.email != null
+                                ? _getContactButton(context, Icons.mail_outline,
+                                    'mailto:${activityData.email}')
+                                : Container(),
+                            activityData.website != null
+                                ? _getContactButton(context, Icons.language,
+                                    activityData.website, true)
+                                : Container()
                           ],
                         )
                       ],
                     ),
                   )
-                ]
-              )
-            ),
+                ])),
           ],
         );
       },
     );
   }
 
-  Widget _getContactButton(BuildContext context, IconData icon, String url, [bool isWeb = false]) {
+  Widget _getContactButton(BuildContext context, IconData icon, String url,
+      [bool isWeb = false]) {
     return RawMaterialButton(
       onPressed: () async {
-
         if (isWeb) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) =>
-                WebviewScaffold(
-                  url: url,
-                  appBar: AppBar(
-                    backgroundColor: Colors.white,
-                    iconTheme: IconThemeData(
-                      color: MomdayColors.MomdayGold
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => WebviewScaffold(
+                    url: url,
+                    appBar: AppBar(
+                      backgroundColor: Colors.white,
+                      iconTheme: IconThemeData(color: MomdayColors.Momdaypink),
                     ),
-                  ),
-                )
-            )
-          );
+                  )));
           return;
         }
 
-        if (await canLaunch(url))
-          launch(url);
+        if (await canLaunch(url)) launch(url);
       },
       child: Icon(
         icon,
         size: 28.0,
       ),
       shape: CircleBorder(
-        side: BorderSide(
-          width: 1,
-        )
-      ),
+          side: BorderSide(
+        width: 1,
+      )),
       padding: const EdgeInsets.all(12.0),
       fillColor: Colors.transparent,
       elevation: 0.0,
     );
   }
 }
-

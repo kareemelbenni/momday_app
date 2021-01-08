@@ -7,7 +7,6 @@ import 'package:momday_app/backend_helpers/momday_backend.dart';
 import 'package:momday_app/widgets/elegant_future_builder/elegant_future_builder.dart';
 
 class Featured extends StatelessWidget {
-
   final bool miniVersion;
   final bool hasOverlay;
   final Widget midAnnouncement;
@@ -26,18 +25,18 @@ class Featured extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (this.featuredProducts != null && this.featuredProducts.length > 0)?
-      this._getCarousel(context, this.featuredProducts) :
-      ElegantMemoizedFutureBuilder(
-        futureCallBack: () => MomdayBackend().getFeaturedItems(),
-        loadingHeight: this.miniVersion? 100.0 : 200.0,
-        errorHeight: this.miniVersion? 100.0 : 200.0,
-        fullError: false,
-        contentBuilder: (context, data) {
-          List<ProductModel> products = ProductModel.fromDynamicList(data);
-          return this._getCarousel(context, products);
-        },
-      );
+    return (this.featuredProducts != null && this.featuredProducts.length > 0)
+        ? this._getCarousel(context, this.featuredProducts)
+        : ElegantMemoizedFutureBuilder(
+            futureCallBack: () => MomdayBackend().getFeaturedItems(),
+            loadingHeight: this.miniVersion ? 100.0 : 200.0,
+            errorHeight: this.miniVersion ? 100.0 : 200.0,
+            fullError: false,
+            contentBuilder: (context, data) {
+              List<ProductModel> products = ProductModel.fromDynamicList(data);
+              return this._getCarousel(context, products);
+            },
+          );
   }
 
   _getCarousel(context, products) {
@@ -47,10 +46,11 @@ class Featured extends StatelessWidget {
       boxFit: BoxFit.fill,
       images: products.map((product) => product.image).toList(),
       overlayShadow: this.hasOverlay,
-//      subtext: tUpper(context, 'shop_now'),
+      // subtext: tUpper(context, 'shop_now'),
       midAnnouncement: this.midAnnouncement,
       onItemTap: (index) {
-        MainScreen.of(context).navigateToTab(2, '/product/${products[index].productId}');
+        MainScreen.of(context)
+            .navigateToTab(2, '/product/${products[index].productId}');
       },
       indicatorPosition: this.indicatorPosition,
     );

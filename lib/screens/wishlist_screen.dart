@@ -15,23 +15,22 @@ class WishlistScreen extends StatelessWidget {
     WishlistModel wishlist = AppStateManager.of(context).wishlist;
 
     var mainPage;
-    
+
     var featured = [
       SizedBox(height: 40.0),
       Text(
         tTitle(context, 'featured_items'),
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.w600
-        ),
+        style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600),
       ),
-      SizedBox(height: 10.0,),
+      SizedBox(
+        height: 10.0,
+      ),
       Featured(
         hasOverlay: true,
       ),
     ];
-    
+
     if (!wishlist.isEmpty) {
       mainPage = ListView(
         primary: false,
@@ -40,29 +39,28 @@ class WishlistScreen extends StatelessWidget {
           PageHeader(
             title: tTitle(context, 'my_wishlist'),
           )
-        ]..addAll(
-            wishlist.products.expand((product) =>
-            [
-              MyItem(
-                product: product,
-                isFirst: wishlist.products.first == product,
-                itemType: MyItemType.WISHLIST,
-                onItemMoved: () {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text(tSentence(context, 'item_moved_successfully')),
-                    action: SnackBarAction(
-                        label: tSentence(context, 'go_to_cart'),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed('/cart');
-                        }
-                    ),
-                    duration: Duration(seconds: 3),
-                  ));
-                },
-              ),
-              SizedBox(height: 8.0)
-            ])
-        )..addAll(featured),
+        ]
+          ..addAll(wishlist.products.expand((product) => [
+                MyItem(
+                  product: product,
+                  isFirst: wishlist.products.first == product,
+                  itemType: MyItemType.WISHLIST,
+                  onItemMoved: () {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content:
+                          Text(tSentence(context, 'item_moved_successfully')),
+                      action: SnackBarAction(
+                          label: tSentence(context, 'go_to_cart'),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed('/cart');
+                          }),
+                      duration: Duration(seconds: 3),
+                    ));
+                  },
+                ),
+                SizedBox(height: 8.0)
+              ]))
+          ..addAll(featured),
       );
     } else {
       mainPage = ListView(
@@ -73,13 +71,14 @@ class WishlistScreen extends StatelessWidget {
           PageHeader(
             title: tTitle(context, 'my_wishlist'),
           ),
-          SizedBox(height: 8.0,),
-          Text(
-            tSentence(context, 'wishlist_empty'),
-            textAlign: TextAlign.center,
-            style: MomdayStyles.LabelStyle
+          SizedBox(
+            height: 8.0,
           ),
-          SizedBox(height: 8.0,),
+          Text(tSentence(context, 'wishlist_empty'),
+              textAlign: TextAlign.center, style: MomdayStyles.LabelStyle),
+          SizedBox(
+            height: 8.0,
+          ),
           this._backToShoppingButton(context)
         ]..addAll(featured),
       );
@@ -104,16 +103,13 @@ class WishlistScreen extends StatelessWidget {
         },
         icon: Icon(
           Icons.shopping_cart,
-          color: MomdayColors.MomdayGold,
+          color: MomdayColors.Momdaypink,
         ),
         label: Text(
           tSentence(context, 'go_back_to_shopping'),
           textAlign: TextAlign.start,
           style: TextStyle(
-              color: MomdayColors.MomdayGold,
-              fontWeight: FontWeight.bold
-          ),
-        )
-    );
+              color: MomdayColors.Momdaypink, fontWeight: FontWeight.bold),
+        ));
   }
 }

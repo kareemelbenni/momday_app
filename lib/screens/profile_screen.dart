@@ -6,14 +6,14 @@ import 'package:momday_app/momday_utils.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 import 'package:momday_app/widgets/page_header/page_header.dart';
 
-enum _ProfileScreenMode{View, Edit}
+enum _ProfileScreenMode { View, Edit }
+
 class PorfileScreen extends StatefulWidget {
   @override
   _PorfileScreenState createState() => _PorfileScreenState();
 }
 
 class _PorfileScreenState extends State<PorfileScreen> {
-
   _ProfileScreenMode _mode;
 
   bool _showChangePassword;
@@ -27,7 +27,6 @@ class _PorfileScreenState extends State<PorfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> children = [];
 
     if (this._mode == _ProfileScreenMode.View) {
@@ -36,30 +35,30 @@ class _PorfileScreenState extends State<PorfileScreen> {
           AppStateManager.of(context).account.fullName,
           textAlign: TextAlign.center,
           style: const TextStyle(
-              color: MomdayColors.MomdayGold,
+              color: MomdayColors.Momdaypink,
               fontSize: 20.0,
-              fontWeight: FontWeight.w300
-          ),
+              fontWeight: FontWeight.w300),
         ),
-        SizedBox(height: 8.0,),
+        SizedBox(
+          height: 8.0,
+        ),
         Text(
           AppStateManager.of(context).account.email,
           textAlign: TextAlign.center,
           style: const TextStyle(
-              color: MomdayColors.MomdayGold,
+              color: MomdayColors.Momdaypink,
               fontSize: 20.0,
-              fontWeight: FontWeight.w300
-          ),
+              fontWeight: FontWeight.w300),
         ),
-        SizedBox(height: 8.0,),
+        SizedBox(
+          height: 8.0,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
-              child: Text(
-                  tUpper(context, 'edit')
-              ),
-              color: MomdayColors.MomdayGold,
+              child: Text(tUpper(context, 'edit')),
+              color: MomdayColors.Momdaypink,
               colorBrightness: Brightness.dark,
               onPressed: () {
                 setState(() {
@@ -69,7 +68,9 @@ class _PorfileScreenState extends State<PorfileScreen> {
             ),
           ],
         ),
-        SizedBox(height: 8.0,),
+        SizedBox(
+          height: 8.0,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -124,17 +125,16 @@ class _PorfileScreenState extends State<PorfileScreen> {
           PageHeader2(
             title: tTitle(context, 'my_profile'),
           ),
-          SizedBox(height: 40.0,),
-        ]..addAll(
-          children
-        ),
+          SizedBox(
+            height: 40.0,
+          ),
+        ]..addAll(children),
       ),
     );
   }
 }
 
 class _ChangePassword extends StatelessWidget {
-
   final bool showChangePassword;
   final GestureTapCallback onTap;
 
@@ -146,31 +146,32 @@ class _ChangePassword extends StatelessWidget {
       child: Text(
         tLower(context, 'change_password'),
         style: TextStyle(
-            color: !this.showChangePassword?
-            Colors.black.withOpacity(0.5) : MomdayColors.MomdayGold
-        ),
+            color: !this.showChangePassword
+                ? Colors.black.withOpacity(0.5)
+                : MomdayColors.Momdaypink),
       ),
       onTap: this.onTap,
     );
   }
 }
 
-
 class _EditProfileForm extends StatefulWidget {
-
   final VoidCallback onSuccess;
   final VoidCallback onCancel;
   final GestureTapCallback onChangePasswordTap;
   final bool showChangePassword;
 
-  _EditProfileForm({this.onSuccess, this.onCancel, this.showChangePassword, this.onChangePasswordTap});
+  _EditProfileForm(
+      {this.onSuccess,
+      this.onCancel,
+      this.showChangePassword,
+      this.onChangePasswordTap});
 
   @override
   _EditProfileFormState createState() => _EditProfileFormState();
 }
 
 class _EditProfileFormState extends State<_EditProfileForm> {
-
   String _firstName;
   String _lastName;
   String _email;
@@ -189,9 +190,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-        primaryColor: MomdayColors.MomdayGold
-      ),
+      data: ThemeData(primaryColor: MomdayColors.Momdaypink),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -213,10 +212,13 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                   ),
                 ],
               ),
-              SizedBox(height: 24.0,),
+              SizedBox(
+                height: 24.0,
+              ),
               TextFormField(
                 initialValue: AppStateManager.of(context).account.firstName,
-                decoration: getMomdayInputDecoration(tTitle(context, 'first_name')),
+                decoration:
+                    getMomdayInputDecoration(tTitle(context, 'first_name')),
                 validator: (value) {
                   if (value.isEmpty) {
                     return tSentence(context, 'field_required');
@@ -224,10 +226,13 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                 },
                 onSaved: (value) => this._firstName = value,
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               TextFormField(
                 initialValue: AppStateManager.of(context).account.lastName,
-                decoration: getMomdayInputDecoration(tTitle(context, 'last_name')),
+                decoration:
+                    getMomdayInputDecoration(tTitle(context, 'last_name')),
                 validator: (value) {
                   if (value.isEmpty) {
                     return tSentence(context, 'field_required');
@@ -235,7 +240,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                 },
                 onSaved: (value) => this._lastName = value,
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               TextFormField(
                 initialValue: AppStateManager.of(context).account.email,
                 decoration: getMomdayInputDecoration(tTitle(context, 'email')),
@@ -261,7 +268,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                 },
                 onSaved: (value) => this._phoneNumber = value,
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -269,28 +278,25 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                     showChangePassword: widget.showChangePassword,
                     onTap: widget.onChangePasswordTap,
                   ),
-                  SizedBox(width: 8.0,),
-                  RaisedButton(
-                    color: MomdayColors.MomdayGold,
-                    colorBrightness: Brightness.dark,
-                    child: this._isChangingProfile?
-                      SizedBox(
-                        height: 24.0,
-                        width: 24.0,
-                        child: Theme(
-                          data: ThemeData(
-                              accentColor: Colors.white
-                          ),
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3.0,
-                          ),
-                        ),
-                      ) :
-                      Text(
-                        tUpper(context, 'save_changes')
-                      ),
-                    onPressed: this._saveChanges
+                  SizedBox(
+                    width: 8.0,
                   ),
+                  RaisedButton(
+                      color: MomdayColors.Momdaypink,
+                      colorBrightness: Brightness.dark,
+                      child: this._isChangingProfile
+                          ? SizedBox(
+                              height: 24.0,
+                              width: 24.0,
+                              child: Theme(
+                                data: ThemeData(accentColor: Colors.white),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3.0,
+                                ),
+                              ),
+                            )
+                          : Text(tUpper(context, 'save_changes')),
+                      onPressed: this._saveChanges),
                 ],
               )
             ],
@@ -300,7 +306,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
     );
   }
 
-  _saveChanges () async {
+  _saveChanges() async {
     if (!this._isChangingProfile) {
       if (this._formKey.currentState.validate()) {
         this._formKey.currentState.save();
@@ -313,8 +319,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
             firstName: this._firstName,
             lastName: this._lastName,
             email: this._email,
-            phoneNumber: this._phoneNumber
-        );
+            phoneNumber: this._phoneNumber);
 
         setState(() {
           this._isChangingProfile = false;
@@ -331,7 +336,6 @@ class _EditProfileFormState extends State<_EditProfileForm> {
 }
 
 class _ChangePasswordForm extends StatefulWidget {
-
   final VoidCallback onSuccess;
 
   _ChangePasswordForm({this.onSuccess});
@@ -341,7 +345,6 @@ class _ChangePasswordForm extends StatefulWidget {
 }
 
 class __ChangePasswordFormState extends State<_ChangePasswordForm> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
 
@@ -359,9 +362,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
-          primaryColor: MomdayColors.MomdayGold
-      ),
+      data: ThemeData(primaryColor: MomdayColors.Momdaypink),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -372,7 +373,8 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
               TextFormField(
                 obscureText: true,
                 controller: this._passwordController,
-                decoration: getMomdayInputDecoration(tTitle(context, 'password')),
+                decoration:
+                    getMomdayInputDecoration(tTitle(context, 'password')),
                 validator: (value) {
                   if (value.isEmpty) {
                     return tSentence(context, 'field_required');
@@ -385,7 +387,8 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
               SizedBox(height: 8.0),
               TextFormField(
                 obscureText: true,
-                decoration: getMomdayInputDecoration(tTitle(context, 'confirm_password')),
+                decoration: getMomdayInputDecoration(
+                    tTitle(context, 'confirm_password')),
                 validator: (value) {
                   if (value.isEmpty) {
                     return tSentence(context, 'field_required');
@@ -395,26 +398,24 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
                 },
                 onSaved: (value) => this._confirmPassword = value,
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               RaisedButton(
-                color: MomdayColors.MomdayGold,
+                color: MomdayColors.Momdaypink,
                 colorBrightness: Brightness.dark,
-                child: this._isChangingPassword?
-                  SizedBox(
-                    height: 24.0,
-                    width: 24.0,
-                    child: Theme(
-                      data: ThemeData(
-                          accentColor: Colors.white
-                      ),
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3.0,
-                      ),
-                    ),
-                  ) :
-                  Text(
-                      tUpper(context, 'save_changes')
-                  ),
+                child: this._isChangingPassword
+                    ? SizedBox(
+                        height: 24.0,
+                        width: 24.0,
+                        child: Theme(
+                          data: ThemeData(accentColor: Colors.white),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3.0,
+                          ),
+                        ),
+                      )
+                    : Text(tUpper(context, 'save_changes')),
                 onPressed: this._changePassword,
               )
             ],
@@ -435,8 +436,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
 
         var response = await MomdayBackend().changePassword(
             newPassword: this._password,
-            confirmPassword: this._confirmPassword
-        );
+            confirmPassword: this._confirmPassword);
 
         setState(() {
           this._isChangingPassword = false;

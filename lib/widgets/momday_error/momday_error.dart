@@ -3,7 +3,6 @@ import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 
 class MomdayError extends StatelessWidget {
-
   final double height;
   final Object error;
   final VoidCallback onTryAgain;
@@ -13,7 +12,6 @@ class MomdayError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var mainPart = Stack(
       children: <Widget>[
         Positioned(
@@ -23,10 +21,9 @@ class MomdayError extends StatelessWidget {
           bottom: 0.0,
           child: Center(
               child: Image(
-                image: AssetImage('assets/images/error_word.png'),
-                fit: BoxFit.fill,
-              )
-          ),
+            image: AssetImage('assets/images/error_word.png'),
+            fit: BoxFit.fill,
+          )),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +63,7 @@ class MomdayError extends StatelessWidget {
                 tUpper(context, 'try_again'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: MomdayColors.MomdayGold,
+                  color: MomdayColors.Momdaypink,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -77,7 +74,7 @@ class MomdayError extends StatelessWidget {
               tUpper(context, 'report_issue'),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: MomdayColors.MomdayGold,
+                color: MomdayColors.Momdaypink,
                 fontWeight: FontWeight.w600,
               ),
             ),

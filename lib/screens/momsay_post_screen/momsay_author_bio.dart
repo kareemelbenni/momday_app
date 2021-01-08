@@ -9,7 +9,6 @@ import 'package:momday_app/styles/momday_colors.dart';
 import 'package:momday_app/widgets/page_header/page_header.dart';
 
 class MomsayAuthorBio extends StatelessWidget {
-
   final MomsayAuthorModel author;
 
   MomsayAuthorBio({this.author});
@@ -22,30 +21,35 @@ class MomsayAuthorBio extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-
             children: <Widget>[
               PageHeader(
                 title: tUpper(context, 'momsay'),
               ),
-              SizedBox(height: 24.0,),
+              SizedBox(
+                height: 24.0,
+              ),
               CircleAvatar(
                 backgroundImage:
 //                this.author.image != null ? CachedNetworkImageProvider(this.author.image):
-                AssetImage("assets/images/no_image_author.png"),
+                    AssetImage("assets/images/no_image_author.png"),
                 backgroundColor: MomdayColors.MomdayGray,
                 radius: 40.0,
               ),
-              SizedBox(height: 12.0,),
-              author.name != null?
-              Text(
-                this.author.name.toUpperCase(),
-                style: TextStyle(
-                  color: MomdayColors.MomdayGold,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0
-                ),
-              ):Container(),
-              SizedBox(height: 24.0,),
+              SizedBox(
+                height: 12.0,
+              ),
+              author.name != null
+                  ? Text(
+                      this.author.name.toUpperCase(),
+                      style: TextStyle(
+                          color: MomdayColors.Momdaypink,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0),
+                    )
+                  : Container(),
+              SizedBox(
+                height: 24.0,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
@@ -57,28 +61,24 @@ class MomsayAuthorBio extends StatelessWidget {
                           fit: BoxFit.fitHeight,
                           height: 16.0,
                         ),
-                        Text(
-                          tUpper(context, 'biography'),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0
-                          )
-                        ),
+                        Text(tUpper(context, 'biography'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 16.0)),
                       ],
                     ),
-                    SizedBox(height: 2.0,),
-                    Container(
-                        height: 1.0,
-                        color: MomdayColors.MomdayGold
+                    SizedBox(
+                      height: 2.0,
                     ),
-                    SizedBox(height: 12.0,),
-                    author.biography != null?
-                    DefaultTextStyle(
-                      style: cancelArabicFontDelta(context),
-                      child: Html(
-                          data: author.biography
-                      ),
-                    ):Container()
+                    Container(height: 1.0, color: MomdayColors.Momdaypink),
+                    SizedBox(
+                      height: 12.0,
+                    ),
+                    author.biography != null
+                        ? DefaultTextStyle(
+                            style: cancelArabicFontDelta(context),
+                            child: Html(data: author.biography),
+                          )
+                        : Container()
                   ],
                 ),
               ),

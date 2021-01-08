@@ -14,6 +14,8 @@ import 'package:momday_app/widgets/featured/featured.dart';
 import 'package:momday_app/widgets/momday_card/momday_card.dart';
 import 'package:momday_app/widgets/momday_network_image/momday_network_image.dart';
 
+import '../../styles/momday_colors.dart';
+
 class _HomeUtils {
   static getSectionHeader({title, actionName, action}) {
     return Column(
@@ -28,13 +30,9 @@ class _HomeUtils {
                   fit: BoxFit.fitHeight,
                   height: 16.0,
                 ),
-                Text(
-                    title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.0
-                    )
-                )
+                Text(title,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0))
               ],
             ),
             InkWell(
@@ -43,18 +41,16 @@ class _HomeUtils {
                 actionName,
                 style: TextStyle(
                     fontSize: 12.0,
-                    color: MomdayColors.MomdayGold,
-                    fontWeight: FontWeight.w300
-                ),
+                    color: MomdayColors.Momdaypink,
+                    fontWeight: FontWeight.w300),
               ),
             )
           ],
         ),
-        SizedBox(height: 2.0,),
-        Container(
-            height: 2.0,
-            color: MomdayColors.MomdayGold
-        )
+        SizedBox(
+          height: 2.0,
+        ),
+        Container(height: 2.0, color: MomdayColors.Momdaypink)
       ],
     );
   }
@@ -68,17 +64,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-
   final _bloc = HomeBloc();
 
   @override
   Widget build(BuildContext context) {
-
     this._bloc.init();
     return ListView(
       children: <Widget>[
         MainScreen.of(context).getMomdayBar(),
-        SizedBox(height: 8.0,),
+        SizedBox(
+          height: 8.0,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: BlocProvider<HomeBloc>(
@@ -100,15 +96,23 @@ class _HomeContent extends StatelessWidget {
       contentBuilder: (context, homeData) {
         return Column(
           children: <Widget>[
-            SizedBox(height: 8.0,),
+            SizedBox(
+              height: 8.0,
+            ),
             _FeaturedProducts(),
-            SizedBox(height: 32.0,),
+            SizedBox(
+              height: 32.0,
+            ),
             _FeaturedCelebrities(),
 //            SizedBox(height: 32.0,),
 //            _Activities(),
-            SizedBox(height: 32.0,),
+            SizedBox(
+              height: 32.0,
+            ),
             _FeaturedBrands(),
-            SizedBox(height: 32.0,),
+            SizedBox(
+              height: 32.0,
+            ),
             _FeaturedMomsayPosts()
           ],
         );
@@ -139,9 +143,8 @@ class _Activities extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: MomdayColors.MomdayGold,
-                      fontSize: 36.0
-                  ),
+                      color: MomdayColors.Momdaypink,
+                      fontSize: 36.0),
                 ),
               ),
             )
@@ -155,7 +158,6 @@ class _Activities extends StatelessWidget {
 class _FeaturedProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<HomeBloc>(context);
 
     return Material(
@@ -175,16 +177,15 @@ class _FeaturedProducts extends StatelessWidget {
                   tUpper(context, 'moms_best_daily_kit'),
                   style: TextStyle(
                       fontSize: 24.0,
-                      fontWeight: FontWeight.w600
-                  ),
+                      fontWeight: FontWeight.w600,
+                      color: MomdayColors.MomdayDarkBlue),
                 ),
               ),
               Text(
                 tSentence(context, 'momday_description'),
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                    fontSize: 14.0
-                ),
+                    fontSize: 14.0, color: MomdayColors.MomdayDarkBlue),
               )
             ],
           ),
@@ -195,33 +196,30 @@ class _FeaturedProducts extends StatelessWidget {
 }
 
 class _FeaturedBrands extends StatelessWidget {
-
   _FeaturedBrands();
 
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<HomeBloc>(context);
     List<dynamic> brands = bloc.homeData.featuredBrands;
 
-    if(brands == null)
-      brands = [];
+    if (brands == null) brands = [];
 
     brands.shuffle();
 
-    if(brands.length >= 3)
-      brands = brands.sublist(0,3);
+    if (brands.length >= 3) brands = brands.sublist(0, 3);
 
-    final images = brands.map((brand) =>
-        InkWell(
-          onTap: () {
-            MainScreen.of(context).navigateToTab(2, '/product-listing?brandId=${brand.brandId}');
-          },
-          child: MomdayNetworkImage(
-            imageUrl: brand.image,
-          ),
-        )
-    ).toList();
+    final images = brands
+        .map((brand) => InkWell(
+              onTap: () {
+                MainScreen.of(context).navigateToTab(
+                    2, '/product-listing?brandId=${brand.brandId}');
+              },
+              child: MomdayNetworkImage(
+                imageUrl: brand.image,
+              ),
+            ))
+        .toList();
 
     return Column(
       children: <Widget>[
@@ -230,8 +228,7 @@ class _FeaturedBrands extends StatelessWidget {
             actionName: tUpper(context, 'shop_now'),
             action: () {
               MainScreen.of(context).navigateToTab(2, '/product-listing/');
-            }
-        ),
+            }),
         SizedBox(height: 8.0),
         GridView.count(
             crossAxisCount: 3,
@@ -239,104 +236,104 @@ class _FeaturedBrands extends StatelessWidget {
             primary: false,
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
-            children: images
-        ),
+            children: images),
       ],
     );
   }
 }
 
 class _FeaturedMomsayPosts extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<HomeBloc>(context);
     final posts = bloc.homeData.featuredMomsayPosts;
     List<Widget> postWidgets = [];
 
-    if(posts != null && posts.length > 0) {
-      postWidgets = posts.map((post) =>
-          MomdayCard(
-            child: SizedBox(
-              height: 80.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(width: 8.0,),
-                  CircleAvatar(
-                    backgroundImage:
-// post.author.image == null ?
-                    AssetImage("assets/images/no_image_author.png"),
-//                        : CachedNetworkImageProvider(post.author.image),
-                    backgroundColor: MomdayColors.MomdayGray,
-                  ),
-                  SizedBox(width: 8.0,),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        post.author.name != null ?
-                        Text(
-                          post.author.name.toUpperCase(),
-                          style: cancelArabicFontDelta(context).copyWith(
-                              color: MomdayColors.MomdayGold,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ):Container(),
-                        SizedBox(height: 8.0,),
-                        Text(
-                            post.name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: cancelArabicFontDelta(context).copyWith(
-                                fontWeight: FontWeight.w600
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                  Column(
+    if (posts != null && posts.length > 0) {
+      postWidgets = posts
+          .map((post) => MomdayCard(
+                child: SizedBox(
+                  height: 80.0,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 8.0,),
-                      Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          convertDateToUserFriendly(post.date,
-                              Localizations.localeOf(context).languageCode),
-                          textAlign: TextAlign.end,
-                          style: cancelArabicFontDelta(context).copyWith(
-                            color: MomdayColors.NoteGray,
-                          ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      CircleAvatar(
+                        backgroundImage:
+// post.author.image == null ?
+                            AssetImage("assets/images/no_image_author.png"),
+//                        : CachedNetworkImageProvider(post.author.image),
+                        backgroundColor: MomdayColors.MomdayGray,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            post.author.name != null
+                                ? Text(
+                                    post.author.name.toUpperCase(),
+                                    style: cancelArabicFontDelta(context)
+                                        .copyWith(
+                                            color: MomdayColors.Momdaypink,
+                                            fontWeight: FontWeight.bold),
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: 8.0,
+                            ),
+                            Text(post.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: cancelArabicFontDelta(context)
+                                    .copyWith(fontWeight: FontWeight.w600))
+                          ],
                         ),
                       ),
-                      FlatButton(
-                          materialTapTargetSize: MaterialTapTargetSize
-                              .shrinkWrap,
-                          color: Colors.black,
-                          colorBrightness: Brightness.dark,
-                          onPressed: () {
-                            MainScreen.of(context).navigateToTab(
-                                4, '/momsay-post/${post.id}');
-                          },
-                          child: Text(
-                            tTitle(context, 'view_more'),
-                            style: TextStyle(
-                                fontSize: 12.0
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              convertDateToUserFriendly(post.date,
+                                  Localizations.localeOf(context).languageCode),
+                              textAlign: TextAlign.end,
+                              style: cancelArabicFontDelta(context).copyWith(
+                                color: MomdayColors.NoteGray,
+                              ),
                             ),
-                          )
+                          ),
+                          FlatButton(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              color: Colors.black,
+                              colorBrightness: Brightness.dark,
+                              onPressed: () {
+                                MainScreen.of(context).navigateToTab(
+                                    4, '/momsay-post/${post.id}');
+                              },
+                              child: Text(
+                                tTitle(context, 'view_more'),
+                                style: TextStyle(fontSize: 12.0),
+                              )),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          )
-      ).toList();
+                ),
+              ))
+          .toList();
     }
 
     return Column(
@@ -346,14 +343,11 @@ class _FeaturedMomsayPosts extends StatelessWidget {
             actionName: tUpper(context, 'view_all'),
             action: () {
               MainScreen.of(context).navigateToTab(4, '/momsay');
-            }
+            }),
+        SizedBox(
+          height: 8.0,
         ),
-        SizedBox(height: 8.0,),
-        postWidgets.length > 0?
-        Column(
-            children: postWidgets
-        ):
-        Container(),
+        postWidgets.length > 0 ? Column(children: postWidgets) : Container(),
       ],
     );
   }
@@ -362,11 +356,11 @@ class _FeaturedMomsayPosts extends StatelessWidget {
 class _FeaturedCelebrities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<HomeBloc>(context);
-    List<CelebrityModel> featuredCelebrities = bloc.homeData.featuredCelebrities;
+    List<CelebrityModel> featuredCelebrities =
+        bloc.homeData.featuredCelebrities;
 
-    if(featuredCelebrities != null)
+    if (featuredCelebrities != null)
       featuredCelebrities.shuffle();
     else
       featuredCelebrities = [];
@@ -387,8 +381,7 @@ class _FeaturedCelebrities extends StatelessWidget {
       final widthRight = width * 0.3435900373429014;
       final heightRight = height * 0.4368686203439261;
       // padding between photos
-      final horizontalPadding =
-          width * 0.0097501048136267; //padding of 8 pixel
+      final horizontalPadding = width * 0.0097501048136267; //padding of 8 pixel
       final verticalPadding = height * 0.0123970848255033; //padding of 8 pixel
       //Sizes of the Black Box with opacity
       final widthBlackBoxWithOp = width * 0.6118190770550783;
@@ -400,33 +393,34 @@ class _FeaturedCelebrities extends StatelessWidget {
       //Padding
       final verticalPadOfTheBlackBox = height * 0.3244936953075484;
       final horizontalPaddOfTheBlackBox = width * 0.1943927147216833;
-      final horizontalPaddOfTheDoubleLinesPic = width * 0.2132835427980851;//0.3193159326462759 or 0.2132835427980851
-      final verticalPaddOfTheDoubleLinesPic = heightCenterTop - heightDoubleLinesPic;
+      final horizontalPaddOfTheDoubleLinesPic =
+          width * 0.2132835427980851; //0.3193159326462759 or 0.2132835427980851
+      final verticalPaddOfTheDoubleLinesPic =
+          heightCenterTop - heightDoubleLinesPic;
       //Responsive Font Sizes
-      final celebritiesFontSize = height*0.0790314157625834;
-      final viewallFontSize = height*0.0480387036988252;
+      final celebritiesFontSize = height * 0.0790314157625834;
+      final viewallFontSize = height * 0.0480387036988252;
 
-      final topCelebrity =
-      PositionedDirectional(
+      final topCelebrity = PositionedDirectional(
         child: Material(
           elevation: 10.0,
           child: InkWell(
-            onTap: () =>
-            featuredCelebrities.length > 0 ?
-            this._navigateToCelebrity(context, featuredCelebrities[0].celebrityId):null,
-            child:featuredCelebrities.length > 0 ?
-            MomdayNetworkImage(
-              imageUrl: featuredCelebrities[0].squareImage,
-              width: widthCenterTop,
-              height: heightCenterTop,
-              color: Colors.grey,
-              colorBlendMode: BlendMode.color,
-            ):
-            Image(
-              height: heightCenterTop,
-              width: widthCenterTop,
-              image: AssetImage("assets/images/no_celebrity.png")
-            ),
+            onTap: () => featuredCelebrities.length > 0
+                ? this._navigateToCelebrity(
+                    context, featuredCelebrities[0].celebrityId)
+                : null,
+            child: featuredCelebrities.length > 0
+                ? MomdayNetworkImage(
+                    imageUrl: featuredCelebrities[0].squareImage,
+                    width: widthCenterTop,
+                    height: heightCenterTop,
+                    color: Colors.grey,
+                    colorBlendMode: BlendMode.color,
+                  )
+                : Image(
+                    height: heightCenterTop,
+                    width: widthCenterTop,
+                    image: AssetImage("assets/images/no_celebrity.png")),
           ),
         ),
         start: widthLeft + horizontalPadding,
@@ -436,27 +430,26 @@ class _FeaturedCelebrities extends StatelessWidget {
         child: Material(
           elevation: 10.0,
           child: InkWell(
-            onTap: () =>
-            featuredCelebrities.length > 1 ?
-            this._navigateToCelebrity(context, featuredCelebrities[1].celebrityId):null,
+            onTap: () => featuredCelebrities.length > 1
+                ? this._navigateToCelebrity(
+                    context, featuredCelebrities[1].celebrityId)
+                : null,
             child: Container(
-              child:
-              featuredCelebrities.length > 1 ?
-              MomdayNetworkImage(
-                imageUrl: featuredCelebrities[1].squareImage,
-                width: widthLeft,
-                height: heightLeft,
-                color: Colors.grey,
-                colorBlendMode: BlendMode.color,
-              ):
-              Image(
-                  height: heightLeft,
-                  width: widthLeft,
-                  image: AssetImage("assets/images/no_celebrity.png")
-              ),
+              child: featuredCelebrities.length > 1
+                  ? MomdayNetworkImage(
+                      imageUrl: featuredCelebrities[1].squareImage,
+                      width: widthLeft,
+                      height: heightLeft,
+                      color: Colors.grey,
+                      colorBlendMode: BlendMode.color,
+                    )
+                  : Image(
+                      height: heightLeft,
+                      width: widthLeft,
+                      image: AssetImage("assets/images/no_celebrity.png")),
               foregroundDecoration: BoxDecoration(
                 backgroundBlendMode: BlendMode.screen,
-                color: MomdayColors.MomdayGold.withOpacity(0.7),
+                color: MomdayColors.Momdaypink.withOpacity(0.7),
               ),
             ),
           ),
@@ -468,22 +461,22 @@ class _FeaturedCelebrities extends StatelessWidget {
         child: Material(
           elevation: 10.0,
           child: InkWell(
-            onTap: () => featuredCelebrities.length > 2 ?
-            this._navigateToCelebrity(context, featuredCelebrities[2].celebrityId):null,
-            child:
-            featuredCelebrities.length > 2 ?
-            MomdayNetworkImage(
-              imageUrl: featuredCelebrities[2].portraitImage,
-              width: widthCenterBottom,
-              height: heightCenterBottom,
-              color: Colors.grey,
-              colorBlendMode: BlendMode.color,
-            ):
-            Image(
-                height: heightCenterBottom,
-                width: widthCenterBottom,
-                image: AssetImage("assets/images/no_celebrity.png")
-            ),
+            onTap: () => featuredCelebrities.length > 2
+                ? this._navigateToCelebrity(
+                    context, featuredCelebrities[2].celebrityId)
+                : null,
+            child: featuredCelebrities.length > 2
+                ? MomdayNetworkImage(
+                    imageUrl: featuredCelebrities[2].portraitImage,
+                    width: widthCenterBottom,
+                    height: heightCenterBottom,
+                    color: Colors.grey,
+                    colorBlendMode: BlendMode.color,
+                  )
+                : Image(
+                    height: heightCenterBottom,
+                    width: widthCenterBottom,
+                    image: AssetImage("assets/images/no_celebrity.png")),
           ),
         ),
         start: widthLeft + horizontalPadding,
@@ -495,27 +488,27 @@ class _FeaturedCelebrities extends StatelessWidget {
           child: Material(
             elevation: 10.0,
             child: InkWell(
-              onTap: () => featuredCelebrities.length > 3 ?
-              this._navigateToCelebrity(context, featuredCelebrities[3].celebrityId):null,
-              child:
-              featuredCelebrities.length > 3 ?
-              MomdayNetworkImage(
-                imageUrl: featuredCelebrities[3].squareImage,
-                width: widthRight,
-                height: heightRight,
-                color: Colors.grey,
-                colorBlendMode: BlendMode.color,
-              ):
-              Image(
-                  height: heightRight,
-                  width: widthRight,
-                  image: AssetImage("assets/images/no_celebrity.png")
-              ),
+              onTap: () => featuredCelebrities.length > 3
+                  ? this._navigateToCelebrity(
+                      context, featuredCelebrities[3].celebrityId)
+                  : null,
+              child: featuredCelebrities.length > 3
+                  ? MomdayNetworkImage(
+                      imageUrl: featuredCelebrities[3].squareImage,
+                      width: widthRight,
+                      height: heightRight,
+                      color: Colors.grey,
+                      colorBlendMode: BlendMode.color,
+                    )
+                  : Image(
+                      height: heightRight,
+                      width: widthRight,
+                      image: AssetImage("assets/images/no_celebrity.png")),
             ),
           ),
           foregroundDecoration: BoxDecoration(
             backgroundBlendMode: BlendMode.screen,
-            color: MomdayColors.MomdayGold.withOpacity(0.7),
+            color: MomdayColors.Momdaypink.withOpacity(0.7),
           ),
         ),
         top: heightCenterTop + verticalPadding,
@@ -557,27 +550,24 @@ class _FeaturedCelebrities extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
-                  fontSize: celebritiesFontSize
-              ),
+                  fontSize: celebritiesFontSize),
             ),
           ),
         ),
         start: 0, //set start and end to 0 to center
         end: 0,
-        top: verticalPaddOfTheDoubleLinesPic
-            - (language == 'ar'? verticalPadding : 0.0),
+        top: verticalPaddOfTheDoubleLinesPic -
+            (language == 'ar' ? verticalPadding : 0.0),
       );
 
       final horizontalGoldLine = PositionedDirectional(
         child: Container(
-          width: width*0.571599894698868,
-          height: height*0.0082130686968959,
-          decoration: BoxDecoration(
-              color: MomdayColors.MomdayGold
-          ),
+          width: width * 0.571599894698868,
+          height: height * 0.0082130686968959,
+          decoration: BoxDecoration(color: MomdayColors.Momdaypink),
         ),
         start: horizontalPaddOfTheDoubleLinesPic,
-        top: height*0.4706243326881684 ,
+        top: height * 0.4706243326881684,
       );
 
       final viewAllWord = PositionedDirectional(
@@ -590,15 +580,14 @@ class _FeaturedCelebrities extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.normal,
-                  fontSize: viewallFontSize
-              ),
+                  fontSize: viewallFontSize),
             ),
           ),
         ),
         start: 0,
         end: 0,
-        top: height * 0.4957284294598125
-            - (language == 'ar'? verticalPadding : 0.0),
+        top: height * 0.4957284294598125 -
+            (language == 'ar' ? verticalPadding : 0.0),
       );
 
       return Container(
@@ -622,16 +611,16 @@ class _FeaturedCelebrities extends StatelessWidget {
   }
 
   _navigateToCelebrity(context, celebrityId) async {
-
-    dynamic celeb = await  MomdayBackend().getCelebrity(celebrityId);
-    if(celeb["success"] != 1)
+    dynamic celeb = await MomdayBackend().getCelebrity(celebrityId);
+    if (celeb["success"] != 1)
       _navigateToCelebrities(context);
-
     else
       MainScreen.of(context).navigateToTab(1, '/celebrity/$celebrityId');
   }
 
   _navigateToCelebrities(context) {
-    MainScreen.of(context).navigateToTab(1,);
+    MainScreen.of(context).navigateToTab(
+      1,
+    );
   }
 }

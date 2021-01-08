@@ -14,36 +14,29 @@ import 'package:momday_app/widgets/product_list/product.dart';
 import 'package:momday_app/widgets/product_list/product_list_bloc.dart';
 
 typedef ProductTapCallback(String productId);
-class ProductList extends StatelessWidget {
 
+class ProductList extends StatelessWidget {
   final ProductTapCallback onProductTap;
   final bool independentlyScrollable;
   final String type;
 
-  ProductList({
-    this.onProductTap,
-    this.independentlyScrollable,
-    this.type
-  });
+  ProductList({this.onProductTap, this.independentlyScrollable, this.type});
 
   @override
   Widget build(BuildContext context) {
-    var filters = Filters(
-      sortOptions: [
-        SortOptionModel(
-            name: 'price',
-            title: tTitle(context, 'price'),
-            ascendingText: tTitle(context, 'low_to_high'),
-            descendingText: tTitle(context, 'high_to_low'),
-            supportsDirectional: true
-        ),
-        SortOptionModel(
-          name: 'rating',
-          title: tTitle(context, 'customer_reviews'),
-          defaultDirection: 'desc',
-        )
-      ]
-    );
+    var filters = Filters(sortOptions: [
+      SortOptionModel(
+          name: 'price',
+          title: tTitle(context, 'price'),
+          ascendingText: tTitle(context, 'low_to_high'),
+          descendingText: tTitle(context, 'high_to_low'),
+          supportsDirectional: true),
+      SortOptionModel(
+        name: 'rating',
+        title: tTitle(context, 'customer_reviews'),
+        defaultDirection: 'desc',
+      )
+    ]);
 
     var grid = _ProductsGrid(
       independentlyScrollable: this.independentlyScrollable,
@@ -53,28 +46,19 @@ class ProductList extends StatelessWidget {
 
     if (this.independentlyScrollable) {
       return Column(
-        children: <Widget>[
-          filters,
-          Expanded(
-            child: grid
-          )
-        ],
+        children: <Widget>[filters, Expanded(child: grid)],
       );
     } else {
       return ListView(
         primary: false,
         shrinkWrap: true,
-        children: <Widget>[
-          filters,
-          grid
-        ],
+        children: <Widget>[filters, grid],
       );
     }
   }
 }
 
 class _ProductsGrid extends StatefulWidget {
-
   final bool independentlyScrollable;
   final ProductTapCallback onProductTap;
   final String type;
@@ -86,7 +70,6 @@ class _ProductsGrid extends StatefulWidget {
 }
 
 class __ProductsGridState extends State<_ProductsGrid> {
-
   static const PAGE_SIZE = 10;
 
   PagewiseLoadController _pageLoadController;
@@ -98,21 +81,22 @@ class __ProductsGridState extends State<_ProductsGrid> {
     final bloc = BlocProvider.of<ProductListBloc>(context);
 
     this._pageLoadController = PagewiseLoadController(
-      pageFuture: (pageIndex) => this._pageFuture(pageIndex, bloc.filterAndSortChoices, this.widget.type),
-      pageSize: PAGE_SIZE
-    );
+        pageFuture: (pageIndex) => this._pageFuture(
+            pageIndex, bloc.filterAndSortChoices, this.widget.type),
+        pageSize: PAGE_SIZE);
 
     bloc.stream.forEach((filtersAndSort) {
       setState(() {
         this._pageLoadController = PagewiseLoadController(
-            pageFuture: (pageIndex) => this._pageFuture(pageIndex, filtersAndSort, this.widget.type),
-            pageSize: PAGE_SIZE
-        );
+            pageFuture: (pageIndex) =>
+                this._pageFuture(pageIndex, filtersAndSort, this.widget.type),
+            pageSize: PAGE_SIZE);
       });
     });
   }
 
-  Future<List<ProductModel>> _pageFuture(int pageIndex, FilterAndSortChoices filtersAndSort, String type) async {
+  Future<List<ProductModel>> _pageFuture(
+      int pageIndex, FilterAndSortChoices filtersAndSort, String type) async {
     final response = await MomdayBackend().getProducts(
       categoryId: filtersAndSort.selectedCategoryId,
       limit: PAGE_SIZE,
@@ -135,16 +119,15 @@ class __ProductsGridState extends State<_ProductsGrid> {
       shrinkWrap: !widget.independentlyScrollable,
       children: <Widget>[
         SizedBox(height: 16.0),
-        Text(
-            tUpper(context, 'no_items_found'),
+        Text(tUpper(context, 'no_items_found'),
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 30.0,
-                color: MomdayColors.MomdayGold.withOpacity(0.44)
-            )
+                color: MomdayColors.Momdaypink.withOpacity(0.44))),
+        SizedBox(
+          height: 32.0,
         ),
-        SizedBox(height: 32.0,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -154,9 +137,7 @@ class __ProductsGridState extends State<_ProductsGrid> {
               },
               child: Column(
                 children: <Widget>[
-                  Icon(
-                      Icons.search
-                  ),
+                  Icon(Icons.search),
                   Text(
                     tLower(context, 'new_search'),
                     style: cancelArabicFontDelta(context),
@@ -167,9 +148,7 @@ class __ProductsGridState extends State<_ProductsGrid> {
             InkWell(
               child: Column(
                 children: <Widget>[
-                  ImageIcon(
-                      AssetImage('assets/images/logo_small.png')
-                  ),
+                  ImageIcon(AssetImage('assets/images/logo_small.png')),
                   Text(
                     tLower(context, 'back_to_home'),
                     style: cancelArabicFontDelta(context),
@@ -188,16 +167,15 @@ class __ProductsGridState extends State<_ProductsGrid> {
 
   @override
   Widget build(BuildContext context) {
-
     return LayoutBuilder(
       builder: (context, constraints) {
-
         var entryWidth = constraints.maxWidth / 2;
 
         var entryHeight = entryWidth; // the photo of the product is square
-        entryHeight += 200.0; // The product basic info and the add or wish button
+        entryHeight +=
+            200.0; // The product basic info and the add or wish button
         if (AppStateManager.of(context).account.isCelebrity) {
-          entryHeight += 36.0;  // The typical button height
+          entryHeight += 36.0; // The typical button height
         }
         entryHeight += 12.0; // Some extra white space
         var childAspectRatio = entryWidth / (entryHeight);
@@ -217,8 +195,7 @@ class __ProductsGridState extends State<_ProductsGrid> {
                 index: index,
                 onTap: () {
                   widget.onProductTap(product.productId);
-                }
-            );
+                });
           },
           noItemsFoundBuilder: this._noItemsFoundBuilder,
         );
@@ -227,18 +204,13 @@ class __ProductsGridState extends State<_ProductsGrid> {
   }
 }
 
-
 class Filters extends StatelessWidget {
-
   final List<SortOptionModel> sortOptions;
 
-  Filters({
-    this.sortOptions
-  });
+  Filters({this.sortOptions});
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         Row(
@@ -254,10 +226,11 @@ class Filters extends StatelessWidget {
                     tTitle(context, 'filter'),
                     style: cancelArabicFontDelta(context),
                   ),
-                  icon: Icon(Icons.filter_list)
-              ),
+                  icon: Icon(Icons.filter_list)),
             ),
-            SizedBox(width: 1.0,),
+            SizedBox(
+              width: 1.0,
+            ),
             Expanded(
               child: FlatButton.icon(
                   color: MomdayColors.MomdayGray,
@@ -268,8 +241,7 @@ class Filters extends StatelessWidget {
                     tTitle(context, 'sort'),
                     style: cancelArabicFontDelta(context),
                   ),
-                  icon: Icon(Icons.sort)
-              ),
+                  icon: Icon(Icons.sort)),
             ),
           ],
         ),
@@ -281,20 +253,19 @@ class Filters extends StatelessWidget {
     final parentContext = context;
 
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: FilterDialog(
-            parentContext: parentContext,
-          ),
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: FilterDialog(
+              parentContext: parentContext,
+            ),
+          );
+        });
   }
 
   _showSortOptions(BuildContext context) {
-
-    final ProductListBloc productListBloc = BlocProvider.of<ProductListBloc>(context);
+    final ProductListBloc productListBloc =
+        BlocProvider.of<ProductListBloc>(context);
 
     List<Widget> sortOptions = this.sortOptions.map((option) {
       return SortOption(
@@ -302,7 +273,8 @@ class Filters extends StatelessWidget {
         name: option.name,
         title: option.title,
         isFirst: option == this.sortOptions.first,
-        isSelected: productListBloc.filterAndSortChoices.sortOption == option.name,
+        isSelected:
+            productListBloc.filterAndSortChoices.sortOption == option.name,
         selectedDirection: productListBloc.filterAndSortChoices.sortDirection,
         ascendingText: option.ascendingText,
         descendingText: option.descendingText,
@@ -312,35 +284,29 @@ class Filters extends StatelessWidget {
     }).toList();
 
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      tSentence(context, 'sort_by'),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        tSentence(context, 'sort_by'),
+                        style: TextStyle(fontWeight: FontWeight.w600),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              ListView(
-                shrinkWrap: true,
-                children: sortOptions
-              ),
-            ],
-          ),
-        );
-      }
-    );
+                ListView(shrinkWrap: true, children: sortOptions),
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -363,7 +329,6 @@ class SortOptionModel {
 }
 
 class SortOption extends StatelessWidget {
-
   final BuildContext parentContext;
   final String name;
   final String title;
@@ -391,80 +356,86 @@ class SortOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return this._getExpansionTile(
-      text: this.title,
-      isSelected: this.isSelected,
-      children: this.supportsDirectional? [
-        DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-            border: Border(
-              top: Divider.createBorderSide(context),
-              bottom: Divider.createBorderSide(context)
-            )
-          ),
-          child: ListTile(
-            title: Text(
-              this.ascendingText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: this.isSelected && this.selectedDirection == 'asc'? MomdayColors.MomdayGold : null
-              ),
-            ),
-            onTap: () {
-              BlocProvider.of<ProductListBloc>(this.parentContext).setSortOption(this.name, 'asc');
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-        DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: Divider.createBorderSide(context)
-            )
-          ),
-          child: ListTile(
-            title: Text(
-              this.descendingText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: this.isSelected && this.selectedDirection == 'desc'? MomdayColors.MomdayGold : null
-              ),
-            ),
-            onTap: () {
-              BlocProvider.of<ProductListBloc>(this.parentContext).setSortOption(this.name, 'desc');
-              Navigator.of(context).pop();
-            },
-          ),
-        )
-      ] : [],
-      onTap: () {
-        if (!this.supportsDirectional) {
-          // Then tapping it should cause it to become selected
-          BlocProvider.of<ProductListBloc>(this.parentContext).setSortOption(this.name, this.defaultDirection);
-          Navigator.of(context).pop();
-        }
-      }
-    );
+        text: this.title,
+        isSelected: this.isSelected,
+        children: this.supportsDirectional
+            ? [
+                DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          top: Divider.createBorderSide(context),
+                          bottom: Divider.createBorderSide(context))),
+                  child: ListTile(
+                    title: Text(
+                      this.ascendingText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color:
+                              this.isSelected && this.selectedDirection == 'asc'
+                                  ? MomdayColors.Momdaypink
+                                  : null),
+                    ),
+                    onTap: () {
+                      BlocProvider.of<ProductListBloc>(this.parentContext)
+                          .setSortOption(this.name, 'asc');
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: BoxDecoration(
+                      border:
+                          Border(bottom: Divider.createBorderSide(context))),
+                  child: ListTile(
+                    title: Text(
+                      this.descendingText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: this.isSelected &&
+                                  this.selectedDirection == 'desc'
+                              ? MomdayColors.Momdaypink
+                              : null),
+                    ),
+                    onTap: () {
+                      BlocProvider.of<ProductListBloc>(this.parentContext)
+                          .setSortOption(this.name, 'desc');
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                )
+              ]
+            : [],
+        onTap: () {
+          if (!this.supportsDirectional) {
+            // Then tapping it should cause it to become selected
+            BlocProvider.of<ProductListBloc>(this.parentContext)
+                .setSortOption(this.name, this.defaultDirection);
+            Navigator.of(context).pop();
+          }
+        });
   }
 
-  Widget _getExpansionTile({String text, bool isSelected, List<Widget> children, GestureTapCallback onTap}) {
+  Widget _getExpansionTile(
+      {String text,
+      bool isSelected,
+      List<Widget> children,
+      GestureTapCallback onTap}) {
     return Container(
       foregroundDecoration: BoxDecoration(
         border: Border(
-          top: this.isFirst? BorderSide() : BorderSide.none,
-          bottom: BorderSide()
-        ),
+            top: this.isFirst ? BorderSide() : BorderSide.none,
+            bottom: BorderSide()),
       ),
       child: ExpansionTile(
         title: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: isSelected? MomdayColors.MomdayGold : Colors.black,
+              color: isSelected ? MomdayColors.Momdaypink : Colors.black,
               fontWeight: FontWeight.w600,
-              fontSize: 18.0
-          ),
+              fontSize: 18.0),
         ),
         trailing: Container(
           height: 0.0,
@@ -472,14 +443,13 @@ class SortOption extends StatelessWidget {
         ),
         children: children,
         // If children are empty, then we treat it like a list tile
-        onExpansionChanged: children.isEmpty? (_) => onTap() : null,
+        onExpansionChanged: children.isEmpty ? (_) => onTap() : null,
       ),
     );
   }
 }
 
 class FilterDialog extends StatefulWidget {
-
   final BuildContext parentContext;
 
   FilterDialog({this.parentContext});
@@ -488,8 +458,8 @@ class FilterDialog extends StatefulWidget {
   _FilterDialogState createState() => _FilterDialogState();
 }
 
-class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMixin {
-
+class _FilterDialogState extends State<FilterDialog>
+    with TickerProviderStateMixin {
   List<FilterGroupModel> filterGroups;
   Map<String, String> selectedFilters;
   String selectedBrandId;
@@ -500,16 +470,20 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final ProductListBloc productListBloc = BlocProvider.of<ProductListBloc>(widget.parentContext);
+    final ProductListBloc productListBloc =
+        BlocProvider.of<ProductListBloc>(widget.parentContext);
 
     this.filterGroups = CategoryModel.findCategoryWithId(
-      categories: AppStateManager.of(context).categories,
-      categoryId: productListBloc.filterAndSortChoices.selectedCategoryId
-    )?.filterGroups ?? [];
+                categories: AppStateManager.of(context).categories,
+                categoryId:
+                    productListBloc.filterAndSortChoices.selectedCategoryId)
+            ?.filterGroups ??
+        [];
 
     this.selectedFilters = productListBloc.filterAndSortChoices.selectedFilters;
     this.selectedBrandId = productListBloc.filterAndSortChoices.selectedBrandId;
-    this.selectedCategoryId = productListBloc.filterAndSortChoices.selectedCategoryId;
+    this.selectedCategoryId =
+        productListBloc.filterAndSortChoices.selectedCategoryId;
 
     this._resetTabController();
   }
@@ -517,14 +491,16 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
   void _resetTabController() {
     int initialIndex = 0;
     if (this._tabController != null) {
-
       // same index as the previous tab controller
       initialIndex = this._tabController.index;
       if (initialIndex > this.filterGroups.length + 1) {
         initialIndex = this.filterGroups.length + 1;
       }
     }
-    this._tabController = TabController(length: this.filterGroups.length + 2, vsync: this, initialIndex: initialIndex);
+    this._tabController = TabController(
+        length: this.filterGroups.length + 2,
+        vsync: this,
+        initialIndex: initialIndex);
   }
 
   @override
@@ -533,53 +509,45 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
       children: <Widget>[
         SizedBox(height: 8.0),
         TabBar(
-          controller: this._tabController,
-          indicator: BoxDecoration(),
-          labelStyle: TextStyle(
-            fontSize: 18.0
-          ),
-          indicatorWeight: 1.0,
-          labelColor: MomdayColors.MomdayGold,
-          unselectedLabelColor: Colors.black.withOpacity(0.5),
-          tabs: [
-            FittedBox(
-              child: Tab(
-                text: tTitle(context, 'brand'),
-              ),
-            ),
-            FittedBox(
-              child: Tab(
-                text: tTitle(context, 'category'),
-              ),
-            )
-          ]..addAll(
-            this.filterGroups.map((filterGroup) =>
+            controller: this._tabController,
+            indicator: BoxDecoration(),
+            labelStyle: TextStyle(fontSize: 18.0),
+            indicatorWeight: 1.0,
+            labelColor: MomdayColors.Momdaypink,
+            unselectedLabelColor: Colors.black.withOpacity(0.5),
+            tabs: [
               FittedBox(
                 child: Tab(
-                  text: filterGroup.name,
+                  text: tTitle(context, 'brand'),
+                ),
+              ),
+              FittedBox(
+                child: Tab(
+                  text: tTitle(context, 'category'),
                 ),
               )
-            ).toList()
-          )
-        ),
+            ]..addAll(this
+                .filterGroups
+                .map((filterGroup) => FittedBox(
+                      child: Tab(
+                        text: filterGroup.name,
+                      ),
+                    ))
+                .toList())),
         Expanded(
           child: TabBarView(
-            controller: this._tabController,
-            children: [
-              ListView(
-                children: this._getBrandTiles(context),
-              ),
-              ListView(
-                children: this._getCategoryTiles(context)
-              )
-            ]..addAll(
-              this.filterGroups.map((filterGroup) =>
+              controller: this._tabController,
+              children: [
                 ListView(
-                  children: this._getFilterTiles(context, filterGroup),
-                )
-              ).toList()
-            )
-          ),
+                  children: this._getBrandTiles(context),
+                ),
+                ListView(children: this._getCategoryTiles(context))
+              ]..addAll(this
+                  .filterGroups
+                  .map((filterGroup) => ListView(
+                        children: this._getFilterTiles(context, filterGroup),
+                      ))
+                  .toList())),
         ),
         Row(
           children: <Widget>[
@@ -588,15 +556,15 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
                 shape: Border(),
                 padding: EdgeInsets.all(16.0),
                 colorBrightness: Brightness.dark,
-                color: MomdayColors.MomdayGold,
+                color: MomdayColors.Momdaypink,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: FittedBox(
-                  child: Text(
-                    tUpper(context, 'apply_filters')
-                  ),
+                  child: Text(tUpper(context, 'apply_filters')),
                 ),
                 onPressed: () {
-                  BlocProvider.of<ProductListBloc>(widget.parentContext).applyFilters(this.selectedCategoryId, this.selectedBrandId, this.selectedFilters);
+                  BlocProvider.of<ProductListBloc>(widget.parentContext)
+                      .applyFilters(this.selectedCategoryId,
+                          this.selectedBrandId, this.selectedFilters);
                   Navigator.of(context).pop();
                 },
               ),
@@ -609,12 +577,11 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
                 color: Colors.black,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: FittedBox(
-                  child: Text(
-                    tUpper(context, 'clear_filters')
-                  ),
+                  child: Text(tUpper(context, 'clear_filters')),
                 ),
                 onPressed: () {
-                  BlocProvider.of<ProductListBloc>(widget.parentContext).clearFilters();
+                  BlocProvider.of<ProductListBloc>(widget.parentContext)
+                      .clearFilters();
                   Navigator.of(context).pop();
                 },
               ),
@@ -625,46 +592,48 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
     );
   }
 
-  List<Widget> _getFilterTiles(BuildContext context, FilterGroupModel filterGroup) {
-    return filterGroup.filters.map((filter) =>
-      this._getTile(
-        text: filter.name,
-        isFirst: filter == filterGroup.filters.first,
-        isSelected: this.selectedFilters[filterGroup.filterGroupId] == filter.filterId,
-        onTap: () {
-          setState(() {
-            this.selectedFilters[filterGroup.filterGroupId] = filter.filterId;
-          });
-        },
-      )
-    ).toList();
+  List<Widget> _getFilterTiles(
+      BuildContext context, FilterGroupModel filterGroup) {
+    return filterGroup.filters
+        .map((filter) => this._getTile(
+              text: filter.name,
+              isFirst: filter == filterGroup.filters.first,
+              isSelected: this.selectedFilters[filterGroup.filterGroupId] ==
+                  filter.filterId,
+              onTap: () {
+                setState(() {
+                  this.selectedFilters[filterGroup.filterGroupId] =
+                      filter.filterId;
+                });
+              },
+            ))
+        .toList();
   }
 
   List<Widget> _getBrandTiles(BuildContext context) {
-
     final brands = AppStateManager.of(context).brands;
 
-    return brands.map((brand) =>
-      this._getTile(
-        text: brand.name,
-        isFirst: brand == brands.first,
-        isSelected: this.selectedBrandId == brand.brandId,
-        onTap: () {
-          setState(() {
-            this.selectedBrandId = brand.brandId;
-          });
-        },
-      )
-    ).toList();
+    return brands
+        .map((brand) => this._getTile(
+              text: brand.name,
+              isFirst: brand == brands.first,
+              isSelected: this.selectedBrandId == brand.brandId,
+              onTap: () {
+                setState(() {
+                  this.selectedBrandId = brand.brandId;
+                });
+              },
+            ))
+        .toList();
   }
 
-  Widget _getTile({String text, bool isSelected, GestureTapCallback onTap, bool isFirst}) {
+  Widget _getTile(
+      {String text, bool isSelected, GestureTapCallback onTap, bool isFirst}) {
     return Container(
       foregroundDecoration: BoxDecoration(
         border: Border(
-          top: isFirst? BorderSide() : BorderSide.none,
-          bottom: BorderSide()
-        ),
+            top: isFirst ? BorderSide() : BorderSide.none,
+            bottom: BorderSide()),
       ),
       child: Material(
         color: Colors.white,
@@ -675,10 +644,9 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: isSelected? MomdayColors.MomdayGold : Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 18.0
-              ),
+                  color: isSelected ? MomdayColors.Momdaypink : Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.0),
             ),
           ),
           onTap: onTap,
@@ -687,53 +655,54 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
     );
   }
 
-  Widget _getExpansionTile({String text, bool isSelected, List<Widget> children: const [], bool isFirst, GestureTapCallback onTap}) {
+  Widget _getExpansionTile(
+      {String text,
+      bool isSelected,
+      List<Widget> children: const [],
+      bool isFirst,
+      GestureTapCallback onTap}) {
     return Container(
       foregroundDecoration: BoxDecoration(
         border: Border(
-          top: isFirst? BorderSide() : BorderSide.none,
-          bottom: BorderSide()
-        ),
+            top: isFirst ? BorderSide() : BorderSide.none,
+            bottom: BorderSide()),
       ),
       child: ExpansionTile(
         title: Text(
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isSelected? MomdayColors.MomdayGold : Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: 18.0
-          ),
+              color: isSelected ? MomdayColors.Momdaypink : Colors.black,
+              fontWeight: FontWeight.w600,
+              fontSize: 18.0),
         ),
         trailing: Container(
           height: 0.0,
           width: 0.0,
         ),
         children: children,
-        onExpansionChanged: children.isEmpty? (_) => onTap() : null,
+        onExpansionChanged: children.isEmpty ? (_) => onTap() : null,
       ),
     );
   }
 
   _getCategoryTiles(BuildContext context) {
-
     return [
       this._getExpansionTile(
-        text: tTitle(context, 'all'),
-        isSelected: this.selectedCategoryId == null,
-        isFirst: true,
-        onTap: () {
-          setState(() {
-            this.selectedCategoryId = null;
-            this.filterGroups = [];
-            this.selectedFilters = {};
-            this._resetTabController();
-          });
-        }
-      )
+          text: tTitle(context, 'all'),
+          isSelected: this.selectedCategoryId == null,
+          isFirst: true,
+          onTap: () {
+            setState(() {
+              this.selectedCategoryId = null;
+              this.filterGroups = [];
+              this.selectedFilters = {};
+              this._resetTabController();
+            });
+          })
     ]..addAll(AppStateManager.of(context).categories.map((cat) {
-      return this._getCategoryTile(context, cat);
-    }));
+        return this._getCategoryTile(context, cat);
+      }));
   }
 
   Widget _getCategoryTile(BuildContext context, CategoryModel category) {
@@ -746,17 +715,16 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
           decoration: BoxDecoration(
               border: Border(
                   top: Divider.createBorderSide(context),
-                  bottom: Divider.createBorderSide(context)
-              )
-          ),
+                  bottom: Divider.createBorderSide(context))),
           child: ListTile(
             title: Text(
               tTitle(context, 'all'),
               textAlign: TextAlign.center,
               style: cancelArabicFontDelta(context).copyWith(
-                  color: this.selectedCategoryId == category.categoryId? MomdayColors.MomdayGold : Colors.black,
-                  fontSize: 16.0
-              ),
+                  color: this.selectedCategoryId == category.categoryId
+                      ? MomdayColors.Momdaypink
+                      : Colors.black,
+                  fontSize: 16.0),
             ),
             onTap: () {
               setState(() {
@@ -769,48 +737,43 @@ class _FilterDialogState extends State<FilterDialog> with TickerProviderStateMix
             },
           ),
         )
-      ]..addAll(
-        category.subCategories.map((subcategory) => DecoratedBox(
-          position: DecorationPosition.foreground,
-          decoration: BoxDecoration(
-              border: Border(
-                  bottom: Divider.createBorderSide(context)
-              )
-          ),
-          child: ListTile(
-            title:
-            subcategory.name != null?
-            Text(
-                titlecase(subcategory.name),
-                textAlign: TextAlign.center,
-                style: cancelArabicFontDelta(context).copyWith(
-                    color: this.selectedCategoryId == subcategory.categoryId? MomdayColors.MomdayGold : Colors.black,
-                    fontSize: 16.0
-                )
-            ):Container(),
-            onTap: () {
-              setState(() {
-                this.selectedCategoryId = subcategory.categoryId;
-                this.filterGroups = subcategory.filterGroups ?? [];
-                this.selectedFilters = {};
-                this._resetTabController();
-              });
-            },
-          ),
-        ))
-      );
+      ]..addAll(category.subCategories.map((subcategory) => DecoratedBox(
+            position: DecorationPosition.foreground,
+            decoration: BoxDecoration(
+                border: Border(bottom: Divider.createBorderSide(context))),
+            child: ListTile(
+              title: subcategory.name != null
+                  ? Text(titlecase(subcategory.name),
+                      textAlign: TextAlign.center,
+                      style: cancelArabicFontDelta(context).copyWith(
+                          color:
+                              this.selectedCategoryId == subcategory.categoryId
+                                  ? MomdayColors.Momdaypink
+                                  : Colors.black,
+                          fontSize: 16.0))
+                  : Container(),
+              onTap: () {
+                setState(() {
+                  this.selectedCategoryId = subcategory.categoryId;
+                  this.filterGroups = subcategory.filterGroups ?? [];
+                  this.selectedFilters = {};
+                  this._resetTabController();
+                });
+              },
+            ),
+          )));
     }
 
     return this._getExpansionTile(
-      text: category.name,
-      isSelected: this.selectedCategoryId == category.categoryId || category.isSubCategory(this.selectedCategoryId),
-      children: childTiles,
-      isFirst: false,
-      onTap: () {
-        setState(() {
-          this.selectedCategoryId = category.categoryId;
+        text: category.name,
+        isSelected: this.selectedCategoryId == category.categoryId ||
+            category.isSubCategory(this.selectedCategoryId),
+        children: childTiles,
+        isFirst: false,
+        onTap: () {
+          setState(() {
+            this.selectedCategoryId = category.categoryId;
+          });
         });
-      }
-    );
   }
 }

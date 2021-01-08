@@ -319,7 +319,7 @@
 //                                          " " + tTitle(context, "view_remark"),
 //                                          style: TextStyle(
 //                                            fontSize: 16.0,
-//                                            color: MomdayColors.MomdayGold
+//                                            color: MomdayColors.Momdaypink
 //                                          )
 //                                      )
 //                                    ):Container(),

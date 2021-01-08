@@ -14,8 +14,8 @@ class AddressListScreen extends StatefulWidget {
 }
 
 class _AddressListScreenState extends State<AddressListScreen> {
-
-  final GlobalKey<ElegantMemoizedFutureBuilderState> _futureBuilder = GlobalKey<ElegantMemoizedFutureBuilderState>();
+  final GlobalKey<ElegantMemoizedFutureBuilderState> _futureBuilder =
+      GlobalKey<ElegantMemoizedFutureBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +26,17 @@ class _AddressListScreenState extends State<AddressListScreen> {
           PageHeader2(
             title: tTitle(context, 'my_addresses'),
           ),
-          SizedBox(height: 16.0,),
+          SizedBox(
+            height: 16.0,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElegantMemoizedFutureBuilder(
               key: this._futureBuilder,
               futureCallBack: () => MomdayBackend().getAddresses(),
               contentBuilder: (context, data) {
-                List addresses = AddressModel.fromDynamicListOrMap(data['data']);
+                List addresses =
+                    AddressModel.fromDynamicListOrMap(data['data']);
 
                 return ExistingAddresses(
                   onAddressesModified: () {
@@ -47,36 +50,36 @@ class _AddressListScreenState extends State<AddressListScreen> {
               },
             ),
           ),
-          SizedBox(height: 8.0,),
+          SizedBox(
+            height: 8.0,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 RaisedButton(
-                  color: MomdayColors.MomdayGold,
+                  color: MomdayColors.Momdaypink,
                   colorBrightness: Brightness.dark,
                   padding: EdgeInsets.symmetric(
-                      vertical: ButtonTheme.of(context).padding.along(Axis.vertical),
-                      horizontal: 3.0
-                  ),
+                      vertical:
+                          ButtonTheme.of(context).padding.along(Axis.vertical),
+                      horizontal: 3.0),
                   child: Text(
                     tUpper(context, 'add_address'),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w800
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w800),
                   ),
                   onPressed: () async {
-                    final bool addressAdded = await Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(builder: (context) => ManageAddressScreen())
-                    );
+                    final bool addressAdded =
+                        await Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => ManageAddressScreen()));
 
                     if (addressAdded) {
                       setState(() {
                         this._futureBuilder.currentState.reset();
                       });
                     }
-
                   },
                 )
               ],

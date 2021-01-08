@@ -4,7 +4,6 @@ import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 
 class CelebrityButton extends StatefulWidget {
-
   final String productId;
 
   CelebrityButton({this.productId});
@@ -16,7 +15,6 @@ class CelebrityButton extends StatefulWidget {
 }
 
 class CelebrityButtonState extends State<CelebrityButton> {
-
   bool _isPerformingAction;
 
   @override
@@ -27,24 +25,21 @@ class CelebrityButtonState extends State<CelebrityButton> {
 
   @override
   Widget build(BuildContext context) {
-
     final appStateManager = AppStateManager.of(context);
 
     final containedInStore = appStateManager.account.isCelebrity &&
         appStateManager.account.store.productIds.contains(widget.productId);
 
-    final buttonColor = containedInStore?
-        MomdayColors.MomdayGold : Colors.black;
+    final buttonColor =
+        containedInStore ? MomdayColors.Momdaypink : Colors.black;
 
-    final buttonText = !containedInStore? 'add_to_my_store' : 'in_my_my_store';
+    final buttonText = !containedInStore ? 'add_to_my_store' : 'in_my_my_store';
 
     final loading = SizedBox(
       height: 18.0,
       width: 18.0,
       child: Theme(
-        data: ThemeData(
-          accentColor: Colors.white
-        ),
+        data: ThemeData(accentColor: Colors.white),
         child: CircularProgressIndicator(
           strokeWidth: 3.0,
         ),
@@ -56,11 +51,11 @@ class CelebrityButtonState extends State<CelebrityButton> {
       colorBrightness: Brightness.dark,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: Border(),
-      child: this._isPerformingAction? loading : FittedBox(
-        child: Text(
-          tUpper(context, buttonText)
-        ),
-      ),
+      child: this._isPerformingAction
+          ? loading
+          : FittedBox(
+              child: Text(tUpper(context, buttonText)),
+            ),
       onPressed: () => this._handleButtonPress(containedInStore),
     );
   }
@@ -72,13 +67,11 @@ class CelebrityButtonState extends State<CelebrityButton> {
       });
 
       if (!containedInStore) {
-        await AppStateManager.of(context).addToMyCelebrityStore(
-            productId: this.widget.productId
-        );
+        await AppStateManager.of(context)
+            .addToMyCelebrityStore(productId: this.widget.productId);
       } else {
-        await AppStateManager.of(context).removeFromMyCelebrityStore(
-            productId: this.widget.productId
-        );
+        await AppStateManager.of(context)
+            .removeFromMyCelebrityStore(productId: this.widget.productId);
       }
 
       setState(() {

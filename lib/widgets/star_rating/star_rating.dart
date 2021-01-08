@@ -4,45 +4,43 @@ import 'package:momday_app/styles/momday_colors.dart';
 typedef void RatingChangeCallback(double rating);
 
 class StarRatingFormField extends FormField<double> {
-  StarRatingFormField({
-    double iconSize,
-    Color color: MomdayColors.MomdayGold,
-    onSaved,
-    validator,
-    double initialValue: 0.0,
-    bool autovalidate: false
-  }) : super(
-    onSaved: onSaved,
-    validator: validator,
-    initialValue: initialValue,
-    autovalidate: autovalidate,
-    builder: (state) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          StarRating(
-            color: color,
-            iconSize: iconSize,
-            readOnly: false,
-            rating: state.value,
-            onRatingChanged: (rating) {
-              state.didChange(rating);
-            },
-          ),
-          state.hasError && state.errorText != null ? Builder(
-            builder: (context) =>
-              Text(
-                state.errorText,
-                style: TextStyle(
-                  color: Theme.of(context).errorColor
-                ),
-              ),
-          ) :
-          Container()
-        ],
-      );
-    }
-  );
+  StarRatingFormField(
+      {double iconSize,
+      Color color: MomdayColors.Momdaypink,
+      onSaved,
+      validator,
+      double initialValue: 0.0,
+      bool autovalidate: false})
+      : super(
+            onSaved: onSaved,
+            validator: validator,
+            initialValue: initialValue,
+            autovalidate: autovalidate,
+            builder: (state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  StarRating(
+                    color: color,
+                    iconSize: iconSize,
+                    readOnly: false,
+                    rating: state.value,
+                    onRatingChanged: (rating) {
+                      state.didChange(rating);
+                    },
+                  ),
+                  state.hasError && state.errorText != null
+                      ? Builder(
+                          builder: (context) => Text(
+                            state.errorText,
+                            style:
+                                TextStyle(color: Theme.of(context).errorColor),
+                          ),
+                        )
+                      : Container()
+                ],
+              );
+            });
 }
 
 class StarRating extends StatelessWidget {
@@ -52,7 +50,12 @@ class StarRating extends StatelessWidget {
   final double iconSize;
   final Color color;
 
-  StarRating({this.rating = 0.0, this.onRatingChanged, this.readOnly, this.iconSize, this.color = MomdayColors.MomdayGold});
+  StarRating(
+      {this.rating = 0.0,
+      this.onRatingChanged,
+      this.readOnly,
+      this.iconSize,
+      this.color = MomdayColors.Momdaypink});
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
@@ -76,13 +79,16 @@ class StarRating extends StatelessWidget {
       );
     }
     return new InkResponse(
-      onTap: readOnly || onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
+      onTap: readOnly || onRatingChanged == null
+          ? null
+          : () => onRatingChanged(index + 1.0),
       child: icon,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Row(children: new List.generate(5, (index) => buildStar(context, index)));
+    return new Row(
+        children: new List.generate(5, (index) => buildStar(context, index)));
   }
 }

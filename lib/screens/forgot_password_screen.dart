@@ -25,22 +25,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-            icon: Icon(
-              getLocalizedBackwardArrowIcon(context),
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          leading: IconButton(
+              icon: Icon(
+                getLocalizedBackwardArrowIcon(context),
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
         ),
-      ),
-      backgroundColor: Colors.white,
-      body: Builder(
-        builder: (BuildContext context) {
+        backgroundColor: Colors.white,
+        body: Builder(builder: (BuildContext context) {
           return Center(
             child: Form(
               key: this._formKey,
@@ -48,27 +46,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 children: <Widget>[
                   SizedBox(height: 10.0),
-                  Text(
-                      tTitle(context, 'no_worries'),
+                  Text(tTitle(context, 'no_worries'),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.w600
-                      )
+                          fontSize: 40.0, fontWeight: FontWeight.w600)),
+                  SizedBox(
+                    height: 30.0,
                   ),
-                  SizedBox(height: 30.0,),
-                  Text(
-                    tSentence(context, 'forgot_password_instructions')
-                  ),
+                  Text(tSentence(context, 'forgot_password_instructions')),
                   SizedBox(height: 10.0),
                   Theme(
-                    data: ThemeData(
-                      primaryColor: MomdayColors.MomdayGold
-                    ),
+                    data: ThemeData(primaryColor: MomdayColors.Momdaypink),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
-                      decoration: getMomdayInputDecoration(tTitle(context, 'email')),
+                      decoration:
+                          getMomdayInputDecoration(tTitle(context, 'email')),
                       validator: (value) {
                         if (value.isEmpty) {
                           return tSentence(context, 'field_required');
@@ -79,44 +72,35 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   SizedBox(height: 10.0),
                   RaisedButton(
-                    color: MomdayColors.MomdayGold,
-                    child: this._isSendingPassword?
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: SizedBox(
-                          height: 24.0,
-                          width: 24.0,
-                          child: Theme(
-                            data: ThemeData(
-                                accentColor: Colors.white
-                            ),
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            ),
+                    color: MomdayColors.Momdaypink,
+                    child: this._isSendingPassword
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: SizedBox(
+                              height: 24.0,
+                              width: 24.0,
+                              child: Theme(
+                                data: ThemeData(accentColor: Colors.white),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3.0,
+                                ),
+                              ),
+                            ))
+                        : ListTile(
+                            title: Text(tSentence(context, 'send'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600)),
                           ),
-                        )
-                      ) :
-                      ListTile(
-                        title: Text(
-                          tSentence(context, 'send'),
-                          textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600
-                            )
-                        ),
-                      ),
                     onPressed: () => this._onSendPassword(context),
                   ),
                 ],
               ),
             ),
           );
-        }
-      )
-    );
-
+        }));
   }
 
   _onSendPassword(BuildContext context) async {
@@ -143,4 +127,3 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     }
   }
 }
-

@@ -7,6 +7,11 @@ import 'package:momday_app/search/momday_search_delegate.dart';
 import 'package:momday_app/search/search_helpers.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 
+import '../styles/momday_colors.dart';
+import '../styles/momday_colors.dart';
+import '../styles/momday_colors.dart';
+import '../styles/momday_colors.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -31,12 +36,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bl = const Color(0xff8FDBE9);
-    final gr = const Color(0xff01653F);
-    final pink = const Color(0xffFCC0C0);
-    final darkbl = const Color(0xff043287);
-    final yellow = const Color(0xffFDAF31);
-
     return WillPopScope(
       onWillPop: () async {
         return !await _navigatorKeys[_currentIndex].currentState.maybePop();
@@ -52,8 +51,8 @@ class _MainScreenState extends State<MainScreen> {
                     5, (int index) => this._buildOffstageNavigator(index)))),
         bottomNavigationBar: Theme(
           data: ThemeData(
-            canvasColor: Colors.black,
-            primaryColor: MomdayColors.MomdayGold,
+            canvasColor: MomdayColors.MomdayDarkBlue,
+            primaryColor: MomdayColors.Momdaypink,
           ),
           child: BottomNavigationBar(
               currentIndex: this._currentIndex,
@@ -266,10 +265,10 @@ class MomdayDrawer extends StatelessWidget {
                 width: 200.0,
               ),
               contentPadding: EdgeInsetsDirectional.only(
-                  top: 20.0, bottom: 10.0, start: 30.0),
+                  top: 80.0, bottom: 10.0, start: 40.0),
             ),
             Divider(
-              color: Colors.black,
+              color: MomdayColors.MomdayDarkBlue,
             )
           ]
         : [];
@@ -284,7 +283,7 @@ class MomdayDrawer extends StatelessWidget {
               IconThemeData(size: 28.0, color: Colors.white, opacity: 0.9),
           dividerColor: Colors.black),
       child: Padding(
-        padding: MediaQuery.of(context).padding,
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.75,
           child: Drawer(
@@ -297,7 +296,7 @@ class MomdayDrawer extends StatelessWidget {
                         leading: Icon(Icons.person_outline),
                         title: Text(tTitle(context, 'my_account')),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 7.0, horizontal: 16.0),
+                            vertical: 12.0, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushNamed('/my-account');
@@ -318,7 +317,7 @@ class MomdayDrawer extends StatelessWidget {
                                   TextStyle(color: MomdayColors.MomdayDarkBlue),
                             ),
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 7.0, horizontal: 16.0),
+                                vertical: 12.0, horizontal: 16.0),
                             onTap: () {
                               Navigator.of(context).pop();
                               Navigator.of(context).pushNamed('/login');
@@ -330,7 +329,7 @@ class MomdayDrawer extends StatelessWidget {
                         leading: Icon(Icons.shop),
                         title: Text(tTitle(context, 'my_store')),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 7.0, horizontal: 16.0),
+                            vertical: 12.0, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           MainScreen.of(context).navigateToTab(1,
@@ -345,7 +344,7 @@ class MomdayDrawer extends StatelessWidget {
 //                ListTile(
 //                  leading: Icon(Icons.style),
 //                  title: Text(tTitle(context, 'my_list')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/my-list');
 //                    Navigator.of(context).pop();
@@ -359,7 +358,7 @@ class MomdayDrawer extends StatelessWidget {
 //                    number: appStateManager.notifications?.length,
 //                  ),
 //                  title: Text(tTitle(context, 'notifications')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/wishlist');
 //                    Navigator.of(context).pop();
@@ -373,7 +372,7 @@ class MomdayDrawer extends StatelessWidget {
 //                    number: appStateManager.wishlist?.products?.length,
 //                  ),
 //                  title: Text(tTitle(context, 'wishlist')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/wishlist');
 //                    Navigator.of(context).pop();
@@ -393,7 +392,7 @@ class MomdayDrawer extends StatelessWidget {
                       style: TextStyle(color: MomdayColors.MomdayDarkYellow),
                     ),
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                   ),
                   color: MomdayColors.MomdayDarkGreen,
                 ),
@@ -406,7 +405,7 @@ class MomdayDrawer extends StatelessWidget {
                     title: Text(languageCode == 'en' ? 'العربية' : 'English',
                         style: TextStyle(color: MomdayColors.MomdayRed)),
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                     onTap: () async {
                       if (languageCode == 'en') {
                         MomdayApp.updateLocale(context, Locale('ar'));
@@ -430,7 +429,7 @@ class MomdayDrawer extends StatelessWidget {
                         ),
                         style: TextStyle(color: MomdayColors.Momdaypink)),
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                   ),
                   color: MomdayColors.MomdayDarkBlue,
                 ),
@@ -442,7 +441,7 @@ class MomdayDrawer extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                   ),
                   color: MomdayColors.MomdayDarkYellow,
                 ),
@@ -468,6 +467,7 @@ class IconWithNumber extends StatelessWidget {
       this.isButton
           ? IconButton(
               icon: Icon(this.iconData),
+              color: MomdayColors.MomdayDarkBlue,
               onPressed: this.onTap,
             )
           : Icon(

@@ -19,7 +19,6 @@ import 'package:momday_app/widgets/page_header/page_header.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class MomsayPostScreen extends StatefulWidget {
-
   final String postId;
 
   MomsayPostScreen({this.postId});
@@ -31,7 +30,6 @@ class MomsayPostScreen extends StatefulWidget {
 }
 
 class MomsayPostScreenState extends State<MomsayPostScreen> {
-
   MomsayPostBloc bloc;
 
   final _scrollController = ScrollController();
@@ -39,19 +37,17 @@ class MomsayPostScreenState extends State<MomsayPostScreen> {
   @override
   void initState() {
     super.initState();
-    this.bloc = MomsayPostBloc(
-      postId: this.widget.postId
-    );
+    this.bloc = MomsayPostBloc(postId: this.widget.postId);
 
     this.bloc.init();
 
     this.bloc.actionStream.forEach((action) {
-      if (action.type == MomsayPostActionTypes.AddComment && action.data['parentCommentId'] == null) {
+      if (action.type == MomsayPostActionTypes.AddComment &&
+          action.data['parentCommentId'] == null) {
         this._scrollController.animateTo(
-          this._scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.linear
-        );
+            this._scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.linear);
       }
     });
   }
@@ -70,10 +66,7 @@ class MomsayPostScreenState extends State<MomsayPostScreen> {
                 title: tUpper(context, 'momsay'),
               ),
               SizedBox(height: 24.0),
-              BlocProvider(
-                bloc: this.bloc,
-                child: _MomsayPost()
-              )
+              BlocProvider(bloc: this.bloc, child: _MomsayPost())
             ],
           ),
         ),
@@ -92,87 +85,79 @@ class _MomsayPost extends StatelessWidget {
         return Column(
           children: <Widget>[
             MomdayCard(
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage:
+                child: Column(children: [
+              ListTile(
+                leading: CircleAvatar(
+                  backgroundImage:
 //                      post.author.image == null ?
-                        AssetImage("assets/images/no_image_author.png"),
+                      AssetImage("assets/images/no_image_author.png"),
 //            : CachedNetworkImageProvider(post.author.image),
-                      backgroundColor: MomdayColors.MomdayGray,
-                    ),
-                    title:
-                    post.author.name != null?
-                    Text(
-                      post.author.name.toUpperCase(),
-                      style: cancelArabicFontDelta(context).copyWith(
-                          color: MomdayColors.MomdayGold,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ):Container(),
-                    subtitle: InkWell(
-                      onTap: () => this._showAuthorBio(context, post.author),
-                      child: Text(
-                        tLower(context, 'view_author_bio'),
+                  backgroundColor: MomdayColors.MomdayGray,
+                ),
+                title: post.author.name != null
+                    ? Text(
+                        post.author.name.toUpperCase(),
                         style: cancelArabicFontDelta(context).copyWith(
-                          fontStyle: FontStyle.italic,
-                          color: MomdayColors.LocationGray
-                        ),
-                      ),
-                    ),
-                    trailing: Text(
-                      convertDateToUserFriendly(
-                          post.date,
-                          Localizations.localeOf(context).languageCode),
-                      textAlign: TextAlign.end,
-                      style: cancelArabicFontDelta(context).copyWith(
-                        color: MomdayColors.NoteGray,
-                      ),
-                    ),
+                            color: MomdayColors.Momdaypink,
+                            fontWeight: FontWeight.bold),
+                      )
+                    : Container(),
+                subtitle: InkWell(
+                  onTap: () => this._showAuthorBio(context, post.author),
+                  child: Text(
+                    tLower(context, 'view_author_bio'),
+                    style: cancelArabicFontDelta(context).copyWith(
+                        fontStyle: FontStyle.italic,
+                        color: MomdayColors.LocationGray),
                   ),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          post.name,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w600
-                          ),
-                        ),
-                        SizedBox(height: 8.0,),
-                        DefaultTextStyle(
-                          style: cancelArabicFontDelta(context),
-                          child: Html(
-                            data: post.description,
-                            onLinkTap: (link) {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(builder: (_) =>
-                                      WebviewScaffold(
+                ),
+                trailing: Text(
+                  convertDateToUserFriendly(
+                      post.date, Localizations.localeOf(context).languageCode),
+                  textAlign: TextAlign.end,
+                  style: cancelArabicFontDelta(context).copyWith(
+                    color: MomdayColors.NoteGray,
+                  ),
+                ),
+              ),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      post.name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    DefaultTextStyle(
+                      style: cancelArabicFontDelta(context),
+                      child: Html(
+                        data: post.description,
+                        onLinkTap: (link) {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(MaterialPageRoute(
+                                  builder: (_) => WebviewScaffold(
                                         url: link,
                                         appBar: AppBar(
                                           backgroundColor: Colors.white,
                                           iconTheme: IconThemeData(
-                                              color: MomdayColors.MomdayGold
-                                          ),
+                                              color: MomdayColors.Momdaypink),
                                         ),
-                                      )
-                                  ));
-                            },
-                          ),
-                        ),
-                      ],
+                                      )));
+                        },
+                      ),
                     ),
-                  ),
-                ]
-              )
-            ),
-              _CommentsAndLikes(),
+                  ],
+                ),
+              ),
+            ])),
+            _CommentsAndLikes(),
           ],
         );
       },
@@ -181,31 +166,27 @@ class _MomsayPost extends StatelessWidget {
 
   _showAuthorBio(BuildContext context, MomsayAuthorModel author) {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => MomsayAuthorBio(
-        author: author,
-      )
-    ));
+        builder: (context) => MomsayAuthorBio(
+              author: author,
+            )));
   }
 }
 
-
 class _CommentsAndLikes extends StatelessWidget {
-
   _CommentsAndLikes();
 
   @override
   Widget build(BuildContext context) {
-
     return LimitedBox(
       maxHeight: 500.0,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           _InteractWithPost(),
-          SizedBox(height: 16.0,),
-          Expanded(
-            child: _Comments()
-          )
+          SizedBox(
+            height: 16.0,
+          ),
+          Expanded(child: _Comments())
         ],
       ),
     );
@@ -218,7 +199,6 @@ class _Comments extends StatefulWidget {
 }
 
 class __CommentsState extends State<_Comments> {
-
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -226,13 +206,13 @@ class __CommentsState extends State<_Comments> {
     super.initState();
     final bloc = BlocProvider.of<MomsayPostBloc>(context);
     bloc.actionStream.forEach((action) {
-      if (action.type == MomsayPostActionTypes.AddComment && action.data['parentCommentId'] == null) {
+      if (action.type == MomsayPostActionTypes.AddComment &&
+          action.data['parentCommentId'] == null) {
         Timer(Duration(milliseconds: 500), () {
           this._scrollController.animateTo(
               this._scrollController.position.maxScrollExtent,
               duration: Duration(milliseconds: 500),
-              curve: Curves.easeOut
-          );
+              curve: Curves.easeOut);
         });
       }
     });
@@ -240,29 +220,26 @@ class __CommentsState extends State<_Comments> {
 
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<MomsayPostBloc>(context);
     final comments = bloc.postData.comments;
 
-    final commentsWidgets = comments.map((comment) =>
-      _Comment(
-        comment: comment,
-        repliable: true,
-      )
-    ).toList();
+    final commentsWidgets = comments
+        .map((comment) => _Comment(
+              comment: comment,
+              repliable: true,
+            ))
+        .toList();
 
     return Scrollbar(
       child: ListView(
-        controller: this._scrollController,
-        shrinkWrap: true,
-        children: commentsWidgets
-      ),
+          controller: this._scrollController,
+          shrinkWrap: true,
+          children: commentsWidgets),
     );
   }
 }
 
 class _Comment extends StatefulWidget {
-
   final CommentModel comment;
   final bool repliable; // can users reply to this comment
 
@@ -275,7 +252,6 @@ class _Comment extends StatefulWidget {
 }
 
 class _CommentState extends State<_Comment> {
-
   bool _areRepliesShown;
 
   final _writeCommentKey = GlobalKey<__WriteCommentState>();
@@ -288,7 +264,6 @@ class _CommentState extends State<_Comment> {
 
   @override
   Widget build(BuildContext context) {
-
     final commentBody = Container(
         padding: const EdgeInsets.all(8.0),
         color: MomdayColors.CommentBackgroundColor,
@@ -299,97 +274,96 @@ class _CommentState extends State<_Comment> {
               this.widget.comment.author,
               style: cancelArabicFontDelta(context).copyWith(
                   color: MomdayColors.LocationGray,
-                  fontWeight: FontWeight.bold
-              ),
+                  fontWeight: FontWeight.bold),
             ),
-            SizedBox(width: 8.0,),
+            SizedBox(
+              width: 8.0,
+            ),
             Expanded(
               child: Text(
                 this.widget.comment.text,
-                style: cancelArabicFontDelta(context).copyWith(
-                    color: MomdayColors.LocationGray
-                ),
+                style: cancelArabicFontDelta(context)
+                    .copyWith(color: MomdayColors.LocationGray),
               ),
             )
           ],
-        )
-    );
+        ));
 
     final commentOptions = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        SizedBox(width: 8.0,),
+        SizedBox(
+          width: 8.0,
+        ),
         InkWell(
           onTap: () => this._viewReplies(true),
           child: Text(
             tSentence(context, 'reply'),
             style: cancelArabicFontDelta(context).copyWith(
-              fontWeight: FontWeight.w600,
-              color: MomdayColors.LocationGray
-            ),
+                fontWeight: FontWeight.w600, color: MomdayColors.LocationGray),
           ),
         ),
-        SizedBox(width: 16.0,),
-        this.widget.comment.replies.length > 0 && !this._areRepliesShown ?
-          InkWell(
-            onTap: this._viewReplies,
-            child: Text(
-              tLower(context, 'view_replies') + ' ( ${this.widget.comment.replies.length} )',
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: MomdayColors.LocationGray
-              ),
-            ),
-          ) : Container(),
-        this.widget.comment.replies.length > 0 && this._areRepliesShown ?
-          InkWell(
-            onTap: this._hideReplies,
-            child: Text(
-              tLower(context, 'hide_replies'),
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: MomdayColors.LocationGray
-              ),
-            ),
-          ) : Container(),
+        SizedBox(
+          width: 16.0,
+        ),
+        this.widget.comment.replies.length > 0 && !this._areRepliesShown
+            ? InkWell(
+                onTap: this._viewReplies,
+                child: Text(
+                  tLower(context, 'view_replies') +
+                      ' ( ${this.widget.comment.replies.length} )',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: MomdayColors.LocationGray),
+                ),
+              )
+            : Container(),
+        this.widget.comment.replies.length > 0 && this._areRepliesShown
+            ? InkWell(
+                onTap: this._hideReplies,
+                child: Text(
+                  tLower(context, 'hide_replies'),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: MomdayColors.LocationGray),
+                ),
+              )
+            : Container(),
       ],
     );
 
-    final commentReplies  = Padding(
+    final commentReplies = Padding(
       padding: const EdgeInsetsDirectional.only(start: 32.0, top: 2.0),
       child: Column(
-        children: widget.comment.replies.map<Widget>((reply) =>
-          _Comment(
-            comment: reply,
-            repliable: false,
-          )
-        ).toList()..add(
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 4.0),
-            child: _WriteComment(
-              key: this._writeCommentKey,
-              parentCommentId: widget.comment.id,
-            ),
-          )
-        ),
+        children: widget.comment.replies
+            .map<Widget>((reply) => _Comment(
+                  comment: reply,
+                  repliable: false,
+                ))
+            .toList()
+              ..add(Padding(
+                padding: const EdgeInsetsDirectional.only(start: 4.0),
+                child: _WriteComment(
+                  key: this._writeCommentKey,
+                  parentCommentId: widget.comment.id,
+                ),
+              )),
       ),
     );
 
     return Padding(
         padding: const EdgeInsets.all(4.0),
         child: Column(
-          children: <Widget>[
-            commentBody
-          ]..addAll(widget.repliable? [
-            SizedBox(height: 2.0,),
-            commentOptions,
-          ] : [])..addAll(
-            this._areRepliesShown? [
-              commentReplies
-            ] : []
-          )
-        )
-    );
+            children: <Widget>[commentBody]
+              ..addAll(widget.repliable
+                  ? [
+                      SizedBox(
+                        height: 2.0,
+                      ),
+                      commentOptions,
+                    ]
+                  : [])
+              ..addAll(this._areRepliesShown ? [commentReplies] : [])));
   }
 
   _viewReplies([bool withFocus = false]) async {
@@ -398,7 +372,7 @@ class _CommentState extends State<_Comment> {
     });
 
     if (withFocus) {
-      while(this._writeCommentKey.currentState == null) {
+      while (this._writeCommentKey.currentState == null) {
         await Future.delayed(Duration(milliseconds: 10));
       }
       this._writeCommentKey.currentState.focus();
@@ -413,10 +387,8 @@ class _CommentState extends State<_Comment> {
 }
 
 class _InteractWithPost extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<MomsayPostBloc>(context);
     final numberOfLikes = bloc.postData.numberOfLikes;
     final numberOfComments = bloc.postData.comments.length;
@@ -428,44 +400,41 @@ class _InteractWithPost extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _ToggleLike(),
-              bloc.postData.commentStatus?
-              Expanded(
-                child: _WriteComment(),
-              ):
-              Container(),
+              bloc.postData.commentStatus
+                  ? Expanded(
+                      child: _WriteComment(),
+                    )
+                  : Container(),
             ],
           ),
-          SizedBox(height: 4.0,),
+          SizedBox(
+            height: 4.0,
+          ),
           Row(
             children: <Widget>[
               SizedBox(
                   width: 40.0,
                   child: Text(
-                      convertNumberToUserFriendly(numberOfLikes, Localizations.localeOf(context).languageCode),
+                      convertNumberToUserFriendly(numberOfLikes,
+                          Localizations.localeOf(context).languageCode),
                       textAlign: TextAlign.center,
-                      style: cancelArabicFontDelta(context).copyWith(
-                          color: MomdayColors.LocationGray
-                      )
-                  )
-              ),
-              bloc.postData.commentStatus?
-              Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 8.0),
-                    child: Text(
-                      tCount(context, 'comment', numberOfComments, true),
-                      style: cancelArabicFontDelta(context).copyWith(
-                          color: MomdayColors.LocationGray
+                      style: cancelArabicFontDelta(context)
+                          .copyWith(color: MomdayColors.LocationGray))),
+              bloc.postData.commentStatus
+                  ? Expanded(
+                      child: Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 8.0),
+                      child: Text(
+                        tCount(context, 'comment', numberOfComments, true),
+                        style: cancelArabicFontDelta(context)
+                            .copyWith(color: MomdayColors.LocationGray),
                       ),
-                    ),
-                  )
-              ):Container(),
+                    ))
+                  : Container(),
             ],
           )
-        ]
-    );
+        ]);
   }
-
 }
 
 class _ToggleLike extends StatefulWidget {
@@ -474,7 +443,6 @@ class _ToggleLike extends StatefulWidget {
 }
 
 class __ToggleLikeState extends State<_ToggleLike> {
-
   bool _isTogglingLike;
 
   @override
@@ -485,22 +453,19 @@ class __ToggleLikeState extends State<_ToggleLike> {
 
   @override
   Widget build(BuildContext context) {
-
     final bloc = BlocProvider.of<MomsayPostBloc>(context);
     final isLikedByUser = bloc.postData.isLikedByUser;
 
     return IconButton(
-      icon: Icon(
-        Icons.thumb_up,
-        color: isLikedByUser? MomdayColors.MomdayGold :
-        MomdayColors.MomdayGray,
-      ),
-      onPressed: this._isTogglingLike? null : this._onToggleLike
-    );
+        icon: Icon(
+          Icons.thumb_up,
+          color:
+              isLikedByUser ? MomdayColors.Momdaypink : MomdayColors.MomdayGray,
+        ),
+        onPressed: this._isTogglingLike ? null : this._onToggleLike);
   }
 
   _onToggleLike() async {
-
     final appManager = AppStateManager.of(context);
     if (!appManager.account.isLoggedIn) {
       askForLogin(context, 'like_this_post');
@@ -521,19 +486,16 @@ class __ToggleLikeState extends State<_ToggleLike> {
   }
 }
 
-
 class _WriteComment extends StatefulWidget {
-
   final String parentCommentId;
 
-  _WriteComment({Key key, this.parentCommentId}): super(key: key);
+  _WriteComment({Key key, this.parentCommentId}) : super(key: key);
 
   @override
   __WriteCommentState createState() => __WriteCommentState();
 }
 
 class __WriteCommentState extends State<_WriteComment> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _commentController = TextEditingController();
   final FocusNode _commentFocusNode = FocusNode();
@@ -554,53 +516,47 @@ class __WriteCommentState extends State<_WriteComment> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        hintColor: MomdayColors.MomdayGold,
-        primaryColor: MomdayColors.MomdayGold,
+        hintColor: MomdayColors.Momdaypink,
+        primaryColor: MomdayColors.Momdaypink,
       ),
       child: Form(
         key: this._formKey,
         child: TextFormField(
-          controller: this._commentController,
-          focusNode: this._commentFocusNode,
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(1000)
-          ],
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.zero,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 0.1,
-                color: MomdayColors.LocationGray
-              ),
-              borderRadius: BorderRadius.zero
-            ),
-            hintText: tLower(context, widget.parentCommentId == null? 'write_your_comment' : 'add_your_reply'),
-            hintStyle: TextStyle(
-              color: MomdayColors.LocationGray
-            ),
-            isDense: true,
-            suffixIcon: IconButton(
-              icon: Icon(Icons.send),
-              onPressed: this._isSendingComment? null : this._onSendComment
-            )
-          ),
-          validator: (value) {
-            if (value.isEmpty) {
-              return tSentence(context, 'field_required');
-            }
-          },
-          onSaved: (value) => this._commentText = value
-        ),
+            controller: this._commentController,
+            focusNode: this._commentFocusNode,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            inputFormatters: [LengthLimitingTextInputFormatter(1000)],
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        width: 0.1, color: MomdayColors.LocationGray),
+                    borderRadius: BorderRadius.zero),
+                hintText: tLower(
+                    context,
+                    widget.parentCommentId == null
+                        ? 'write_your_comment'
+                        : 'add_your_reply'),
+                hintStyle: TextStyle(color: MomdayColors.LocationGray),
+                isDense: true,
+                suffixIcon: IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed:
+                        this._isSendingComment ? null : this._onSendComment)),
+            validator: (value) {
+              if (value.isEmpty) {
+                return tSentence(context, 'field_required');
+              }
+            },
+            onSaved: (value) => this._commentText = value),
       ),
     );
   }
 
   _onSendComment() async {
-
     final appManager = AppStateManager.of(context);
     if (!appManager.account.isLoggedIn) {
       askForLogin(context, 'comment_on_this_post');
@@ -616,31 +572,25 @@ class __WriteCommentState extends State<_WriteComment> {
         this._isSendingComment = true;
       });
 
-      final author = appManager.account.firstName + " " + appManager.account.lastName;
+      final author =
+          appManager.account.firstName + " " + appManager.account.lastName;
 
       int commentId = await bloc.comment(
-        comment: CommentModel(
-          text: this._commentText,
-          author: author,
-          replies: []
-        ),
-        parentCommentId: widget.parentCommentId
-      );
+          comment: CommentModel(
+              text: this._commentText, author: author, replies: []),
+          parentCommentId: widget.parentCommentId);
 
-      if(commentId == -1){
+      if (commentId == -1) {
         showTextSnackBar(context, tSentence(context, 'comment_error'));
-      }
-
-      else{
+      } else {
         showTextSnackBar(context, tSentence(context, 'comment_submitted'));
       }
-      
+
       setState(() {
         this._commentFocusNode.unfocus();
         this._isSendingComment = false;
         this._commentController.text = '';
       });
-
     }
   }
 }

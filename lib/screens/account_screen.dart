@@ -10,15 +10,12 @@ import 'package:momday_app/styles/momday_colors.dart';
 class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     if (!AppStateManager.of(context).account.isLoggedIn) {
       return Container();
     }
 
-    final accountTileStyle = TextStyle(
-      fontWeight: FontWeight.w600,
-      fontSize: 18.0
-    );
+    final accountTileStyle =
+        TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,8 +28,7 @@ class AccountScreen extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.of(context).pop();
-            }
-        ),
+            }),
       ),
       backgroundColor: Colors.white,
       body: ListView(
@@ -41,48 +37,38 @@ class AccountScreen extends StatelessWidget {
             AppStateManager.of(context).account.fullName,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 44.0,
-              color: Colors.black,
-              decoration: null
-            ),
+                fontWeight: FontWeight.w600,
+                fontSize: 44.0,
+                color: Colors.black,
+                decoration: null),
           ),
           Text(
             tTitle(context, 'welcome_to_momday') + '!',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: MomdayColors.MomdayGold,
-              fontWeight: FontWeight.w300,
-              fontSize: 32.0
-            ),
+                color: MomdayColors.Momdaypink,
+                fontWeight: FontWeight.w300,
+                fontSize: 32.0),
           ),
-          SizedBox(height: 20.0,),
-          Container(
-              height: 30.0,
-              color: MomdayColors.MomdayGray
+          SizedBox(
+            height: 20.0,
           ),
+          Container(height: 30.0, color: MomdayColors.MomdayGray),
           ListTile(
-            title: Text(
-                tUpper(context, 'my_profile'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'my_profile'), style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PorfileScreen()
-              ));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PorfileScreen()));
             },
           ),
           ListTile(
-            title: Text(
-                tUpper(context, 'my_addresses'),
-                style: accountTileStyle
-            ),
+            title:
+                Text(tUpper(context, 'my_addresses'), style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddressListScreen()
-              ));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AddressListScreen()));
             },
           ),
 //          ListTile(
@@ -108,7 +94,7 @@ class AccountScreen extends StatelessWidget {
 //            trailing: Builder(
 //              builder: (context) {
 //                return Switch(
-//                  activeColor: MomdayColors.MomdayGold,
+//                  activeColor: MomdayColors.Momdaypink ,
 //                  inactiveTrackColor: MomdayColors.MomdayGray,
 //                  value: AppStateManager.of(context).notificationsEnabled,
 //                  onChanged: (newValue) {
@@ -119,15 +105,12 @@ class AccountScreen extends StatelessWidget {
 //            ),
 //          ),
           ListTile(
-            title: Text(
-                tUpper(context, 'advanced_settings'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'advanced_settings'),
+                style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AdvancedSettingsScreen()
-              ));
+                  builder: (context) => AdvancedSettingsScreen()));
             },
           ),
           Container(
@@ -135,44 +118,29 @@ class AccountScreen extends StatelessWidget {
             color: MomdayColors.MomdayGray,
           ),
           ListTile(
-            title: Text(
-                tUpper(context, 'privacy_policy'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'privacy_policy'),
+                style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
           ),
           ListTile(
-            title: Text(
-                tUpper(context, 'terms_of_service'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'terms_of_service'),
+                style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
           ),
           ListTile(
-            title: Text(
-                tUpper(context, 'faq'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'faq'), style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
           ),
           ListTile(
-            title: Text(
-                tUpper(context, 'contact_us'),
-                style: accountTileStyle
-            ),
+            title: Text(tUpper(context, 'contact_us'), style: accountTileStyle),
             trailing: Icon(getLocalizedForwardArrowIcon(context)),
           ),
-          Container(
-            height: 30.0,
-            color: MomdayColors.MomdayGray
-          ),
+          Container(height: 30.0, color: MomdayColors.MomdayGray),
           Builder(
             builder: (context) {
               return ListTile(
-                title: Text(
-                    tUpper(context, 'log_out'),
-                    style: accountTileStyle
-                ),
+                title:
+                    Text(tUpper(context, 'log_out'), style: accountTileStyle),
                 trailing: Icon(getLocalizedForwardArrowIcon(context)),
                 onTap: () async {
                   var response = await AppStateManager.of(context).logout();
@@ -186,9 +154,7 @@ class AccountScreen extends StatelessWidget {
               );
             },
           ),
-          Container(
-              color: MomdayColors.MomdayGray
-          ),
+          Container(color: MomdayColors.MomdayGray),
         ],
       ),
     );

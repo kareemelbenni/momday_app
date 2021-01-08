@@ -14,64 +14,64 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(
-            getLocalizedBackwardArrowIcon(context),
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          }
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          leading: IconButton(
+              icon: Icon(
+                getLocalizedBackwardArrowIcon(context),
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
         ),
-      ),
-      backgroundColor: Colors.white,
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        children: <Widget>[
-          SizedBox(height: 16.0,),
-          Text(
-            tTitle(context, 'welcome'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.w600
-            )
-          ),
-          SizedBox(height: 10.0),
-          InkWell(
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: new TextSpan(
-                // Note: Styles for TextSpans must be explicitly defined.
-                // Child text spans will inherit styles from parent
+        backgroundColor: Colors.white,
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          children: <Widget>[
+            SizedBox(
+              height: 36.0,
+            ),
+
+            Text(tTitle(context, 'welcome'),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.w600)),
+            SizedBox(height: 10.0),
+            InkWell(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: new TextSpan(
+                  // Note: Styles for TextSpans must be explicitly defined.
+                  // Child text spans will inherit styles from parent
                   style: new TextStyle(
                     fontSize: 16.0,
                     color: Colors.black,
                   ),
-                children: <TextSpan>[
-                  new TextSpan(text: tSentence(context, 'dont_have_an_account') + " "),
-                  new TextSpan(text: tSentence(context, 'sign_up'), style: new TextStyle(color:MomdayColors.MomdayGold)),
-                ],
+                  children: <TextSpan>[
+                    new TextSpan(
+                        text: tSentence(context, 'dont_have_an_account') + " "),
+                    new TextSpan(
+                        text: tSentence(context, 'sign_up'),
+                        style: new TextStyle(color: MomdayColors.Momdaypink)),
+                  ],
+                ),
               ),
+              onTap: () async {
+                Navigator.of(context).pushNamed('/signup');
+              },
             ),
-            onTap: () async {
-              Navigator.of(context).pushNamed('/signup');
-            },
-          ),
-          SizedBox(height: 10.0),
-          _LoginForm(),
-          SizedBox(height: 10.0),
-          _ForgotPasswordLink(),
+            SizedBox(height: 10.0),
+            _LoginForm(),
+            SizedBox(height: 10.0),
+            _ForgotPasswordLink(),
 //          SizedBox(height: 10.0),
 //          Stack(
 //            alignment: Alignment.center,
 //            children: <Widget>[
 //              Container(
 //                height: 1.0,
-//                color: MomdayColors.MomdayGold,
+//                color: MomdayColors.Momdaypink ,
 //              ),
 //              Positioned(
 //                child: Container(
@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget {
 //                    tUpper(context, 'or'),
 //                    textAlign: TextAlign.center,
 //                    style: TextStyle(
-//                      color: MomdayColors.MomdayGold
+//                      color: MomdayColors.Momdaypink
 //                    ),
 //                  ),
 //                ),
@@ -106,10 +106,8 @@ class LoginScreen extends StatelessWidget {
 //              Navigator.of(context).pushNamed('/signup');
 //            },
 //          )
-        ],
-      )
-    );
-
+          ],
+        ));
   }
 }
 
@@ -119,21 +117,17 @@ class _LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<_LoginForm> {
-
   void _handleLogin(BuildContext context) async {
     if (!this._isLoggingIn) {
       if (this._formKey.currentState.validate()) {
-
         setState(() {
           this._isLoggingIn = true;
         });
 
         this._formKey.currentState.save();
 
-        dynamic response = await AppStateManager.of(context).login(
-            this._email,
-            password: this._password
-        );
+        dynamic response = await AppStateManager.of(context)
+            .login(this._email, password: this._password);
 
         setState(() {
           this._isLoggingIn = false;
@@ -164,77 +158,70 @@ class _LoginFormState extends State<_LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: this._formKey,
-      child: Theme(
-        data: ThemeData(
-          primaryColor: MomdayColors.MomdayGold,
-        ),
-        child: ListView(
-          primary: false,
-          shrinkWrap: true,
-          children: <Widget>[
-            TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: getMomdayInputDecoration(tTitle(context, 'email')),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return tSentence(context, 'field_required');
-                }
-              },
-              onSaved: (value) => this._email = value,
-            ),
-            SizedBox(height: 10.0),
-            TextFormField(
-              autofocus: false,
-              obscureText: true,
-              decoration: getMomdayInputDecoration(tTitle(context, 'password')),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return tSentence(context, 'field_required');
-                } else if (value.length < 4 || value.length > 20) {
-                  return tSentence(context, 'password_length');
-                }
-              },
-              onSaved: (value) => this._password = value,
-            ),
-            SizedBox(height: 10.0),
-            RaisedButton(
-              color: MomdayColors.MomdayGold,
-              child: this._isLoggingIn?
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: SizedBox(
-                    height: 24.0,
-                    width: 24.0,
-                    child: Theme(
-                      data: ThemeData(
-                        accentColor: Colors.white
-                      ),
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3.0,
-                      ),
-                    ),
-                  )
-                ) :
-                ListTile(
-                  title: Text(
-                    tSentence(context, 'log_in'),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600
-                    )
-                  ),
-                ),
-              onPressed: () {
-                this._handleLogin(context);
-              }
-            ),
-          ],
-        ),
-      )
-    );
+        key: this._formKey,
+        child: Theme(
+          data: ThemeData(
+            primaryColor: MomdayColors.Momdaypink,
+          ),
+          child: ListView(
+            primary: false,
+            shrinkWrap: true,
+            children: <Widget>[
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                decoration: getMomdayInputDecoration(tTitle(context, 'email')),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return tSentence(context, 'field_required');
+                  }
+                },
+                onSaved: (value) => this._email = value,
+              ),
+              SizedBox(height: 10.0),
+              TextFormField(
+                autofocus: false,
+                obscureText: true,
+                decoration:
+                    getMomdayInputDecoration(tTitle(context, 'password')),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return tSentence(context, 'field_required');
+                  } else if (value.length < 4 || value.length > 20) {
+                    return tSentence(context, 'password_length');
+                  }
+                },
+                onSaved: (value) => this._password = value,
+              ),
+              SizedBox(height: 10.0),
+              RaisedButton(
+                  color: MomdayColors.Momdaypink,
+                  child: this._isLoggingIn
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: SizedBox(
+                            height: 24.0,
+                            width: 24.0,
+                            child: Theme(
+                              data: ThemeData(accentColor: Colors.white),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3.0,
+                              ),
+                            ),
+                          ))
+                      : ListTile(
+                          title: Text(tSentence(context, 'log_in'),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 24.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                  onPressed: () {
+                    this._handleLogin(context);
+                  }),
+            ],
+          ),
+        ));
   }
 }
 //
@@ -365,16 +352,12 @@ class _ForgotPasswordLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: Text(
-          tLower(context, 'forgot_password'),
+      child: Text(tLower(context, 'forgot_password'),
           textAlign: TextAlign.end,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.44)
-          )
-      ),
+          style: TextStyle(color: Colors.black.withOpacity(0.44))),
       onTap: () async {
         var result = await Navigator.of(context).pushNamed('/forgot-password');
-        
+
         if (result == true) {
           Timer(Duration(milliseconds: 500), () {
             showTextSnackBar(context, tSentence(context, 'check_email_forgot'));

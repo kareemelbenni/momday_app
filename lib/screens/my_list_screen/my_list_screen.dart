@@ -67,7 +67,7 @@
 //        floatingActionButton: new FloatingActionButton(
 //            heroTag: "add_product",
 //            child:Container(
-//              color: MomdayColors.MomdayGold,
+//              color: MomdayColors.Momdaypink ,
 //              child: Icon(Icons.add),
 //            ),
 //            onPressed: () {
@@ -164,7 +164,7 @@
 //              text,
 //              textAlign: TextAlign.center,
 //              style: TextStyle(
-//                  color: isSelected? MomdayColors.MomdayGold : Colors.black,
+//                  color: isSelected? MomdayColors.Momdaypink  : Colors.black,
 //                  fontWeight: FontWeight.w600,
 //                  fontSize: 18.0
 //              ),
@@ -193,7 +193,7 @@
 //        style: TextStyle(
 //            fontWeight: FontWeight.w300,
 //            fontSize: 30.0,
-//            color: MomdayColors.MomdayGold.withOpacity(0.44)
+//            color: MomdayColors.Momdaypink .withOpacity(0.44)
 //        )
 //    );
 //  }
@@ -309,7 +309,7 @@
 //                                                  "${product.price}\$" + ' ' +tUpper(context, "donate"):
 //                                                  "${product.price}\$",
 //                                                  style: TextStyle(
-//                                                      color: MomdayColors.MomdayGold,
+//                                                      color: MomdayColors.Momdaypink ,
 //                                                      fontSize: 20.0
 //                                                  ),
 //                                                ),

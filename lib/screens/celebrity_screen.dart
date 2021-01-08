@@ -14,7 +14,6 @@ import 'package:momday_app/widgets/product_list/product_list.dart';
 import 'package:momday_app/widgets/product_list/product_list_bloc.dart';
 
 class CelebrityScreen extends StatelessWidget {
-
   final String celebrityId;
 
   CelebrityScreen({this.celebrityId});
@@ -28,24 +27,23 @@ class CelebrityScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: ElegantMemoizedFutureBuilder(
             isFullPage: true,
-            futureCallBack: () => MomdayBackend().getCelebrity(this.celebrityId),
+            futureCallBack: () =>
+                MomdayBackend().getCelebrity(this.celebrityId),
             contentBuilder: (_, data) {
               var celebrityInfo = CelebrityModel.fromDynamic(data['data']);
-              if(celebrityInfo == null)
-                return MomdayError();
+              if (celebrityInfo == null) return MomdayError();
               return ListView(
                 primary: false,
                 shrinkWrap: true,
                 children: <Widget>[
-                  celebrityInfo.fullName != null?
-                  PageHeader2(
-                    title: celebrityInfo.fullName,
-                  ):Container(),
+                  celebrityInfo.fullName != null
+                      ? PageHeader2(
+                          title: celebrityInfo.fullName,
+                        )
+                      : Container(),
                   this._celebrityBasicInfo(_, celebrityInfo),
                   BlocProvider<ProductListBloc>(
-                    bloc: ProductListBloc(
-                      celebrityId: this.celebrityId
-                    ),
+                    bloc: ProductListBloc(celebrityId: this.celebrityId),
                     child: ProductList(
                       independentlyScrollable: false,
                       onProductTap: (productId) {
@@ -69,16 +67,17 @@ class CelebrityScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            celebrity.portraitImage != null?
-            Container(
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: AspectRatio(
-                aspectRatio: 0.674,
-                child: MomdayNetworkImage(
-                  imageUrl: celebrity.portraitImage,
-                ),
-              ),
-            ):Container(),
+            celebrity.portraitImage != null
+                ? Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: AspectRatio(
+                      aspectRatio: 0.674,
+                      child: MomdayNetworkImage(
+                        imageUrl: celebrity.portraitImage,
+                      ),
+                    ),
+                  )
+                : Container(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
@@ -89,37 +88,36 @@ class CelebrityScreen extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                       height: 16.0,
                     ),
-                    celebrity.fullName != null?
-                    Text(
-                      celebrity.fullName.toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20.0
-                      ),
-                    ):Container()
+                    celebrity.fullName != null
+                        ? Text(
+                            celebrity.fullName.toUpperCase(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800, fontSize: 20.0),
+                          )
+                        : Container()
                   ],
                 ),
-                celebrity.description != null?
-                Container(
-                  padding: EdgeInsets.all(8.0),
-                  color: MomdayColors.MomdayGray,
-                  width: MediaQuery.of(context).size.width * 0.88 * 0.6,
-                  child: AspectRatio(
-                    aspectRatio: 1.53,
-                    child: SingleChildScrollView(
-                      child:
-                      DefaultTextStyle(
-                        style: cancelArabicFontDelta(context).copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
+                celebrity.description != null
+                    ? Container(
+                        padding: EdgeInsets.all(8.0),
+                        color: MomdayColors.MomdayGray,
+                        width: MediaQuery.of(context).size.width * 0.88 * 0.6,
+                        child: AspectRatio(
+                          aspectRatio: 1.53,
+                          child: SingleChildScrollView(
+                            child: DefaultTextStyle(
+                              style: cancelArabicFontDelta(context).copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              ),
+                              child: Html(
+                                data: celebrity.description,
+                              ),
+                            ),
+                          ),
                         ),
-                        child: Html(
-                          data: celebrity.description,
-                        ),
-                      ),
-                    ),
-                  ),
-                ):Container()
+                      )
+                    : Container()
               ],
             )
           ],
@@ -130,7 +128,7 @@ class CelebrityScreen extends StatelessWidget {
           left: 0.0,
           child: Container(
             height: 3.0,
-            color: MomdayColors.MomdayGold,
+            color: MomdayColors.Momdaypink,
           ),
         ),
         Positioned(
@@ -139,7 +137,7 @@ class CelebrityScreen extends StatelessWidget {
           left: 0.0,
           child: Container(
             height: 3.0,
-            color: MomdayColors.MomdayGold,
+            color: MomdayColors.Momdaypink,
           ),
         )
       ],

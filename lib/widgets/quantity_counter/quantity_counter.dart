@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 
 typedef ChangeQuantityCallBack(int newQuantity);
-class QuantityCounter extends StatefulWidget {
 
+class QuantityCounter extends StatefulWidget {
   final int quantity;
   final int min;
   final int max;
   final ChangeQuantityCallBack changeQuantityCallback;
 
-  QuantityCounter({
-    this.min = 1,
-    this.max,
-    this.quantity,
-    this.changeQuantityCallback
-  });
+  QuantityCounter(
+      {this.min = 1, this.max, this.quantity, this.changeQuantityCallback});
 
   @override
   QuantityCounterState createState() {
@@ -23,7 +19,6 @@ class QuantityCounter extends StatefulWidget {
 }
 
 class QuantityCounterState extends State<QuantityCounter> {
-
   bool _isIncreasing;
   bool _isDecreasing;
 
@@ -37,27 +32,18 @@ class QuantityCounterState extends State<QuantityCounter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      foregroundDecoration: BoxDecoration(
-        border: Border.all(
-          width: 0.1
-        )
-      ),
+      foregroundDecoration: BoxDecoration(border: Border.all(width: 0.1)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             foregroundDecoration: BoxDecoration(
-              border: BorderDirectional(
-                end: BorderSide(
-                  width: 0.1
-                )
-              )
-            ),
+                border: BorderDirectional(end: BorderSide(width: 0.1))),
             child: InkWell(
               child: Icon(
                 Icons.remove,
                 size: 20.0,
-                color: this._isDecreasing? Colors.grey : null,
+                color: this._isDecreasing ? Colors.grey : null,
               ),
               onTap: this._decrease,
             ),
@@ -66,27 +52,19 @@ class QuantityCounterState extends State<QuantityCounter> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               this.widget.quantity.toString(),
-              style: TextStyle(
-                color: MomdayColors.MomdayGold
-              ),
+              style: TextStyle(color: MomdayColors.Momdaypink),
             ),
           ),
           Container(
             foregroundDecoration: BoxDecoration(
-              border: BorderDirectional(
-                start: BorderSide(
-                  width: 0.1
-                )
-              )
-            ),
+                border: BorderDirectional(start: BorderSide(width: 0.1))),
             child: InkWell(
                 child: Icon(
                   Icons.add,
                   size: 20.0,
-                  color: this._isIncreasing? Colors.grey : null,
+                  color: this._isIncreasing ? Colors.grey : null,
                 ),
-                onTap: this._increase
-            ),
+                onTap: this._increase),
           )
         ],
       ),

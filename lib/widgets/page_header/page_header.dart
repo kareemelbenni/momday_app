@@ -3,7 +3,6 @@ import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 
 class PageHeader extends StatelessWidget {
-
   final String title;
   final Widget widgetTitle;
   final PopupMenuButton menuButton;
@@ -12,17 +11,18 @@ class PageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    var title = this.title != null? Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          this.title,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.display3,
-        ),
-      ],
-    ) : widgetTitle;
+    var title = this.title != null
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                this.title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.display3,
+              ),
+            ],
+          )
+        : widgetTitle;
 
     return Container(
       decoration: BoxDecoration(
@@ -30,31 +30,33 @@ class PageHeader extends StatelessWidget {
       ),
       child: Stack(
         children: <Widget>[
-          Navigator.of(context).canPop()? Positioned(
-            top: 0.0,
-            bottom: 0.0,
-            child: InkWell(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(
-                  getLocalizedBackwardArrowIcon(context),
-                  size: 24.0,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ) : Container(),
+          Navigator.of(context).canPop()
+              ? Positioned(
+                  top: 0.0,
+                  bottom: 0.0,
+                  child: InkWell(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(
+                        getLocalizedBackwardArrowIcon(context),
+                        size: 24.0,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                )
+              : Container(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: title,
           ),
-          menuButton != null ?
-          Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [menuButton]
-          ):Container(),
+          menuButton != null
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [menuButton])
+              : Container(),
         ],
       ),
     );
@@ -62,7 +64,6 @@ class PageHeader extends StatelessWidget {
 }
 
 class PageHeader2 extends StatelessWidget {
-
   final String title;
 
   PageHeader2({this.title});
@@ -71,31 +72,28 @@ class PageHeader2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: MomdayColors.MomdayGold,
-            width: 3.0
-          )
-        )
-      ),
+          border: Border(
+              bottom: BorderSide(color: MomdayColors.Momdaypink, width: 3.0))),
       child: Stack(
         children: <Widget>[
-          Navigator.of(context).canPop()? Positioned(
-            top: 0.0,
-            bottom: 0.0,
-            child: InkWell(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(
-                  getLocalizedBackwardArrowIcon(context),
-                  size: 24.0,
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ) : Container(),
+          Navigator.of(context).canPop()
+              ? Positioned(
+                  top: 0.0,
+                  bottom: 0.0,
+                  child: InkWell(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Icon(
+                        getLocalizedBackwardArrowIcon(context),
+                        size: 24.0,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                )
+              : Container(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Row(
@@ -103,10 +101,7 @@ class PageHeader2 extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

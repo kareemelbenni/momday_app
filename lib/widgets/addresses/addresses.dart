@@ -9,15 +9,15 @@ import 'package:momday_app/widgets/elegant_future_builder/elegant_future_builder
 import 'package:momday_app/widgets/existing_addresses/existing_addresses.dart';
 
 class Addresses extends StatefulWidget {
-
   @override
   _AddressesState createState() => _AddressesState();
 }
 
 class _AddressesState extends State<Addresses> {
-
-  final GlobalKey<ExistingAddressesState> _existingAddressesKey = GlobalKey<ExistingAddressesState>();
-  final GlobalKey<ElegantMemoizedFutureBuilderState> _futureBuilder = GlobalKey<ElegantMemoizedFutureBuilderState>();
+  final GlobalKey<ExistingAddressesState> _existingAddressesKey =
+      GlobalKey<ExistingAddressesState>();
+  final GlobalKey<ElegantMemoizedFutureBuilderState> _futureBuilder =
+      GlobalKey<ElegantMemoizedFutureBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,6 @@ class _AddressesState extends State<Addresses> {
         fullError: false,
         futureCallBack: () => MomdayBackend().getAddresses(),
         contentBuilder: (context, data) {
-
           var addresses = AddressModel.fromDynamicListOrMap(data['data']);
 
           return Column(
@@ -38,60 +37,61 @@ class _AddressesState extends State<Addresses> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: MomdayColors.MomdayGold,
-                    fontSize: 24.0
-                ),
+                    color: MomdayColors.Momdaypink,
+                    fontSize: 24.0),
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               Expanded(
-                child: ListView(
-                    children: <Widget>[
-                      ExistingAddresses(
-                        addresses: addresses,
-                        key: _existingAddressesKey,
-                        onAddressesModified: () {
-                          setState(() {
-                            this._futureBuilder.currentState.reset();
-                          });
-                        },
+                child: ListView(children: <Widget>[
+                  ExistingAddresses(
+                    addresses: addresses,
+                    key: _existingAddressesKey,
+                    onAddressesModified: () {
+                      setState(() {
+                        this._futureBuilder.currentState.reset();
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 8.0,
+                  ),
+                  RaisedButton(
+                    colorBrightness: Brightness.dark,
+                    color: Colors.black,
+                    child: ListTile(
+                      dense: true,
+                      title: Text(
+                        tTitle(context, 'add_new_address'),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 8.0,),
-                      RaisedButton(
-                        colorBrightness: Brightness.dark,
-                        color: Colors.black,
-                        child: ListTile(
-                          dense: true,
-                          title: Text(
-                            tTitle(context, 'add_new_address'),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: () async {
-                          final bool didAdd = await Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(builder: (context) => ManageAddressScreen())
-                          );
+                      trailing: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () async {
+                      final bool didAdd =
+                          await Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ManageAddressScreen()));
 
-                          if (didAdd) {
-                            setState(() {
-                              this._futureBuilder.currentState.reset();
-                            });
-                          }
-                        },
-                      ),
-                    ]
-                ),
+                      if (didAdd) {
+                        setState(() {
+                          this._futureBuilder.currentState.reset();
+                        });
+                      }
+                    },
+                  ),
+                ]),
               ),
-              SizedBox(height: 8.0,),
+              SizedBox(
+                height: 8.0,
+              ),
               ContinueToPaymentButton(
                 existingAddressesKey: this._existingAddressesKey,
-
               ),
             ],
           );

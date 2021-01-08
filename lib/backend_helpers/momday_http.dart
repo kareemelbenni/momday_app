@@ -12,17 +12,17 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MomdayHttp extends PropertyChangeNotifier{
-
+class MomdayHttp extends PropertyChangeNotifier {
   final String _baseUrl = EnvironmentConfig.of('url');
-  final String _basicToken = 'c2hvcHBpbmdfb2F1dGhfY2xpZW50OnNob3BwaW5nX29hdXRoX3NlY3JldA==';
+  final String _basicToken =
+      'c2hvcHBpbmdfb2F1dGhfY2xpZW50OnNob3BwaW5nX29hdXRoX3NlY3JldA==';
   String _bearerToken;
   String _language;
   String xsession;
   SharedPreferences _prefs;
 
   bool _isInitialized = false;
-  
+
   static final MomdayHttp _momdayHttp = new MomdayHttp._internal();
   MomdayHttp._internal();
   factory MomdayHttp() {
@@ -53,20 +53,22 @@ class MomdayHttp extends PropertyChangeNotifier{
     if (tempBearer != null) {
       this.xsession = tempBearer;
     } else {
-      dynamic bearerResponse = await this.get('feed/rest_api/session',null);
+      dynamic bearerResponse = await this.get('feed/rest_api/session', null);
       if (bearerResponse['data'] != null) {
         this.xsession = bearerResponse['data']['session'];
         await this._prefs.setString('xsession', this.xsession);
       }
     }
   }
+
   Future<void> getToken() async {
     String tempBearer = this._prefs.getString('bearer_token');
 
     if (tempBearer != null) {
       this._bearerToken = tempBearer;
     } else {
-      dynamic bearerResponse = await this.post('feed/rest_api/gettoken&grant_type=client_credentials', [], true);
+      dynamic bearerResponse = await this.post(
+          'feed/rest_api/gettoken&grant_type=client_credentials', [], true);
       if (bearerResponse['data'] != null) {
         this._bearerToken = bearerResponse['data']['access_token'];
         await this._prefs.setString('bearer_token', this._bearerToken);
@@ -75,70 +77,72 @@ class MomdayHttp extends PropertyChangeNotifier{
   }
 
   Future<void> refreshToken() async {
-    dynamic bearerResponse = await this.post('feed/rest_api/gettoken&grant_type=client_credentials', {'old_token': this._bearerToken}, true);
+    dynamic bearerResponse = await this.post(
+        'feed/rest_api/gettoken&grant_type=client_credentials',
+        {'old_token': this._bearerToken},
+        true);
     if (bearerResponse['data'] != null) {
       this._bearerToken = bearerResponse['data']['access_token'];
       await this._prefs.setString('bearer_token', this._bearerToken);
     }
   }
 
-  Future<dynamic> post(String url, dynamic body, [bool useBasic = false]) async {
+  Future<dynamic> post(String url, dynamic body,
+      [bool useBasic = false]) async {
     Map<String, String> headers = {};
-    headers['Authorization'] = useBasic? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
+    headers['Authorization'] =
+        useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'application/json';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id']= 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
-    headers['X-Oc-Session']=this.xsession;
-
+    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Session'] = this.xsession;
+    print(headers);
     print("posting to " + this._baseUrl + url);
-    http.Response response = await http.post(
-      this._baseUrl + url,
-      headers: headers,
-      body: json.encode(body)
-    );
+    http.Response response = await http.post(this._baseUrl + url,
+        headers: headers, body: json.encode(body));
 
     dynamic answer;
     try {
       answer = json.decode(response.body);
-    } catch(error) {
+    } catch (error) {
       answer = {
         'success': '0',
-        'error': {
-          'text': 'Failed to handle response',
-          'data': response.body
-        }
+        'error': {'text': 'Failed to handle response', 'data': response.body}
       };
     }
 
-    answer = await this._handleTokenIssuesIfAny(answer, () => this.post(url, body, useBasic));
+    answer = await this
+        ._handleTokenIssuesIfAny(answer, () => this.post(url, body, useBasic));
 
     print("answer is $answer");
     return answer;
   }
 
-  Future<dynamic> uploadAttachment(String filePath,bool isVideo, [bool useBasic = false]) async{
-
+  Future<dynamic> uploadAttachment(String filePath, bool isVideo,
+      [bool useBasic = false]) async {
     File file = File(filePath);
-    http.ByteStream stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
+    http.ByteStream stream =
+        new http.ByteStream(DelegatingStream.typed(file.openRead()));
     var length = await file.length();
 
     var uri = Uri.parse(this._baseUrl + "rest/momday/preloved/upload_file");
 
     Map<String, String> headers = {};
-    headers['Authorization'] = useBasic? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
+    headers['Authorization'] =
+        useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'multipart/form-data';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id']= 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
-    headers['X-Oc-Session']=this.xsession;
+    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Session'] = this.xsession;
 
     http.MultipartRequest request = new http.MultipartRequest("POST", uri);
 
     request.headers.addAll(headers);
 
-    var multipartFile = new http.MultipartFile(
-        'file', stream, length, filename: basename(file.path),
-        contentType: isVideo?MediaType('video', 'mp4'):MediaType('image', 'jpeg')
-    );
+    var multipartFile = new http.MultipartFile('file', stream, length,
+        filename: basename(file.path),
+        contentType:
+            isVideo ? MediaType('video', 'mp4') : MediaType('image', 'jpeg'));
 
     request.files.add(multipartFile);
 
@@ -155,39 +159,34 @@ class MomdayHttp extends PropertyChangeNotifier{
 
   Future<dynamic> put(String url, dynamic body, [bool useBasic = false]) async {
     Map<String, String> headers = {};
-    headers['Authorization'] = useBasic? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
+    headers['Authorization'] =
+        useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'application/json';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id']= 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
-    headers['X-Oc-Session']=this.xsession;
+    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Session'] = this.xsession;
 
-    http.Response response = await http.put(
-        this._baseUrl + url,
-        headers: headers,
-        body: json.encode(body)
-    );
+    http.Response response = await http.put(this._baseUrl + url,
+        headers: headers, body: json.encode(body));
 
     dynamic answer;
     try {
       answer = json.decode(response.body);
-    } catch(error) {
+    } catch (error) {
       answer = {
         'success': '0',
-        'error': {
-          'text': 'Failed to handle response',
-          'data': response.body
-        }
+        'error': {'text': 'Failed to handle response', 'data': response.body}
       };
     }
 
-    answer = await this._handleTokenIssuesIfAny(answer, () => this.put(url, body, useBasic));
+    answer = await this
+        ._handleTokenIssuesIfAny(answer, () => this.put(url, body, useBasic));
 
     return answer;
   }
 
-
-  Future<dynamic> get(String url,String XSession,{CacheLevel cacheLevel = CacheLevel.NONE, String imageDimensions} ) async {
-
+  Future<dynamic> get(String url, String XSession,
+      {CacheLevel cacheLevel = CacheLevel.NONE, String imageDimensions}) async {
     print("reading from " + this._baseUrl + url);
 
     var cachedValue = await MomdayCache().get(url);
@@ -198,24 +197,23 @@ class MomdayHttp extends PropertyChangeNotifier{
     Map<String, String> headers = {};
     headers['Authorization'] = 'Bearer ${this._bearerToken}';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id']= 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
-    if(XSession!=null)
-    headers['X-Oc-Session']=this.xsession;
+    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    if (XSession != null) headers['X-Oc-Session'] = this.xsession;
 
     if (imageDimensions != null) {
       headers['X-Oc-Image-Dimension'] = imageDimensions;
     }
 
     http.Response response = await http.get(
-        this._baseUrl + url,
-        headers: headers,
+      this._baseUrl + url,
+      headers: headers,
     );
 
     dynamic answer;
     try {
       answer = json.decode(response.body);
       print("response from " + url + " is $answer");
-    } catch(error) {
+    } catch (error) {
       answer = {
         'error': {
           'success': '0',
@@ -225,7 +223,8 @@ class MomdayHttp extends PropertyChangeNotifier{
       };
     }
 
-    answer = await this._handleTokenIssuesIfAny(answer, () => this.get(url,XSession));
+    answer = await this
+        ._handleTokenIssuesIfAny(answer, () => this.get(url, XSession));
 
     MomdayCache().put(url, json.encode(answer), cacheLevel);
 
@@ -236,8 +235,8 @@ class MomdayHttp extends PropertyChangeNotifier{
     Map<String, String> headers = {};
     headers['Authorization'] = 'Bearer ${this._bearerToken}';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id']= 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
-    headers['X-Oc-Session']=this.xsession;
+    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Session'] = this.xsession;
 
     http.Response response = await http.delete(
       this._baseUrl + url,
@@ -247,7 +246,7 @@ class MomdayHttp extends PropertyChangeNotifier{
     dynamic answer;
     try {
       answer = json.decode(response.body);
-    } catch(error) {
+    } catch (error) {
       answer = {
         'error': {
           'success': '0',
@@ -262,11 +261,14 @@ class MomdayHttp extends PropertyChangeNotifier{
     return answer;
   }
 
-  Future<dynamic> _handleTokenIssuesIfAny(dynamic response, Function callback) async {
-    if (response['success'] == 0 && response['error'][0] == 'The access token provided has expired') {
+  Future<dynamic> _handleTokenIssuesIfAny(
+      dynamic response, Function callback) async {
+    if (response['success'] == 0 &&
+        response['error'][0] == 'The access token provided has expired') {
       await this.refreshToken();
       response = await callback();
-    } else if (response['success'] == 0 && response['error'][0] == 'The access token provided is invalid') {
+    } else if (response['success'] == 0 &&
+        response['error'][0] == 'The access token provided is invalid') {
       await this._prefs.remove('bearer_token');
       await this.getToken();
       response = await callback();
@@ -274,48 +276,43 @@ class MomdayHttp extends PropertyChangeNotifier{
 
     return response;
   }
-Future<dynamic> requestToPayfort(dynamic body) async{
-  Map<String, String> headers = {};
-  headers['Content-type'] = 'application/json';
 
-  print("posting to https://sbpaymentservices.payfort.com/FortAPI/paymentApi");
-  http.Response response = await http.post(
-      "https://sbpaymentservices.payfort.com/FortAPI/paymentApi",
-      headers: headers,
-      body: json.encode(body)
-  );
-
-  dynamic answer;
-  try {
-    answer = json.decode(response.body);
-  } catch(error) {
-
-  }
-  print("answer is $answer");
-  return answer;
-
-}
-
-  Future<dynamic> requestToAramex(dynamic body) async{
+  Future<dynamic> requestToPayfort(dynamic body) async {
     Map<String, String> headers = {};
     headers['Content-type'] = 'application/json';
 
-    print("posting to https://ws.dev.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments");
+    print(
+        "posting to https://sbpaymentservices.payfort.com/FortAPI/paymentApi");
     http.Response response = await http.post(
-        "https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments",
+        "https://sbpaymentservices.payfort.com/FortAPI/paymentApi",
         headers: headers,
-        body: body
-    );
+        body: json.encode(body));
 
     dynamic answer;
     try {
       answer = json.decode(response.body);
-    } catch(error) {
-
-    }
+    } catch (error) {}
     print("answer is $answer");
     return answer;
+  }
 
+  Future<dynamic> requestToAramex(dynamic body) async {
+    Map<String, String> headers = {};
+    headers['Content-type'] = 'application/json';
+
+    print(
+        "posting to https://ws.dev.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments");
+    http.Response response = await http.post(
+        "https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments",
+        headers: headers,
+        body: body);
+
+    dynamic answer;
+    try {
+      answer = json.decode(response.body);
+    } catch (error) {}
+    print("answer is $answer");
+    return answer;
   }
 
   get isInitialized async {
