@@ -94,10 +94,17 @@ class _MomdayAppState extends State<MomdayApp> {
 
         return Theme(
             data: ThemeData(
+<<<<<<< HEAD
               primaryColor: MomdayColors.Momdaypink,
               highlightColor: MomdayColors.MomdayHighlight,
               accentColor: MomdayColors.Momdaypink,
+              fontFamily: language == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
+=======
+              primaryColor: MomdayColors.MomdayGold,
+              highlightColor: MomdayColors.MomdayHighlight,
+              accentColor: MomdayColors.MomdayGold,
               fontFamily: language == 'ar' ? 'VAG' : 'VAG',
+>>>>>>> 09ab59a1594337a9c533324c0363d59bc08e9f28
               textTheme: textTheme.copyWith(
                 display3: textTheme.display3.copyWith(height: localizedHeight),
                 subhead: textTheme.subhead.copyWith(height: localizedHeight),
