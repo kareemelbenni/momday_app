@@ -301,7 +301,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
       child: Column(
         children: <Widget>[
           Theme(
-            data: ThemeData(
+            data: ThemeData(fontFamily:'VAG',
               hintColor: MomdayColors.Momdaypink,
               primaryColor: MomdayColors.Momdaypink,
             ),
@@ -357,7 +357,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
             ),
           ),
           Theme(
-            data: ThemeData(
+            data: ThemeData(fontFamily:'VAG',
               hintColor: MomdayColors.Momdaypink,
               primaryColor: MomdayColors.Momdaypink,
             ),
@@ -395,7 +395,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                     height: 24.0,
                     width: 24.0,
                     child: Theme(
-                      data: ThemeData(accentColor: Colors.white),
+                      data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                       child: CircularProgressIndicator(
                         strokeWidth: 3.0,
                       ),

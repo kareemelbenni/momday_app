@@ -150,7 +150,7 @@ class _MyHomePageState extends State<credit_card> {
                                 height: 24.0,
                                 width: 24.0,
                                 child: Theme(
-                                  data: ThemeData(accentColor: Colors.white),
+                                  data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                                   child: CircularProgressIndicator(
                                     strokeWidth: 3.0,
                                   ),

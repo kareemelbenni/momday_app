@@ -10,6 +10,7 @@ Map<String, String> arabic = {
   'search': 'ابحث',
   'preloved': 'مستعملة',
   'new': 'جديدة',
+  'menu': 'القائمة',
   'items': 'سلع',
   'shop_now': 'اشتر الآن',
   'my_account': 'حسابي',

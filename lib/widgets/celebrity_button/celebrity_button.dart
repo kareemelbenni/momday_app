@@ -39,7 +39,7 @@ class CelebrityButtonState extends State<CelebrityButton> {
       height: 18.0,
       width: 18.0,
       child: Theme(
-        data: ThemeData(accentColor: Colors.white),
+        data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
         child: CircularProgressIndicator(
           strokeWidth: 3.0,
         ),

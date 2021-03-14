@@ -87,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
           return Form(
             key: this._formKey,
             child: Theme(
-              data: ThemeData(
+              data: ThemeData(fontFamily:'VAG',
                 primaryColor: MomdayColors.Momdaypink,
               ),
               child: ListView(
@@ -339,7 +339,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 24.0,
                                 width: 24.0,
                                 child: Theme(
-                                  data: ThemeData(accentColor: Colors.white),
+                                  data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                                   child: CircularProgressIndicator(
                                     strokeWidth: 3.0,
                                   ),

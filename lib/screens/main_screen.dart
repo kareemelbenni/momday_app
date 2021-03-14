@@ -50,9 +50,10 @@ class _MainScreenState extends State<MainScreen> {
                 children: List.generate(
                     5, (int index) => this._buildOffstageNavigator(index)))),
         bottomNavigationBar: Theme(
-          data: ThemeData(
-            canvasColor: MomdayColors.MomdayDarkBlue,
-            primaryColor: MomdayColors.Momdaypink,
+          data: ThemeData(fontFamily:'VAG',
+            
+            canvasColor: MomdayColors.MomdayGold,
+            primaryColor: Colors.black,
           ),
           child: BottomNavigationBar(
               currentIndex: this._currentIndex,
@@ -78,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                     )),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.star_border,
+                      Icons.star_border_rounded,
                       color: this._currentIndex != 1 ? Colors.white : null,
                     ),
                     title: Text(
@@ -89,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
                     )),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.shopping_cart,
+                      Icons.shopping_cart_outlined,
                       color: this._currentIndex != 2 ? Colors.white : null,
                     ),
                     title: Text(
@@ -111,7 +112,7 @@ class _MainScreenState extends State<MainScreen> {
                     )),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.chat_bubble_outline,
+                      Icons.chat_bubble_outline_rounded,
                       color: this._currentIndex != 4 ? Colors.white : null,
                     ),
                     title: Text(
@@ -178,32 +179,36 @@ class _MainScreenState extends State<MainScreen> {
             children: <Widget>[
               // Put them in builders to give them separate context
               // That way, not the whole thing subscribes to AppStateManager change
-//                Container(
-//                  margin: EdgeInsetsDirectional.only(start: 15),
-//                  child: IconButton(
-//                    icon: Icon(Icons.search),
-//                    onPressed: () async {
-//                      this.startSearch();
-//                    },
-//                  ),
-//                ),
-              Builder(
-                builder: (context) {
-                  return IconWithNumber(
-                    iconData: Icons.favorite,
-                    isButton: true,
-                    onTap: () {
-                      this.navigateToTab(2, '/wishlist');
-                    },
-                    number:
-                        AppStateManager.of(context).wishlist.products.length,
-                  );
-                },
+              Container(
+                margin: EdgeInsetsDirectional.only(start: 30),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  color: Colors.black,
+                  onPressed: () async {
+                    this.startSearch();
+                  },
+                ),
               ),
+              // Builder(
+              //   builder: (context) {
+              //     return IconWithNumber(
+              //       iconData: Icons.favorite,
+              //       isButton: true,
+              //       onTap: () {
+              //         this.navigateToTab(2, '/wishlist');
+              //       },
+              //       number:
+              //           AppStateManager.of(context).wishlist.products.length,
+              //     );
+              //   },
+              // ),
               Builder(
                 builder: (context) {
                   return IconWithNumber(
-                    iconData: Icons.shopping_cart,
+                    iconData: Icons.shopping_cart_outlined,
                     isButton: true,
                     onTap: () {
                       this.navigateToTab(2, '/cart');
@@ -226,7 +231,7 @@ class _MainScreenState extends State<MainScreen> {
             child: FlatButton(
               splashColor: Colors.transparent,
               child: Image(
-                image: AssetImage('assets/images/logo_full.png'),
+                image: AssetImage('assets/images/logo_new.png'),
                 height: 40.0,
                 fit: BoxFit.fitHeight,
               ),
@@ -260,23 +265,39 @@ class MomdayDrawer extends StatelessWidget {
             ListTile(
               leading: Image(
                 colorBlendMode: BlendMode.xor,
-                image: AssetImage('assets/images/logo_full_white.png'),
+                image: AssetImage('assets/images/logo_new.png'),
                 fit: BoxFit.fill,
                 width: 200.0,
               ),
               contentPadding: EdgeInsetsDirectional.only(
                   top: 80.0, bottom: 10.0, start: 40.0),
             ),
-            Divider(
-              color: MomdayColors.MomdayDarkBlue,
-            )
+            Ink(
+              child: ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      tTitle(context, 'menu'),
+                      style: TextStyle(fontFamily: "VAG"),
+                    ),
+                  ],
+                ),
+              ),
+              color: MomdayColors.MomdayGold,
+            ),
+
+            // Divider(
+            //   color: MomdayColors.MomdayDarkBlue,
+            // )
           ]
         : [];
 
     return Theme(
-      data: ThemeData(
-          canvasColor: MomdayColors.Momdaypink,
+      data: ThemeData(fontFamily:'VAG',
+          canvasColor: MomdayColors.MomdayMainGrey,
           brightness: Brightness.dark,
+          
           textTheme: TextTheme(
               body2: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
           iconTheme:
@@ -290,46 +311,13 @@ class MomdayDrawer extends StatelessWidget {
               child: ListView(
             padding: EdgeInsets.zero,
             children: initialChildren
-              ..addAll([
-                isLoggedIn
-                    ? ListTile(
-                        leading: Icon(Icons.person_outline),
-                        title: Text(tTitle(context, 'my_account')),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 16.0),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed('/my-account');
-                        },
-                      )
-                    : Ink(
-                        color: MomdayColors.MomdayBlue,
-                        child: ListTile(
-                            leading: Icon(
-                              Icons.person_outline,
-                              color: MomdayColors.MomdayDarkBlue,
-                            ),
-                            title: Text(
-                              tTitle(context, 'log_in') +
-                                  ' | ' +
-                                  tTitle(context, 'sign_up'),
-                              style:
-                                  TextStyle(color: MomdayColors.MomdayDarkBlue),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 12.0, horizontal: 16.0),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushNamed('/login');
-                            })),
-              ])
               ..addAll(isCelebrity
                   ? [
                       ListTile(
                         leading: Icon(Icons.shop),
                         title: Text(tTitle(context, 'my_store')),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 16.0),
+                            vertical: 6, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           MainScreen.of(context).navigateToTab(1,
@@ -344,7 +332,7 @@ class MomdayDrawer extends StatelessWidget {
 //                ListTile(
 //                  leading: Icon(Icons.style),
 //                  title: Text(tTitle(context, 'my_list')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/my-list');
 //                    Navigator.of(context).pop();
@@ -358,7 +346,7 @@ class MomdayDrawer extends StatelessWidget {
 //                    number: appStateManager.notifications?.length,
 //                  ),
 //                  title: Text(tTitle(context, 'notifications')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/wishlist');
 //                    Navigator.of(context).pop();
@@ -372,7 +360,7 @@ class MomdayDrawer extends StatelessWidget {
 //                    number: appStateManager.wishlist?.products?.length,
 //                  ),
 //                  title: Text(tTitle(context, 'wishlist')),
-//                  contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+//                  contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
 //                  onTap: () {
 //                    this.navigationCallback(2, '/wishlist');
 //                    Navigator.of(context).pop();
@@ -381,70 +369,117 @@ class MomdayDrawer extends StatelessWidget {
 //                Divider(),
 //              ] : [])
               ..addAll([
-                Ink(
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.smartphone,
-                      color: MomdayColors.MomdayDarkYellow,
-                    ),
-                    title: Text(
-                      tTitle(context, 'about'),
-                      style: TextStyle(color: MomdayColors.MomdayDarkYellow),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                ListTile(
+                  leading: Icon(
+                    Icons.clear_rounded,
+                    color: MomdayColors.MomdayDarkYellow,
                   ),
-                  color: MomdayColors.MomdayDarkGreen,
-                ),
-                Ink(
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.language,
-                      color: MomdayColors.MomdayRed,
-                    ),
-                    title: Text(languageCode == 'en' ? 'العربية' : 'English',
-                        style: TextStyle(color: MomdayColors.MomdayRed)),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                    onTap: () async {
-                      if (languageCode == 'en') {
-                        MomdayApp.updateLocale(context, Locale('ar'));
-                      } else {
-                        MomdayApp.updateLocale(context, Locale('en'));
-                      }
-                    },
+                  title: Text(
+                    tTitle(context, 'about'),
+                    style: TextStyle(
+                        fontFamily: "VAG",
+                        color: MomdayColors.LocationGray,
+                        fontWeight: FontWeight.w300),
                   ),
-                  color: MomdayColors.Momdaypink,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
+                  onTap: (){
+                    Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed('/about');
+                  },
                 ),
-                Ink(
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.help_outline,
-                      color: MomdayColors.Momdaypink,
+                ListTile(
+                  leading: Icon(
+                    Icons.clear_rounded,
+                    color: MomdayColors.MomdayDarkBlue,
+                  ),
+                  title: Text(
+                    languageCode == 'en' ? 'العربية' : 'English',
+                    style: TextStyle(
+                        fontFamily: "VAG",
+                        color: MomdayColors.LocationGray,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
+                  onTap: () async {
+                    if (languageCode == 'en') {
+                      MomdayApp.updateLocale(context, Locale('ar'));
+                    } else {
+                      MomdayApp.updateLocale(context, Locale('en'));
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.clear_rounded,
+                    color: MomdayColors.Momdaypink,
+                  ),
+                  title: Text(
+                    tUpper(
+                      context,
+                      'faq',
                     ),
-                    title: Text(
-                        tUpper(
-                          context,
-                          'faq',
+                    style: TextStyle(
+                        fontFamily: "VAG",
+                        color: MomdayColors.LocationGray,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
+                ),
+                ListTile(
+                  leading: Icon(Icons.clear_rounded, color: MomdayColors.MomdayRed),
+                  title: Text(
+                    tTitle(context, 'contact_us'),
+                    style: TextStyle(
+                        fontFamily: "VAG",
+                        color: MomdayColors.LocationGray,
+                        fontWeight: FontWeight.w300),
+                  ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
+                ),
+              ])
+              ..addAll([
+                isLoggedIn
+                    ? ListTile(
+                        leading: Icon(Icons.clear_rounded,),
+
+                        title: Text(
+                          tTitle(context, 'my_account'),
+                          style: TextStyle(
+                              fontFamily: "VAG",
+                              color: Colors.transparent,
+                              fontWeight: FontWeight.w300),
                         ),
-                        style: TextStyle(color: MomdayColors.Momdaypink)),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                  ),
-                  color: MomdayColors.MomdayDarkBlue,
-                ),
-                Ink(
-                  child: ListTile(
-                    leading: Icon(Icons.mail_outline, color: Colors.white),
-                    title: Text(
-                      tTitle(context, 'contact_us'),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                  ),
-                  color: MomdayColors.MomdayDarkYellow,
-                ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 16.0),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed('/my-account');
+                        },
+                      )
+                    : ListTile(
+                        leading: Icon(
+                          Icons.clear_rounded,
+                          color: Colors.transparent,
+                        ),
+                        title: Text(
+                          tTitle(context, 'log_in') +
+                              ' | ' +
+                              tTitle(context, 'sign_up'),
+                          style: TextStyle(
+                              fontFamily: "VAG",
+                              color: MomdayColors.LocationGray,
+                              fontWeight: FontWeight.w300),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 16.0),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed('/login');
+                        }),
               ]),
           )),
         ),
@@ -467,7 +502,7 @@ class IconWithNumber extends StatelessWidget {
       this.isButton
           ? IconButton(
               icon: Icon(this.iconData),
-              color: MomdayColors.MomdayDarkBlue,
+              color: Colors.black,
               onPressed: this.onTap,
             )
           : Icon(

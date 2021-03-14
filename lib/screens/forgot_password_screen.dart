@@ -56,7 +56,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Text(tSentence(context, 'forgot_password_instructions')),
                   SizedBox(height: 10.0),
                   Theme(
-                    data: ThemeData(primaryColor: MomdayColors.Momdaypink),
+                    data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
@@ -80,7 +80,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               height: 24.0,
                               width: 24.0,
                               child: Theme(
-                                data: ThemeData(accentColor: Colors.white),
+                                data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 3.0,
                                 ),

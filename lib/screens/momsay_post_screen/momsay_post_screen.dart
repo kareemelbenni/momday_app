@@ -515,7 +515,7 @@ class __WriteCommentState extends State<_WriteComment> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(
+      data: ThemeData(fontFamily:'VAG',
         hintColor: MomdayColors.Momdaypink,
         primaryColor: MomdayColors.Momdaypink,
       ),

@@ -69,7 +69,7 @@ class _ManageAddressScreenState extends State<ManageAddressScreen> {
       ),
       backgroundColor: Colors.white,
       body: Theme(
-        data: ThemeData(primaryColor: MomdayColors.Momdaypink),
+        data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
         child: Form(
           key: this._formKey,
           child: ListView(
@@ -147,7 +147,7 @@ class _ManageAddressScreenState extends State<ManageAddressScreen> {
                                 height: 24.0,
                                 width: 24.0,
                                 child: Theme(
-                                  data: ThemeData(accentColor: Colors.white),
+                                  data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                                   child: CircularProgressIndicator(
                                     strokeWidth: 3.0,
                                   ),
@@ -172,7 +172,7 @@ class _ManageAddressScreenState extends State<ManageAddressScreen> {
                           height: 24.0,
                           width: 24.0,
                           child: Theme(
-                            data: ThemeData(accentColor: Colors.white),
+                            data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                             child: CircularProgressIndicator(
                               strokeWidth: 3.0,
                             ),

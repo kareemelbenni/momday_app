@@ -1,23 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/styles/momday_colors.dart';
-
+import '../../screens/main_screen.dart';
 class PageHeader extends StatelessWidget {
   final String title;
+  final String title2;
+  final String title3;
   final Widget widgetTitle;
   final PopupMenuButton menuButton;
 
-  PageHeader({this.title, this.widgetTitle, this.menuButton});
+  PageHeader(
+      {this.title,
+      this.title2,
+      this.title3,
+      this.widgetTitle,
+      this.menuButton});
 
   @override
   Widget build(BuildContext context) {
     var title = this.title != null
         ? Row(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+
+    MainScreen.of(context).navigateToTab(
+      0,
+    );
+  
+                },
+                child: Text(
+                  tTitle(context, 'home'),
+                  // textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontFamily: "VAG",
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              Icon(
+                Icons.clear_rounded,
+                color: MomdayColors.MomdayDarkBlue,
+              ),
+              Text(
+                this.title,
+                // textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontFamily: "VAG",
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          )
+        : widgetTitle;
+
+    var title2 = this.title2 != null
+        ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 this.title,
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.display3,
+              ),
+              Text(
+                this.title2,
+                // textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.display3,
               ),
             ],
@@ -26,8 +77,8 @@ class PageHeader extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: MomdayColors.MomdayGray,
-      ),
+          // color: MomdayColors.MomdayGray,
+          ),
       child: Stack(
         children: <Widget>[
           Navigator.of(context).canPop()
@@ -50,7 +101,7 @@ class PageHeader extends StatelessWidget {
               : Container(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: title,
+            child: this.title2 != null ? title2 : title,
           ),
           menuButton != null
               ? Row(

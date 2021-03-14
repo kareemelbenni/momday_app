@@ -190,7 +190,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: MomdayColors.Momdaypink),
+      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -289,7 +289,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                               height: 24.0,
                               width: 24.0,
                               child: Theme(
-                                data: ThemeData(accentColor: Colors.white),
+                                data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 3.0,
                                 ),
@@ -362,7 +362,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(primaryColor: MomdayColors.Momdaypink),
+      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -409,7 +409,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
                         height: 24.0,
                         width: 24.0,
                         child: Theme(
-                          data: ThemeData(accentColor: Colors.white),
+                          data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                           child: CircularProgressIndicator(
                             strokeWidth: 3.0,
                           ),

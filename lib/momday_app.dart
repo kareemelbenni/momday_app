@@ -74,7 +74,7 @@ class _MomdayAppState extends State<MomdayApp> {
       locale: this._locale,
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: ThemeData(fontFamily:'VAG',
           textTheme: TextTheme(
         display3: TextStyle(
             fontSize: 28.0, fontWeight: FontWeight.w600, color: Colors.black),
@@ -93,11 +93,11 @@ class _MomdayAppState extends State<MomdayApp> {
         );
 
         return Theme(
-            data: ThemeData(
+            data: ThemeData(fontFamily:'VAG',
               primaryColor: MomdayColors.Momdaypink,
               highlightColor: MomdayColors.MomdayHighlight,
               accentColor: MomdayColors.Momdaypink,
-              fontFamily: language == 'ar' ? 'VAG' : 'VAG',
+              
               textTheme: textTheme.copyWith(
                 display3: textTheme.display3.copyWith(height: localizedHeight),
                 subhead: textTheme.subhead.copyWith(height: localizedHeight),

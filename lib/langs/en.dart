@@ -118,6 +118,7 @@ Map<String, String> english = {
   'pay_with_aramex': 'Deliver With Aramex',
   'country': 'country',
   'city': 'city',
+  'menu': 'menu',
   'lebanon': 'lebanon',
   'address': 'address',
   'failed_to_add_address': 'failed to add address',

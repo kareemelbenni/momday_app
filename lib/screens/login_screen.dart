@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: MomdayColors.MomdayGold,
           elevation: 0.0,
           leading: IconButton(
               icon: Icon(
@@ -26,17 +26,26 @@ class LoginScreen extends StatelessWidget {
                 Navigator.of(context).pop();
               }),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: MomdayColors.MomdayGold,
+        //FDC334
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           children: <Widget>[
-            SizedBox(
-              height: 36.0,
+            // SizedBox(
+            //   height: 100,
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Image.asset('assets/images/xbackground.png'),
             ),
 
             Text(tTitle(context, 'welcome'),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 42.0, fontWeight: FontWeight.w600)),
+                style: TextStyle(
+                  fontSize: 42.0,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'VAG',
+                )),
             SizedBox(height: 10.0),
             InkWell(
               child: RichText(
@@ -50,10 +59,16 @@ class LoginScreen extends StatelessWidget {
                   ),
                   children: <TextSpan>[
                     new TextSpan(
-                        text: tSentence(context, 'dont_have_an_account') + " "),
+                        text: tSentence(context, 'dont_have_an_account') + " ",
+                        style: new TextStyle(
+                          fontFamily: 'VAG',
+                        )),
                     new TextSpan(
                         text: tSentence(context, 'sign_up'),
-                        style: new TextStyle(color: MomdayColors.Momdaypink)),
+                        style: new TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'VAG',
+                        )),
                   ],
                 ),
               ),
@@ -61,9 +76,9 @@ class LoginScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed('/signup');
               },
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 20),
             _LoginForm(),
-            SizedBox(height: 10.0),
+            SizedBox(height: 30),
             _ForgotPasswordLink(),
 //          SizedBox(height: 10.0),
 //          Stack(
@@ -160,7 +175,7 @@ class _LoginFormState extends State<_LoginForm> {
     return Form(
         key: this._formKey,
         child: Theme(
-          data: ThemeData(
+          data: ThemeData(fontFamily:'VAG',
             primaryColor: MomdayColors.Momdaypink,
           ),
           child: ListView(
@@ -168,6 +183,7 @@ class _LoginFormState extends State<_LoginForm> {
             shrinkWrap: true,
             children: <Widget>[
               TextFormField(
+                style: TextStyle(fontFamily: "VAG"),
                 keyboardType: TextInputType.emailAddress,
                 decoration: getMomdayInputDecoration(tTitle(context, 'email')),
                 validator: (value) {
@@ -179,6 +195,8 @@ class _LoginFormState extends State<_LoginForm> {
               ),
               SizedBox(height: 10.0),
               TextFormField(
+                style: TextStyle(fontFamily: "VAG"),
+
                 autofocus: false,
                 obscureText: true,
                 decoration:
@@ -194,7 +212,7 @@ class _LoginFormState extends State<_LoginForm> {
               ),
               SizedBox(height: 10.0),
               RaisedButton(
-                  color: MomdayColors.Momdaypink,
+                  color: Colors.white,
                   child: this._isLoggingIn
                       ? Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -202,7 +220,7 @@ class _LoginFormState extends State<_LoginForm> {
                             height: 24.0,
                             width: 24.0,
                             child: Theme(
-                              data: ThemeData(accentColor: Colors.white),
+                              data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
                               child: CircularProgressIndicator(
                                 strokeWidth: 3.0,
                               ),
@@ -213,7 +231,7 @@ class _LoginFormState extends State<_LoginForm> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 24.0,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w600)),
                         ),
                   onPressed: () {
@@ -354,7 +372,10 @@ class _ForgotPasswordLink extends StatelessWidget {
     return InkWell(
       child: Text(tLower(context, 'forgot_password'),
           textAlign: TextAlign.end,
-          style: TextStyle(color: Colors.black.withOpacity(0.44))),
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'VAG',
+          )),
       onTap: () async {
         var result = await Navigator.of(context).pushNamed('/forgot-password');
 

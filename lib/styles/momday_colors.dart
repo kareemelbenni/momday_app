@@ -9,6 +9,7 @@ class MomdayColors {
   static const Color GoogleRed = const Color(0xFFDE4A37);
   static const Color MomdayBlack = const Color(0xFF292425);
   static const Color MomdayHighlight = const Color(0xFFEEDEC4);
+  static const Color MomdayMainGrey = const Color(0xFFF5F5F5);
   static const Color LocationGray = const Color(0xFF707070);
   static const Color CommentBackgroundColor = const Color(0x10929292);
   static const Color ActivityContact = const Color(0x0D000000);
