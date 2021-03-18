@@ -120,7 +120,7 @@ class _MomsaySummaries extends StatelessWidget {
                                 maxLines: 1,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: MomdayColors.Momdaypink,
+                                    color: MomdayColors.MomdayGold,
                                     fontSize: 20.0),
                               )
                             : Container()
@@ -158,8 +158,9 @@ class _MomsaySummaries extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.0),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 2.0,

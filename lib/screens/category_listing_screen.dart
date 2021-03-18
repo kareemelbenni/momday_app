@@ -55,20 +55,24 @@ class CategoryListingScreen extends StatelessWidget {
       fontWeight: FontWeight.w300
     );
     var adjectiveStyle = Theme.of(context).textTheme.display3;
-    String noun = tTitle(context, 'items');
+    String noun = tTitle(context, 'products',);
 //    String adjective = tTitle(context, this.type);
 
     var language = Localizations.localeOf(context).languageCode;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         RichText(
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.start,
           text: TextSpan(
             text: noun,
-            style: language == 'ar'? nounStyle : adjectiveStyle,
-//            children: [
+            style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontFamily: "VAG",
+                    fontWeight: FontWeight.w500),
+//            children: [F
 //              TextSpan(
 //                  text: language == 'ar'? adjective : noun,
 //                  style: language == 'ar'? adjectiveStyle : nounStyle

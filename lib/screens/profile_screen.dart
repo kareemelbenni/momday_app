@@ -35,7 +35,7 @@ class _PorfileScreenState extends State<PorfileScreen> {
           AppStateManager.of(context).account.fullName,
           textAlign: TextAlign.center,
           style: const TextStyle(
-              color: MomdayColors.Momdaypink,
+              color: MomdayColors.MomdayGold,
               fontSize: 20.0,
               fontWeight: FontWeight.w300),
         ),
@@ -46,7 +46,7 @@ class _PorfileScreenState extends State<PorfileScreen> {
           AppStateManager.of(context).account.email,
           textAlign: TextAlign.center,
           style: const TextStyle(
-              color: MomdayColors.Momdaypink,
+              color: MomdayColors.MomdayGold,
               fontSize: 20.0,
               fontWeight: FontWeight.w300),
         ),
@@ -58,7 +58,7 @@ class _PorfileScreenState extends State<PorfileScreen> {
           children: <Widget>[
             RaisedButton(
               child: Text(tUpper(context, 'edit')),
-              color: MomdayColors.Momdaypink,
+              color: MomdayColors.MomdayGold,
               colorBrightness: Brightness.dark,
               onPressed: () {
                 setState(() {
@@ -148,7 +148,7 @@ class _ChangePassword extends StatelessWidget {
         style: TextStyle(
             color: !this.showChangePassword
                 ? Colors.black.withOpacity(0.5)
-                : MomdayColors.Momdaypink),
+                : MomdayColors.MomdayGold),
       ),
       onTap: this.onTap,
     );
@@ -190,7 +190,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
+      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.MomdayGold),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -255,6 +255,9 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                 },
                 onSaved: (value) => this._email = value,
               ),
+              SizedBox(
+                height: 8.0,
+              ),
               TextFormField(
                 initialValue: AppStateManager.of(context).account.phoneNumber,
                 decoration: getMomdayInputDecoration(tTitle(context, 'phone')),
@@ -282,7 +285,7 @@ class _EditProfileFormState extends State<_EditProfileForm> {
                     width: 8.0,
                   ),
                   RaisedButton(
-                      color: MomdayColors.Momdaypink,
+                      color: MomdayColors.MomdayGold,
                       colorBrightness: Brightness.dark,
                       child: this._isChangingProfile
                           ? SizedBox(
@@ -362,7 +365,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
+      data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.MomdayGold),
       child: Form(
         key: this._formKey,
         child: Padding(
@@ -402,7 +405,7 @@ class __ChangePasswordFormState extends State<_ChangePasswordForm> {
                 height: 8.0,
               ),
               RaisedButton(
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
                 colorBrightness: Brightness.dark,
                 child: this._isChangingPassword
                     ? SizedBox(

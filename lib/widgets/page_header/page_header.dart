@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 import '../../screens/main_screen.dart';
+
 class PageHeader extends StatelessWidget {
   final String title;
   final String title2;
@@ -24,18 +25,16 @@ class PageHeader extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-
-    MainScreen.of(context).navigateToTab(
-      0,
-    );
-  
+                  MainScreen.of(context).navigateToTab(
+                    0,
+                  );
                 },
                 child: Text(
                   tTitle(context, 'home'),
                   // textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 25,
+                      fontSize: 22,
                       fontFamily: "VAG",
                       fontWeight: FontWeight.w500),
                 ),
@@ -49,7 +48,7 @@ class PageHeader extends StatelessWidget {
                 // textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 25,
+                    fontSize: 22,
                     fontFamily: "VAG",
                     fontWeight: FontWeight.w500),
               ),
@@ -73,6 +72,62 @@ class PageHeader extends StatelessWidget {
               ),
             ],
           )
+        : widgetTitle;
+    var title3 = this.title3 != null
+        ? SingleChildScrollView(scrollDirection: Axis.horizontal,
+          child: Row(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    MainScreen.of(context).navigateToTab(
+                      0,
+                    );
+                  },
+                  child: Text(
+                    this.title,
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontFamily: "VAG",
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Icon(
+                  Icons.clear_rounded,
+                  color: MomdayColors.MomdayDarkBlue,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    this.title2,
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontFamily: "VAG",
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Icon(
+                  Icons.clear_rounded,
+                  color: MomdayColors.MomdayRed,
+                ),
+                Text(
+                  this.title3,
+                  // textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontFamily: "VAG",
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+        )
         : widgetTitle;
 
     return Container(
@@ -101,7 +156,11 @@ class PageHeader extends StatelessWidget {
               : Container(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: this.title2 != null ? title2 : title,
+            child: this.title3 != null
+                ? title3
+                : this.title2 != null
+                    ? title2
+                    : title,
           ),
           menuButton != null
               ? Row(
@@ -124,7 +183,7 @@ class PageHeader2 extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           border: Border(
-              bottom: BorderSide(color: MomdayColors.Momdaypink, width: 3.0))),
+              bottom: BorderSide(color: MomdayColors.MomdayGold, width: 3.0))),
       child: Stack(
         children: <Widget>[
           Navigator.of(context).canPop()

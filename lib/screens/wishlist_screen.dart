@@ -103,13 +103,13 @@ class WishlistScreen extends StatelessWidget {
         },
         icon: Icon(
           Icons.shopping_cart,
-          color: MomdayColors.Momdaypink,
+          color: MomdayColors.MomdayGold,
         ),
         label: Text(
           tSentence(context, 'go_back_to_shopping'),
           textAlign: TextAlign.start,
           style: TextStyle(
-              color: MomdayColors.Momdaypink, fontWeight: FontWeight.bold),
+              color: MomdayColors.MomdayGold, fontWeight: FontWeight.bold),
         ));
   }
 }

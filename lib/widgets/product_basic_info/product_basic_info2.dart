@@ -5,10 +5,10 @@ import 'package:momday_app/momday_utils.dart';
 import 'package:momday_app/styles/momday_colors.dart';
 import 'package:momday_app/widgets/star_rating/star_rating.dart';
 
-class ProductBasicInfo extends StatelessWidget {
+class ProductBasicInfo2 extends StatelessWidget {
   final ProductModel product;
 
-  ProductBasicInfo({this.product});
+  ProductBasicInfo2({this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ProductBasicInfo extends StatelessWidget {
                     this.product.brand,
                     textAlign: TextAlign.start,
                     style:
-                        TextStyle(fontWeight: FontWeight.w800, fontSize: 18.0),
+                        TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                   )
                 : Container(),
                 SizedBox(
@@ -32,7 +32,7 @@ class ProductBasicInfo extends StatelessWidget {
             Text(
               this.product.name,
               textAlign: TextAlign.start,
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 16.0,color: MomdayColors.LocationGray),
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18,color: MomdayColors.LocationGray),
             ),
             SizedBox(
               height: 5,
@@ -42,7 +42,7 @@ class ProductBasicInfo extends StatelessWidget {
                     this.product.price,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Colors.black, fontSize: 20.0),
+                        color: Colors.black, fontSize: 21),
                   )
                 : Container(),
             this.product.rewardGain != null
@@ -58,10 +58,10 @@ class ProductBasicInfo extends StatelessWidget {
                     ? tTitle(context, 'in_stock')
                     : tTitle(context, 'out_of_stock'),
                 style: cancelArabicFontDelta(context)
-                    .copyWith(fontWeight: FontWeight.w300)),
+                    .copyWith(fontWeight: FontWeight.w300,fontSize: 18)),
             product.preloved == 0
                 ? StarRating(
-                    iconSize: 16.0,
+                    iconSize: 17,
                     rating: this.product.rating,
                     readOnly: true,
                     color: MomdayColors.MomdayGold,

@@ -95,9 +95,9 @@ class _MomdayAppState extends State<MomdayApp> {
         return Theme(
             data: ThemeData(
 <<<<<<< HEAD
-              primaryColor: MomdayColors.Momdaypink,
+              primaryColor: MomdayColors.MomdayGold,
               highlightColor: MomdayColors.MomdayHighlight,
-              accentColor: MomdayColors.Momdaypink,
+              accentColor: MomdayColors.MomdayGold,
               fontFamily: language == 'ar' ? 'FrutigerLTArabic' : 'ProximaNova',
 =======
               primaryColor: MomdayColors.MomdayGold,

@@ -230,7 +230,7 @@ class MomdayBackend {
     }
 
     request["option"] = options;
-
+print("request is: $request");
     dynamic response = await this._httpClient.post('/rest/cart/cart', request);
 
     return response;

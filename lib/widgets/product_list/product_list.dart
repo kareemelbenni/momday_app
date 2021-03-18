@@ -124,7 +124,7 @@ class __ProductsGridState extends State<_ProductsGrid> {
             style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 30.0,
-                color: MomdayColors.Momdaypink.withOpacity(0.44))),
+                color: MomdayColors.MomdayGold.withOpacity(0.44))),
         SizedBox(
           height: 32.0,
         ),
@@ -173,7 +173,7 @@ class __ProductsGridState extends State<_ProductsGrid> {
 
         var entryHeight = entryWidth; // the photo of the product is square
         entryHeight +=
-            200.0; // The product basic info and the add or wish button
+            170.0; // The product basic info and the add or wish button
         if (AppStateManager.of(context).account.isCelebrity) {
           entryHeight += 36.0; // The typical button height
         }
@@ -297,7 +297,7 @@ class Filters extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         tSentence(context, 'sort_by'),
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20),
                       ),
                     ],
                   ),
@@ -373,7 +373,7 @@ class SortOption extends StatelessWidget {
                       style: TextStyle(
                           color:
                               this.isSelected && this.selectedDirection == 'asc'
-                                  ? MomdayColors.Momdaypink
+                                  ? MomdayColors.MomdayGold
                                   : null),
                     ),
                     onTap: () {
@@ -395,7 +395,7 @@ class SortOption extends StatelessWidget {
                       style: TextStyle(
                           color: this.isSelected &&
                                   this.selectedDirection == 'desc'
-                              ? MomdayColors.Momdaypink
+                              ? MomdayColors.MomdayGold
                               : null),
                     ),
                     onTap: () {
@@ -433,7 +433,7 @@ class SortOption extends StatelessWidget {
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: isSelected ? MomdayColors.Momdaypink : Colors.black,
+              color: isSelected ? MomdayColors.MomdayGold : Colors.black,
               fontWeight: FontWeight.w600,
               fontSize: 18.0),
         ),
@@ -513,7 +513,7 @@ class _FilterDialogState extends State<FilterDialog>
             indicator: BoxDecoration(),
             labelStyle: TextStyle(fontSize: 18.0),
             indicatorWeight: 1.0,
-            labelColor: MomdayColors.Momdaypink,
+            labelColor: MomdayColors.MomdayGold,
             unselectedLabelColor: Colors.black.withOpacity(0.5),
             tabs: [
               FittedBox(
@@ -556,7 +556,7 @@ class _FilterDialogState extends State<FilterDialog>
                 shape: Border(),
                 padding: EdgeInsets.all(16.0),
                 colorBrightness: Brightness.dark,
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 child: FittedBox(
                   child: Text(tUpper(context, 'apply_filters')),
@@ -644,7 +644,7 @@ class _FilterDialogState extends State<FilterDialog>
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: isSelected ? MomdayColors.Momdaypink : Colors.black,
+                  color: isSelected ? MomdayColors.MomdayGold : Colors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 18.0),
             ),
@@ -672,7 +672,7 @@ class _FilterDialogState extends State<FilterDialog>
           text,
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: isSelected ? MomdayColors.Momdaypink : Colors.black,
+              color: isSelected ? MomdayColors.MomdayGold : Colors.black,
               fontWeight: FontWeight.w600,
               fontSize: 18.0),
         ),
@@ -722,7 +722,7 @@ class _FilterDialogState extends State<FilterDialog>
               textAlign: TextAlign.center,
               style: cancelArabicFontDelta(context).copyWith(
                   color: this.selectedCategoryId == category.categoryId
-                      ? MomdayColors.Momdaypink
+                      ? MomdayColors.MomdayGold
                       : Colors.black,
                   fontSize: 16.0),
             ),
@@ -748,7 +748,7 @@ class _FilterDialogState extends State<FilterDialog>
                       style: cancelArabicFontDelta(context).copyWith(
                           color:
                               this.selectedCategoryId == subcategory.categoryId
-                                  ? MomdayColors.Momdaypink
+                                  ? MomdayColors.MomdayGold
                                   : Colors.black,
                           fontSize: 16.0))
                   : Container(),

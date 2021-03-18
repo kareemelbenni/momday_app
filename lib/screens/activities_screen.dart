@@ -114,11 +114,12 @@ class _ActivitiesSummaries extends StatelessWidget {
                             DefaultTextStyle(
                               style: cancelArabicFontDelta(context).copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: MomdayColors.Momdaypink,
+                                  color: MomdayColors.MomdayGold,
                                   fontSize: 20.0),
                               child: Text(
                                 activity.title,
                                 maxLines: 1,
+                                style: TextStyle(color: MomdayColors.MomdayGold),
                               ),
                             ),
                             SizedBox(height: 8.0),

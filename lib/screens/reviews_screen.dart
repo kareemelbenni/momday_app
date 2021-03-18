@@ -71,7 +71,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                       Container(
                         foregroundDecoration: BoxDecoration(
                           border: Border.all(
-                              color: MomdayColors.Momdaypink, width: 0.5),
+                              color: MomdayColors.MomdayGold, width: 0.5),
                         ),
                         child: ListTile(
                           title: Row(
@@ -79,7 +79,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                               Text(
                                 tUpper(context, 'add_your_review'),
                                 style: TextStyle(
-                                    color: MomdayColors.Momdaypink,
+                                    color: MomdayColors.MomdayGold,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
@@ -91,11 +91,11 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                           ),
                           subtitle: Text(
                             tLower(context, 'share_your_review'),
-                            style: TextStyle(color: MomdayColors.Momdaypink),
+                            style: TextStyle(color: MomdayColors.MomdayGold),
                           ),
                           trailing: Icon(
                             goIcon,
-                            color: MomdayColors.Momdaypink,
+                            color: MomdayColors.MomdayGold,
                           ),
                           onTap: () {
                             if (!AppStateManager.of(context)
@@ -302,8 +302,8 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
         children: <Widget>[
           Theme(
             data: ThemeData(fontFamily:'VAG',
-              hintColor: MomdayColors.Momdaypink,
-              primaryColor: MomdayColors.Momdaypink,
+              hintColor: MomdayColors.MomdayGold,
+              primaryColor: MomdayColors.MomdayGold,
             ),
             child: TextFormField(
                 initialValue: _name,
@@ -313,7 +313,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                     borderRadius: BorderRadius.zero,
                   ),
                   hintText: tLower(context, 'name'),
-                  hintStyle: TextStyle(color: MomdayColors.Momdaypink),
+                  hintStyle: TextStyle(color: MomdayColors.MomdayGold),
                 ),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -327,10 +327,10 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
             foregroundDecoration: BoxDecoration(
                 border: Border(
               right: BorderSide(
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
               ),
               left: BorderSide(
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
               ),
             )),
             child: Row(
@@ -351,15 +351,15 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                 Text(
                   tTitle(context, 'rate_this_item'),
                   style:
-                      TextStyle(color: MomdayColors.Momdaypink, fontSize: 16.0),
+                      TextStyle(color: MomdayColors.MomdayGold, fontSize: 16.0),
                 )
               ],
             ),
           ),
           Theme(
             data: ThemeData(fontFamily:'VAG',
-              hintColor: MomdayColors.Momdaypink,
-              primaryColor: MomdayColors.Momdaypink,
+              hintColor: MomdayColors.MomdayGold,
+              primaryColor: MomdayColors.MomdayGold,
             ),
             child: TextFormField(
                 maxLength: 1000,
@@ -371,7 +371,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
                   contentPadding:
                       EdgeInsets.only(right: 8.0, left: 8.0, bottom: 70.0),
                   hintText: tLower(context, 'share_your_review'),
-                  hintStyle: TextStyle(color: MomdayColors.Momdaypink),
+                  hintStyle: TextStyle(color: MomdayColors.MomdayGold),
                 ),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -388,7 +388,7 @@ class _WriteReviewWidgetState extends State<WriteReviewWidget> {
             height: 16.0,
           ),
           RaisedButton(
-            color: MomdayColors.Momdaypink,
+            color: MomdayColors.MomdayGold,
             colorBrightness: Brightness.dark,
             child: this._isLoading
                 ? SizedBox(

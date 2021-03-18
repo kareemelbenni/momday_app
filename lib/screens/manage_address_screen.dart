@@ -69,7 +69,7 @@ class _ManageAddressScreenState extends State<ManageAddressScreen> {
       ),
       backgroundColor: Colors.white,
       body: Theme(
-        data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
+        data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.MomdayGold),
         child: Form(
           key: this._formKey,
           child: ListView(
@@ -161,7 +161,7 @@ class _ManageAddressScreenState extends State<ManageAddressScreen> {
                     : Container(),
                 SizedBox(width: 8.0),
                 RaisedButton(
-                  color: MomdayColors.Momdaypink,
+                  color: MomdayColors.MomdayGold,
                   colorBrightness: Brightness.dark,
                   padding: EdgeInsets.symmetric(
                       vertical:

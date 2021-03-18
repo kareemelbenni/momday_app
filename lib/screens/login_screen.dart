@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
             // ),
             Padding(
               padding: const EdgeInsets.all(20),
-              child: Image.asset('assets/images/xbackground.png'),
+              child: Image.asset('assets/images/xbackground.png',height: 150,),
             ),
 
             Text(tTitle(context, 'welcome'),
@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
 //            children: <Widget>[
 //              Container(
 //                height: 1.0,
-//                color: MomdayColors.Momdaypink ,
+//                color: MomdayColors.MomdayGold ,
 //              ),
 //              Positioned(
 //                child: Container(
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
 //                    tUpper(context, 'or'),
 //                    textAlign: TextAlign.center,
 //                    style: TextStyle(
-//                      color: MomdayColors.Momdaypink
+//                      color: MomdayColors.MomdayGold
 //                    ),
 //                  ),
 //                ),
@@ -176,7 +176,7 @@ class _LoginFormState extends State<_LoginForm> {
         key: this._formKey,
         child: Theme(
           data: ThemeData(fontFamily:'VAG',
-            primaryColor: MomdayColors.Momdaypink,
+            primaryColor: MomdayColors.MomdayGold,
           ),
           child: ListView(
             primary: false,

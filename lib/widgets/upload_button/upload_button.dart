@@ -52,7 +52,7 @@
 //    return  Padding(
 //        padding: const EdgeInsets.all(30),
 //        child:FlatButton(
-//          color: MomdayColors.Momdaypink ,
+//          color: MomdayColors.MomdayGold ,
 //          colorBrightness: Brightness.dark,
 //          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 //          shape: Border(),

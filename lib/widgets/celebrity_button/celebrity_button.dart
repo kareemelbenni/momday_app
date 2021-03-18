@@ -31,7 +31,7 @@ class CelebrityButtonState extends State<CelebrityButton> {
         appStateManager.account.store.productIds.contains(widget.productId);
 
     final buttonColor =
-        containedInStore ? MomdayColors.Momdaypink : Colors.black;
+        containedInStore ? MomdayColors.MomdayGold : Colors.black;
 
     final buttonText = !containedInStore ? 'add_to_my_store' : 'in_my_my_store';
 

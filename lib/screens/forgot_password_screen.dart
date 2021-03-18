@@ -26,7 +26,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: MomdayColors.MomdayGold,
           elevation: 0.0,
           leading: IconButton(
               icon: Icon(
@@ -37,7 +37,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Navigator.of(context).pop();
               }),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: MomdayColors.MomdayGold,
         body: Builder(builder: (BuildContext context) {
           return Center(
             child: Form(
@@ -45,6 +45,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Image.asset('assets/images/xbackground.png',height: 150,),
+                  ),
                   SizedBox(height: 10.0),
                   Text(tTitle(context, 'no_worries'),
                       textAlign: TextAlign.center,
@@ -56,7 +60,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Text(tSentence(context, 'forgot_password_instructions')),
                   SizedBox(height: 10.0),
                   Theme(
-                    data: ThemeData(fontFamily:'VAG',primaryColor: MomdayColors.Momdaypink),
+                    data: ThemeData(
+                        fontFamily: 'VAG',
+                        primaryColor: MomdayColors.MomdayGold),
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       autofocus: false,
@@ -72,7 +78,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   SizedBox(height: 10.0),
                   RaisedButton(
-                    color: MomdayColors.Momdaypink,
+                    color: Colors.white,
                     child: this._isSendingPassword
                         ? Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -80,7 +86,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               height: 24.0,
                               width: 24.0,
                               child: Theme(
-                                data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
+                                data: ThemeData(
+                                    fontFamily: 'VAG',
+                                    accentColor: Colors.black),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 3.0,
                                 ),
@@ -91,7 +99,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 24.0,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.w600)),
                           ),
                     onPressed: () => this._onSendPassword(context),

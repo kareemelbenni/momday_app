@@ -141,7 +141,7 @@ class _MyHomePageState extends State<credit_card> {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: RaisedButton(
-                      color: MomdayColors.Momdaypink,
+                      color: MomdayColors.MomdayGold,
                       child: this._ispaid
                           ? Padding(
                               padding:

@@ -36,6 +36,7 @@ class MomdayHttp extends PropertyChangeNotifier {
       this._prefs = await SharedPreferences.getInstance();
       await this.getToken();
       await this.getSession();
+
       this._isInitialized = true;
       this.notifyPropertyChange(#_isInitialized, false, true);
     }
@@ -57,6 +58,7 @@ class MomdayHttp extends PropertyChangeNotifier {
       if (bearerResponse['data'] != null) {
         this.xsession = bearerResponse['data']['session'];
         await this._prefs.setString('xsession', this.xsession);
+        print("session is ${this.xsession}");
       }
     }
   }
@@ -90,11 +92,15 @@ class MomdayHttp extends PropertyChangeNotifier {
   Future<dynamic> post(String url, dynamic body,
       [bool useBasic = false]) async {
     Map<String, String> headers = {};
-    headers['Authorization'] =
-        useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
+    print("headers is ${headers['Authorization']}");
+    print("usebasic is ${useBasic}");
+    print("bearer is ${this._bearerToken}");
+    // headers['Authorization'] =
+    //     useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'application/json';
-    headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['Accept'] = 'application/json';
+    // headers['X-Oc-Merchant-Language'] = this._language;
+    headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
     print(headers);
     print("posting to " + this._baseUrl + url);
@@ -132,7 +138,7 @@ class MomdayHttp extends PropertyChangeNotifier {
         useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'multipart/form-data';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
 
     http.MultipartRequest request = new http.MultipartRequest("POST", uri);
@@ -163,7 +169,7 @@ class MomdayHttp extends PropertyChangeNotifier {
         useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'application/json';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
 
     http.Response response = await http.put(this._baseUrl + url,
@@ -197,7 +203,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     Map<String, String> headers = {};
     headers['Authorization'] = 'Bearer ${this._bearerToken}';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     if (XSession != null) headers['X-Oc-Session'] = this.xsession;
 
     if (imageDimensions != null) {
@@ -235,7 +241,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     Map<String, String> headers = {};
     headers['Authorization'] = 'Bearer ${this._bearerToken}';
     headers['X-Oc-Merchant-Language'] = this._language;
-    headers['X-Oc-Merchant-Id'] = 'WjxAxRPfb3PYIo7HnjK5vlFzP4sNtZsA';
+    headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
 
     http.Response response = await http.delete(

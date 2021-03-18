@@ -42,7 +42,7 @@ class MomsayAuthorBio extends StatelessWidget {
                   ? Text(
                       this.author.name.toUpperCase(),
                       style: TextStyle(
-                          color: MomdayColors.Momdaypink,
+                          color: MomdayColors.MomdayGold,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0),
                     )
@@ -69,7 +69,7 @@ class MomsayAuthorBio extends StatelessWidget {
                     SizedBox(
                       height: 2.0,
                     ),
-                    Container(height: 1.0, color: MomdayColors.Momdaypink),
+                    Container(height: 1.0, color: MomdayColors.MomdayGold),
                     SizedBox(
                       height: 12.0,
                     ),

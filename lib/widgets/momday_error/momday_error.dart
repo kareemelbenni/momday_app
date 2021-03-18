@@ -63,7 +63,7 @@ class MomdayError extends StatelessWidget {
                 tUpper(context, 'try_again'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: MomdayColors.Momdaypink,
+                  color: MomdayColors.MomdayGold,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -74,7 +74,7 @@ class MomdayError extends StatelessWidget {
               tUpper(context, 'report_issue'),
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
                 fontWeight: FontWeight.w600,
               ),
             ),

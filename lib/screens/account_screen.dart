@@ -19,7 +19,7 @@ class AccountScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: MomdayColors.MomdayGold,
         elevation: 0.0,
         leading: IconButton(
             icon: Icon(
@@ -30,26 +30,33 @@ class AccountScreen extends StatelessWidget {
               Navigator.of(context).pop();
             }),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: MomdayColors.MomdayGold,
       body: ListView(
         children: <Widget>[
-          Text(
-            AppStateManager.of(context).account.fullName,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 44.0,
-                color: Colors.black,
-                decoration: null),
+          Padding(
+            padding: EdgeInsets.only(left:10),
+            child: Text(
+              tTitle(context, 'welcome_to_momday') + '!',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30),
+            ),
           ),
-          Text(
-            tTitle(context, 'welcome_to_momday') + '!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: MomdayColors.Momdaypink,
-                fontWeight: FontWeight.w300,
-                fontSize: 32.0),
+          Padding(
+            padding: EdgeInsets.only(left:10,top:12),
+            child: Text(
+              AppStateManager.of(context).account.fullName,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                  color: Colors.black,
+                  decoration: null),
+            ),
           ),
+
           SizedBox(
             height: 20.0,
           ),
@@ -94,7 +101,7 @@ class AccountScreen extends StatelessWidget {
 //            trailing: Builder(
 //              builder: (context) {
 //                return Switch(
-//                  activeColor: MomdayColors.Momdaypink ,
+//                  activeColor: MomdayColors.MomdayGold ,
 //                  inactiveTrackColor: MomdayColors.MomdayGray,
 //                  value: AppStateManager.of(context).notificationsEnabled,
 //                  onChanged: (newValue) {

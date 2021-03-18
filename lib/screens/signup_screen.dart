@@ -71,7 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: MomdayColors.MomdayGold,
           elevation: 0.0,
           leading: IconButton(
               icon: Icon(
@@ -82,13 +82,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 Navigator.of(context).pop();
               }),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: MomdayColors.MomdayGold,
         body: Builder(builder: (BuildContext context) {
           return Form(
             key: this._formKey,
             child: Theme(
               data: ThemeData(fontFamily:'VAG',
-                primaryColor: MomdayColors.Momdaypink,
+                primaryColor: MomdayColors.MomdayGold,
               ),
               child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -198,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         value: Genders.female,
                         groupValue: radioGender,
                         onChanged: (value) => setGender(value),
-                        activeColor: MomdayColors.Momdaypink,
+                        activeColor: Colors.white,
                       ),
                       new Text(
                         'Female',
@@ -208,7 +208,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         value: Genders.male,
                         groupValue: radioGender,
                         onChanged: (value) => setGender(value),
-                        activeColor: MomdayColors.Momdaypink,
+                        activeColor: Colors.white,
                       ),
                       new Text(
                         'Male',
@@ -220,7 +220,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 10.0),
                   new Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).size.width * 0.2,
@@ -246,7 +246,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.65,
                         child: TextFormField(
                           keyboardType: TextInputType.phone,
                           autofocus: false,
@@ -312,7 +312,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         children: [
                           TextSpan(
                               text: t(context, 'terms_of_service'),
-                              style: TextStyle(color: MomdayColors.Momdaypink),
+                              style: TextStyle(color: Colors.white),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   print('terms of service');
@@ -320,7 +320,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           TextSpan(text: t(context, 'and')),
                           TextSpan(
                               text: t(context, 'privacy_policy'),
-                              style: TextStyle(color: MomdayColors.Momdaypink),
+                              style: TextStyle(color: Colors.white),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   print('privacy policy');
@@ -330,7 +330,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: 10.0),
                   RaisedButton(
-                      color: MomdayColors.Momdaypink,
+                      color: Colors.white,
                       child: this._isSigningUp
                           ? Padding(
                               padding:
@@ -339,7 +339,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 height: 24.0,
                                 width: 24.0,
                                 child: Theme(
-                                  data: ThemeData(fontFamily:'VAG',accentColor: Colors.white),
+                                  data: ThemeData(fontFamily:'VAG',accentColor: MomdayColors.MomdayGold),
                                   child: CircularProgressIndicator(
                                     strokeWidth: 3.0,
                                   ),
@@ -350,7 +350,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 24.0,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w600)),
                             ),
                       onPressed: () => this._onSignUp(context)),

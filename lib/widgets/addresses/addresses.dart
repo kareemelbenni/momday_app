@@ -37,7 +37,7 @@ class _AddressesState extends State<Addresses> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: MomdayColors.Momdaypink,
+                    color: MomdayColors.MomdayGold,
                     fontSize: 24.0),
               ),
               SizedBox(

@@ -59,7 +59,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 RaisedButton(
-                  color: MomdayColors.Momdaypink,
+                  color: MomdayColors.MomdayGold,
                   colorBrightness: Brightness.dark,
                   padding: EdgeInsets.symmetric(
                       vertical:

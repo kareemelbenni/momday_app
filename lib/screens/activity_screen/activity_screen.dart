@@ -83,7 +83,7 @@ class _Activity extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.w600,
-                              color: MomdayColors.Momdaypink),
+                              color: MomdayColors.MomdayGold),
                         ),
                         SizedBox(
                           height: 8.0,
@@ -189,7 +189,7 @@ class _Activity extends StatelessWidget {
                     url: url,
                     appBar: AppBar(
                       backgroundColor: Colors.white,
-                      iconTheme: IconThemeData(color: MomdayColors.Momdaypink),
+                      iconTheme: IconThemeData(color: MomdayColors.MomdayGold),
                     ),
                   )));
           return;

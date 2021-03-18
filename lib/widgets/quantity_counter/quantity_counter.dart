@@ -52,7 +52,7 @@ class QuantityCounterState extends State<QuantityCounter> {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               this.widget.quantity.toString(),
-              style: TextStyle(color: MomdayColors.Momdaypink),
+              style: TextStyle(color: MomdayColors.MomdayGold),
             ),
           ),
           Container(

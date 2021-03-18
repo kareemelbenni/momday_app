@@ -19,7 +19,7 @@ import 'package:momday_app/widgets/elegant_future_builder/elegant_future_builder
 import 'package:momday_app/widgets/momday_error/momday_error.dart';
 import 'package:momday_app/widgets/page_header/page_header.dart';
 import 'package:momday_app/widgets/product_list/product.dart';
-import 'package:momday_app/widgets/product_basic_info/product_basic_info.dart';
+import 'package:momday_app/widgets/product_basic_info/product_basic_info2.dart';
 import 'package:momday_app/widgets/selected_category_header/selected_category_header.dart';
 import 'package:momday_app/widgets/star_rating/star_rating.dart';
 //import 'package:video_player/video_player.dart';
@@ -81,62 +81,66 @@ class _ProductScreenState extends State<ProductScreen> {
         productData.categoryId != null && productData.categoryId != ''
             ? Builder(
                 builder: (context) {
-                  return SelectedCategoryHeader(
-                    selectedCategoryId: productData.categoryId,
-                    categories: AppStateManager.of(context).categories,
+                  return PageHeader(
+                    title: tTitle(context, "home"),
+                    title2: tTitle(context, "products"),
+                    title3: productData.name,
+                    // selectedCategoryId: productData.categoryId,
+                    // categories: AppStateManager.of(context).categories,
                   );
                 },
               )
             : Container(),
         Container(
           padding: EdgeInsets.only(bottom: 8.0),
-          foregroundDecoration: BoxDecoration(
-            border: Border(
-                left: BorderSide(width: 0.1),
-                right: BorderSide(width: 0.1),
-                bottom: BorderSide(width: 0.1)),
-          ),
+          foregroundDecoration: BoxDecoration(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height:
-                    max(200.0, MediaQuery.of(context).size.width * 0.5 + 10.0),
-                child: Row(
+                height: max(200.0, MediaQuery.of(context).size.width
+                    // * 0.5 + 10.0
+                    ),
+                child: Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: productData.images != null
                           ? Carousel(
                               indicatorBgPadding: 8.0,
-                              imageHeight:
-                                  MediaQuery.of(context).size.width * 0.5 -
-                                      32.0,
+                              imageHeight: MediaQuery.of(context).size.width
+                                  // * 0.5
+                                  -
+                                  50.0,
                               aspectRatio: 1.0,
                               boxFit: BoxFit.fill,
                               images: (productData.images
                                 ..insert(0, productData.image)),
                               video: productData.video,
                               onItemTap: (index) {
-//                          if(productData.images[index] == productData.video)
-//                            _displayAlert(productData.video, false);
+                                //if(productData.images[index] == productData.video)
+                                //_displayAlert(productData.video, false);
                               },
                             )
                           : Container(),
                     ),
-                    SizedBox(
-                      width: 10.0,
+                    // SizedBox(
+                    //   width: 10.0,
+                    // ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left:8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 10),
+                    ProductBasicInfo2(
+                      product: productData,
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(height: 10),
-                          ProductBasicInfo(
-                            product: productData,
-                          ),
 //                          productData.preloved == 0?
 //                          Text(
 //                              tTitle(context, 'new_item'),
@@ -152,9 +156,6 @@ class _ProductScreenState extends State<ProductScreen> {
 //                              textAlign: TextAlign.start,
 //                              style: MomdayStyles.hint
 //                          ):Container(),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -182,7 +183,7 @@ class _ProductScreenState extends State<ProductScreen> {
 //                    tSentence(context, "donation_msg_buyer"),
 //                    textAlign: TextAlign.start,
 //                    style: TextStyle(
-//                        color: MomdayColors.Momdaypink ,
+//                        color: MomdayColors.MomdayGold ,
 //                        fontSize: 16.0
 //                    ),
 //                  )
@@ -275,7 +276,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   tTitle(context, 'related_items'),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: MomdayColors.Momdaypink,
+                      color: MomdayColors.MomdayGold,
                       fontWeight: FontWeight.w600,
                       fontSize: 30.0),
                 ),

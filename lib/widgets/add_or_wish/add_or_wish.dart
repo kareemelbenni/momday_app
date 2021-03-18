@@ -73,10 +73,10 @@ class AddOrWishState extends State<AddOrWish> {
         height: 48.0,
         foregroundDecoration: BoxDecoration(
             border: BorderDirectional(
-              start: !isFirst || this.widget.hasStartBorder
-                  ? BorderSide(width: 0.1)
-                  : BorderSide.none,
-              top: BorderSide(width: 0.1),
+            //   start: !isFirst || this.widget.hasStartBorder
+            //       ? BorderSide(width: 0.1)
+            //       : BorderSide.none,
+            //   top: BorderSide(width: 0.1),
               bottom: BorderSide(width: 0.1),
               end: isFirst ? BorderSide.none : BorderSide(width: 0.1),
             ),
@@ -85,7 +85,7 @@ class AddOrWishState extends State<AddOrWish> {
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           child: isPerformingAction ? loader : icon,
           onPressed: isPerformingAction ? null : onPressed,
-          textColor: status ? MomdayColors.Momdaypink : Colors.black,
+          textColor: status ? MomdayColors.MomdayGold : Colors.black,
         ));
   }
 

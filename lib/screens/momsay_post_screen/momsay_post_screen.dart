@@ -98,7 +98,7 @@ class _MomsayPost extends StatelessWidget {
                     ? Text(
                         post.author.name.toUpperCase(),
                         style: cancelArabicFontDelta(context).copyWith(
-                            color: MomdayColors.Momdaypink,
+                            color: MomdayColors.MomdayGold,
                             fontWeight: FontWeight.bold),
                       )
                     : Container(),
@@ -147,7 +147,7 @@ class _MomsayPost extends StatelessWidget {
                                         appBar: AppBar(
                                           backgroundColor: Colors.white,
                                           iconTheme: IconThemeData(
-                                              color: MomdayColors.Momdaypink),
+                                              color: MomdayColors.MomdayGold),
                                         ),
                                       )));
                         },
@@ -460,7 +460,7 @@ class __ToggleLikeState extends State<_ToggleLike> {
         icon: Icon(
           Icons.thumb_up,
           color:
-              isLikedByUser ? MomdayColors.Momdaypink : MomdayColors.MomdayGray,
+              isLikedByUser ? MomdayColors.MomdayGold : MomdayColors.MomdayGray,
         ),
         onPressed: this._isTogglingLike ? null : this._onToggleLike);
   }
@@ -516,8 +516,8 @@ class __WriteCommentState extends State<_WriteComment> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(fontFamily:'VAG',
-        hintColor: MomdayColors.Momdaypink,
-        primaryColor: MomdayColors.Momdaypink,
+        hintColor: MomdayColors.MomdayGold,
+        primaryColor: MomdayColors.MomdayGold,
       ),
       child: Form(
         key: this._formKey,

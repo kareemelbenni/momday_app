@@ -260,8 +260,7 @@ class MomdayDrawer extends StatelessWidget {
     var isLoggedIn = appStateManager.account.isLoggedIn;
     var isCelebrity = appStateManager.account.isCelebrity;
 
-    List<Widget> initialChildren = !isLoggedIn
-        ? [
+    List<Widget> initialChildren = [
             ListTile(
               leading: Image(
                 colorBlendMode: BlendMode.xor,
@@ -291,7 +290,7 @@ class MomdayDrawer extends StatelessWidget {
             //   color: MomdayColors.MomdayDarkBlue,
             // )
           ]
-        : [];
+        ;
 
     return Theme(
       data: ThemeData(fontFamily:'VAG',
@@ -413,7 +412,7 @@ class MomdayDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.clear_rounded,
-                    color: MomdayColors.Momdaypink,
+                    color: MomdayColors.MomdayGold,
                   ),
                   title: Text(
                     tUpper(
@@ -450,7 +449,7 @@ class MomdayDrawer extends StatelessWidget {
                           tTitle(context, 'my_account'),
                           style: TextStyle(
                               fontFamily: "VAG",
-                              color: Colors.transparent,
+                              color: MomdayColors.LocationGray,
                               fontWeight: FontWeight.w300),
                         ),
                         contentPadding: EdgeInsets.symmetric(

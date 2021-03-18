@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:momday_app/backend_helpers/momday_backend.dart';
+import 'package:momday_app/momday_localizations.dart';
 import 'package:momday_app/bloc_provider.dart';
 import 'package:momday_app/models/models.dart';
 import 'package:momday_app/momday_utils.dart';
@@ -37,8 +38,10 @@ class CelebrityScreen extends StatelessWidget {
                 shrinkWrap: true,
                 children: <Widget>[
                   celebrityInfo.fullName != null
-                      ? PageHeader2(
-                          title: celebrityInfo.fullName,
+                      ? PageHeader(
+                          title: tTitle(context, 'home'),
+                          title2: tTitle(context, 'celebrities'),
+                          title3: celebrityInfo.fullName,
                         )
                       : Container(),
                   this._celebrityBasicInfo(_, celebrityInfo),
@@ -62,8 +65,12 @@ class CelebrityScreen extends StatelessWidget {
   }
 
   Widget _celebrityBasicInfo(BuildContext context, CelebrityModel celebrity) {
-    return Stack(
-      children: <Widget>[
+    return Column(
+      children: [
+        Container(
+          color: MomdayColors.MomdayGold,
+          height: 10,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -79,15 +86,16 @@ class CelebrityScreen extends StatelessWidget {
                   )
                 : Container(),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Image(
-                      image: AssetImage('assets/images/two_lines.png'),
-                      fit: BoxFit.fitHeight,
-                      height: 16.0,
-                    ),
+                    // Image(
+                    //   image: AssetImage('assets/images/two_lines.png'),
+                    //   fit: BoxFit.fitHeight,
+                    //   height: 16.0,
+                    // ),
                     celebrity.fullName != null
                         ? Text(
                             celebrity.fullName.toUpperCase(),
@@ -122,24 +130,10 @@ class CelebrityScreen extends StatelessWidget {
             )
           ],
         ),
-        Positioned(
-          bottom: 6.0,
-          right: 0.0,
-          left: 0.0,
-          child: Container(
-            height: 3.0,
-            color: MomdayColors.Momdaypink,
-          ),
+        Container(
+          color: MomdayColors.MomdayGold,
+          height: 10,
         ),
-        Positioned(
-          bottom: 0.0,
-          right: 0.0,
-          left: 0.0,
-          child: Container(
-            height: 3.0,
-            color: MomdayColors.Momdaypink,
-          ),
-        )
       ],
     );
   }

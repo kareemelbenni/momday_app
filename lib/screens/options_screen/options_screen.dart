@@ -119,7 +119,7 @@ class OptionsScreenState extends State<OptionsScreen> {
 //          tSentence(context, 'final_price') + ': \$$finalPrice',
 //            style: cancelArabicFontDelta(context).copyWith(
 //                fontSize: 20.0,
-//                color: MomdayColors.Momdaypink
+//                color: MomdayColors.MomdayGold
 //            ),
 //          )
 //      );

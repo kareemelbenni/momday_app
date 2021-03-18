@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 16.0),
                 ),
-                color: MomdayColors.Momdaypink,
+                color: MomdayColors.MomdayGold,
                 onPressed: () {
                   this._showAvailableAddresses(context);
                 },
@@ -114,19 +114,19 @@ class CartScreen extends StatelessWidget {
 
   Widget _backToShoppingButton(BuildContext context) {
     return RaisedButton.icon(
-        color: MomdayColors.MomdayGray,
+        color: MomdayColors.MomdayGold,
         onPressed: () {
           Navigator.of(context).pop();
         },
         icon: Icon(
           Icons.shopping_cart,
-          color: MomdayColors.Momdaypink,
+          color: Colors.white,
         ),
         label: Text(
           tSentence(context, 'go_back_to_shopping'),
           textAlign: TextAlign.start,
           style: TextStyle(
-              color: MomdayColors.Momdaypink, fontWeight: FontWeight.bold),
+              color: Colors.white, fontWeight: FontWeight.bold),
         ));
   }
 }
@@ -150,7 +150,7 @@ class _ContinueToPaymentButtonState extends State<ContinueToPaymentButton> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         RaisedButton(
-          color: MomdayColors.Momdaypink,
+          color: MomdayColors.MomdayGold,
           colorBrightness: Brightness.dark,
           padding: EdgeInsets.symmetric(vertical: 16.0),
           child: Text(

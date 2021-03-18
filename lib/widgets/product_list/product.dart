@@ -7,16 +7,11 @@ import 'package:momday_app/widgets/momday_network_image/momday_network_image.dar
 import 'package:momday_app/widgets/product_basic_info/product_basic_info.dart';
 
 class Product extends StatelessWidget {
-
   final ProductModel product;
   final GestureTapCallback onTap;
   final int index;
 
-  Product({
-    this.product,
-    this.onTap,
-    this.index
-  });
+  Product({this.product, this.onTap, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +26,21 @@ class Product extends StatelessWidget {
               child: Container(
                 foregroundDecoration: BoxDecoration(
                   border: BorderDirectional(
-                    top: index < 2? BorderSide(
-                        width: 0.1
-                    ) : BorderSide.none,
-                    start: index % 2 == 0? BorderSide(
-                      width: 0.1
-                    ) : BorderSide.none,
-                    end: BorderSide(
-                      width: 0.1
-                    )
-                  ),
+                      //   top: index < 2? BorderSide(
+                      //       width: 0.1
+                      //   ) : BorderSide.none,
+                      //   start: index % 2 == 0? BorderSide(
+                      //     width: 0.1
+                      //   ) : BorderSide.none,
+                      end: BorderSide(width: 0.1)),
                 ),
                 child: Column(
                   children: <Widget>[
                     AspectRatio(
-                      aspectRatio: 1.0,
-                      child: MomdayNetworkImage(
-                        imageUrl: this.product.image,
-                      )
-                    ),
+                        aspectRatio: 1.0,
+                        child: MomdayNetworkImage(
+                          imageUrl: this.product.image,
+                        )),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsetsDirectional.only(start: 8.0),
@@ -70,7 +61,6 @@ class Product extends StatelessWidget {
             ),
             Builder(
               builder: (context) {
-
                 if (AppStateManager.of(context).account.isCelebrity) {
                   return Row(
                     children: <Widget>[

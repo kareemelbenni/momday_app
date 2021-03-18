@@ -6,7 +6,7 @@ typedef void RatingChangeCallback(double rating);
 class StarRatingFormField extends FormField<double> {
   StarRatingFormField(
       {double iconSize,
-      Color color: MomdayColors.Momdaypink,
+      Color color: MomdayColors.MomdayGold,
       onSaved,
       validator,
       double initialValue: 0.0,
@@ -55,7 +55,7 @@ class StarRating extends StatelessWidget {
       this.onRatingChanged,
       this.readOnly,
       this.iconSize,
-      this.color = MomdayColors.Momdaypink});
+      this.color = MomdayColors.MomdayGold});
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;

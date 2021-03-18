@@ -45,7 +45,7 @@ class ExistingAddressesState extends State<ExistingAddresses> {
                   foregroundDecoration: BoxDecoration(
                       border: Border.all(
                           color: address == this.selectedAddress
-                              ? MomdayColors.Momdaypink
+                              ? MomdayColors.MomdayGold
                               : Colors.black,
                           width: 2.0)),
                   child: ListTile(
@@ -54,14 +54,14 @@ class ExistingAddressesState extends State<ExistingAddresses> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: address == this.selectedAddress
-                              ? MomdayColors.Momdaypink
+                              ? MomdayColors.MomdayGold
                               : Colors.black),
                     ),
                     trailing: IconButton(
                         icon: Icon(
                           getLocalizedForwardArrowIcon(context),
                           color: address == this.selectedAddress
-                              ? MomdayColors.Momdaypink
+                              ? MomdayColors.MomdayGold
                               : Colors.black,
                         ),
                         onPressed: () async {
