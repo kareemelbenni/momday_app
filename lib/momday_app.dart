@@ -18,8 +18,7 @@ class MomdayApp extends StatefulWidget {
   const MomdayApp();
 
   static void updateLocale(BuildContext context, Locale newLocale) {
-    _MomdayAppState state =
-        context.rootAncestorStateOfType(TypeMatcher<_MomdayAppState>());
+    _MomdayAppState state = context.findAncestorStateOfType<_MomdayAppState>();
 
     state.updateLocale(newLocale);
   }
@@ -74,16 +73,19 @@ class _MomdayAppState extends State<MomdayApp> {
       locale: this._locale,
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily:'VAG',
+      theme: ThemeData(
+          fontFamily: 'VAG',
           textTheme: TextTheme(
-        display3: TextStyle(
-            fontSize: 28.0, fontWeight: FontWeight.w600, color: Colors.black),
-        button: TextStyle(
-          fontSize: 18.0,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      )),
+            display3: TextStyle(
+                fontSize: 28.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.black),
+            button: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
       builder: (context, navigator) {
         final language = Localizations.localeOf(context).languageCode;
         final parentTextTheme = Theme.of(context).textTheme;
@@ -93,11 +95,11 @@ class _MomdayAppState extends State<MomdayApp> {
         );
 
         return Theme(
-            data: ThemeData(fontFamily:'VAG',
+            data: ThemeData(
+              fontFamily: 'VAG',
               primaryColor: MomdayColors.MomdayGold,
               highlightColor: MomdayColors.MomdayHighlight,
               accentColor: MomdayColors.MomdayGold,
-              
               textTheme: textTheme.copyWith(
                 display3: textTheme.display3.copyWith(height: localizedHeight),
                 subhead: textTheme.subhead.copyWith(height: localizedHeight),

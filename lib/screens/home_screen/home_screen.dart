@@ -832,8 +832,6 @@ class _FeaturedCelebrities extends StatelessWidget {
 
       return Container(
         width: width,
-        // height: height,
-        // color: Colors.black,
         child: Column(
           children: [
             celebritiesWord,

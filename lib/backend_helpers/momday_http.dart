@@ -14,8 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MomdayHttp extends PropertyChangeNotifier {
   final String _baseUrl = EnvironmentConfig.of('url');
-  final String _basicToken =
-      'c2hvcHBpbmdfb2F1dGhfY2xpZW50OnNob3BwaW5nX29hdXRoX3NlY3JldA==';
+  final String _basicToken = '';
   String _bearerToken;
   String _language;
   String xsession;
@@ -99,12 +98,12 @@ class MomdayHttp extends PropertyChangeNotifier {
     //     useBasic ? 'Basic ${this._basicToken}' : 'Bearer ${this._bearerToken}';
     headers['Content-type'] = 'application/json';
     headers['Accept'] = 'application/json';
-    // headers['X-Oc-Merchant-Language'] = this._language;
+    headers['X-Oc-Merchant-Language'] = this._language;
     headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
     print(headers);
     print("posting to " + this._baseUrl + url);
-    http.Response response = await http.post(this._baseUrl + url,
+    http.Response response = await http.post(Uri.parse(this._baseUrl + url),
         headers: headers, body: json.encode(body));
 
     dynamic answer;
@@ -172,7 +171,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     headers['X-Oc-Merchant-Id'] = 'OqwXfoqzhle0xfhcqhWVLDOGvhbfH51E';
     headers['X-Oc-Session'] = this.xsession;
 
-    http.Response response = await http.put(this._baseUrl + url,
+    http.Response response = await http.put(Uri.parse(this._baseUrl + url),
         headers: headers, body: json.encode(body));
 
     dynamic answer;
@@ -211,7 +210,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     }
 
     http.Response response = await http.get(
-      this._baseUrl + url,
+      Uri.parse(this._baseUrl + url),
       headers: headers,
     );
 
@@ -245,7 +244,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     headers['X-Oc-Session'] = this.xsession;
 
     http.Response response = await http.delete(
-      this._baseUrl + url,
+      Uri.parse(this._baseUrl + url),
       headers: headers,
     );
 
@@ -290,7 +289,7 @@ class MomdayHttp extends PropertyChangeNotifier {
     print(
         "posting to https://sbpaymentservices.payfort.com/FortAPI/paymentApi");
     http.Response response = await http.post(
-        "https://sbpaymentservices.payfort.com/FortAPI/paymentApi",
+        Uri.parse("https://sbpaymentservices.payfort.com/FortAPI/paymentApi"),
         headers: headers,
         body: json.encode(body));
 
@@ -309,7 +308,8 @@ class MomdayHttp extends PropertyChangeNotifier {
     print(
         "posting to https://ws.dev.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments");
     http.Response response = await http.post(
-        "https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments",
+        Uri.parse(
+            "https://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc/json/CreateShipments"),
         headers: headers,
         body: body);
 

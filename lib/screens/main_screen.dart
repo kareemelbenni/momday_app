@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 
   static _MainScreenState of(BuildContext context) {
-    return context.ancestorStateOfType(const TypeMatcher<_MainScreenState>());
+    return context.findAncestorStateOfType<_MainScreenState>();
   }
 }
 
@@ -50,8 +50,8 @@ class _MainScreenState extends State<MainScreen> {
                 children: List.generate(
                     5, (int index) => this._buildOffstageNavigator(index)))),
         bottomNavigationBar: Theme(
-          data: ThemeData(fontFamily:'VAG',
-            
+          data: ThemeData(
+            fontFamily: 'VAG',
             canvasColor: MomdayColors.MomdayGold,
             primaryColor: Colors.black,
           ),
@@ -261,42 +261,41 @@ class MomdayDrawer extends StatelessWidget {
     var isCelebrity = appStateManager.account.isCelebrity;
 
     List<Widget> initialChildren = [
-            ListTile(
-              leading: Image(
-                colorBlendMode: BlendMode.xor,
-                image: AssetImage('assets/images/logo_new.png'),
-                fit: BoxFit.fill,
-                width: 200.0,
+      ListTile(
+        leading: Image(
+          colorBlendMode: BlendMode.xor,
+          image: AssetImage('assets/images/logo_new.png'),
+          fit: BoxFit.fill,
+          width: 200.0,
+        ),
+        contentPadding:
+            EdgeInsetsDirectional.only(top: 80.0, bottom: 10.0, start: 40.0),
+      ),
+      Ink(
+        child: ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                tTitle(context, 'menu'),
+                style: TextStyle(fontFamily: "VAG"),
               ),
-              contentPadding: EdgeInsetsDirectional.only(
-                  top: 80.0, bottom: 10.0, start: 40.0),
-            ),
-            Ink(
-              child: ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      tTitle(context, 'menu'),
-                      style: TextStyle(fontFamily: "VAG"),
-                    ),
-                  ],
-                ),
-              ),
-              color: MomdayColors.MomdayGold,
-            ),
+            ],
+          ),
+        ),
+        color: MomdayColors.MomdayGold,
+      ),
 
-            // Divider(
-            //   color: MomdayColors.MomdayDarkBlue,
-            // )
-          ]
-        ;
+      // Divider(
+      //   color: MomdayColors.MomdayDarkBlue,
+      // )
+    ];
 
     return Theme(
-      data: ThemeData(fontFamily:'VAG',
+      data: ThemeData(
+          fontFamily: 'VAG',
           canvasColor: MomdayColors.MomdayMainGrey,
           brightness: Brightness.dark,
-          
           textTheme: TextTheme(
               body2: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
           iconTheme:
@@ -315,8 +314,8 @@ class MomdayDrawer extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.shop),
                         title: Text(tTitle(context, 'my_store')),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 16.0),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           MainScreen.of(context).navigateToTab(1,
@@ -382,9 +381,9 @@ class MomdayDrawer extends StatelessWidget {
                   ),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed('/about');
+                    Navigator.of(context).pushNamed('/about');
                   },
                 ),
                 ListTile(
@@ -428,7 +427,8 @@ class MomdayDrawer extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
                 ),
                 ListTile(
-                  leading: Icon(Icons.clear_rounded, color: MomdayColors.MomdayRed),
+                  leading:
+                      Icon(Icons.clear_rounded, color: MomdayColors.MomdayRed),
                   title: Text(
                     tTitle(context, 'contact_us'),
                     style: TextStyle(
@@ -443,8 +443,9 @@ class MomdayDrawer extends StatelessWidget {
               ..addAll([
                 isLoggedIn
                     ? ListTile(
-                        leading: Icon(Icons.clear_rounded,),
-
+                        leading: Icon(
+                          Icons.clear_rounded,
+                        ),
                         title: Text(
                           tTitle(context, 'my_account'),
                           style: TextStyle(
@@ -452,8 +453,8 @@ class MomdayDrawer extends StatelessWidget {
                               color: MomdayColors.LocationGray,
                               fontWeight: FontWeight.w300),
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 16.0),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushNamed('/my-account');
@@ -473,8 +474,8 @@ class MomdayDrawer extends StatelessWidget {
                               color: MomdayColors.LocationGray,
                               fontWeight: FontWeight.w300),
                         ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 16.0),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 16.0),
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).pushNamed('/login');
